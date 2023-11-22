@@ -24,9 +24,9 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --primary-color-retro: #0e0912;
   --primary-color-retro--lighter: #160e1d;
   --primary-color-retro--lightest: #02a4a1;
+  /* --secondary-color-retro: #78348a; */
 
   /* --secondary-color-retro: #02a4a1; */
-  /* --secondary-color-retro: #78348a; */
   --secondary-color-retro: #fc6677;
   --secondary-color-retro--lighter: #752f37;
 }
