@@ -1,0 +1,42 @@
+.display {
+  height: 100vh;
+  /* background-color: darkgrey; */
+}
+
+.display__container {
+  max-width: 100rem;
+  margin-top: 30vh;
+}
+
+.display__timer {
+  background-color: lightgrey;
+  padding: 6.4rem;
+
+  /* Pushes buttons downwards. */
+  margin-bottom: 0.25rem;
+}
+
+.display__timer-numbers {
+  font-size: 9.6rem;
+}
+
+.display__buttons {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.display__button {
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+}
+
+.display__start-container {
+  display: flex;
+  justify-content: center;
+}
+
+.display__start-button {
+  padding: 1.2rem 2.4rem;
+  cursor: pointer;
+}
