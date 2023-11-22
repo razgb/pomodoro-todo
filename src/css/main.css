@@ -20,6 +20,22 @@ themes: retro, minimal, soft. All having dark themes respectively.
 
 */
 
+:root {
+  --primary-color-retro: #0e0912;
+  --primary-color-retro--lighter: #160e1d;
+  --primary-color-retro--lightest: #02a4a1;
+
+  /* --secondary-color-retro: #02a4a1; */
+  /* --secondary-color-retro: #78348a; */
+  --secondary-color-retro: #fc6677;
+  --secondary-color-retro--lighter: #752f37;
+}
+
+/* ::selection {
+  color: #fff;
+  background-color: #45a6a4;
+} */
+
 * {
   padding: 0;
   margin: 0;
@@ -33,6 +49,10 @@ html {
 /* body {
   font-family: sans-serif;
 } */
+
+.main {
+  position: relative;
+}
 
 .container {
   margin: 0 auto;
@@ -60,4 +80,12 @@ html {
 
 .hidden {
   display: none;
+}
+
+/* Used with menu */
+.overlay {
+  position: absolute;
+  background-color: rgb(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100%;
 }
