@@ -3,21 +3,36 @@
   width: 20vw;
   top: 0;
   left: 0;
-  transform: translateX(-100%);
+
+  transform: translateX(-110%);
+
   background-color: var(--primary-color-retro--lighter);
-  height: 100vh;
+  height: 100%;
 
   transition: all 0.2 ease;
+
+  box-shadow: 2px 0 20px 1px var(--secondary-color-retro--darkest);
+  /* box-shadow: 10px 0 20px 1px var(--primary-color-retro--lighter); */
 }
 
 .menu__container {
   margin-top: 10rem;
   margin-left: 2rem;
+  /* width: 100%; */
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 2.4rem;
+}
+
+.menu__container > div {
+  width: 100%;
+  padding-inline: 2rem;
+}
+
+.menu__container > div > .button-md {
+  margin-bottom: 1rem;
 }
 
 .menu__hamburger {
@@ -26,8 +41,34 @@
   left: 2.4rem;
   cursor: pointer;
 
-  font-size: 3.6rem;
-  background-color: transparent;
-  color: var(--secondary-color-retro);
-  border: none;
+  display: block;
+  font-size: 2.4rem;
+}
+
+.menu__hamburger .icon {
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.menu__subbuttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.menu__subbuttons-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu__subbuttons .button-md {
+  font-size: 1.2rem;
+  color: var(--secondary-color-retro--text);
+}
+
+.menu__subbuttons .task__check {
+  color: var(--secondary-color-retro--darkest);
+  border: 3px solid var(--secondary-color-retro--darker);
 }

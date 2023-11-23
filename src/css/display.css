@@ -24,7 +24,7 @@
 /* contains button-lg */
 .display__buttons {
   position: absolute;
-  top: -25%;
+  top: -20%;
   left: 50%;
   transform: translateX(-50%);
 
@@ -48,12 +48,11 @@
   position: absolute;
 
   /* temorary design solution.  */
-  bottom: -20%;
-  left: 40%;
-
-  /* transform: translateX(-50%); */
+  bottom: -22%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .display__start-button:active {
-  transform: translateY(1px);
+  transform: translate(-50%, 1px);
 }

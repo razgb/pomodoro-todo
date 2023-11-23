@@ -37,31 +37,105 @@
     <main class="main">
       <div class="menu">
         <div class="menu__container">
-          <!-- Animated icon, logo, settings, themes... etc -->
-          <button class="button-md">
-            <i class="icon fi fi-br-angle-small-down"></i> <span>Settings</span>
-          </button>
+          <div>
+            <button class="button-md">
+              <i class="icon fi fi-bs-angle-small-down"></i> <span>Settings</span>
+            </button>
+            
+            <div class="menu__subbuttons">
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Auto start break</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
+              </div>
+              
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Auto start pomo</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
+              </div>
+              
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Remove tasks</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+            </div>
+          </div>
+            
+          <div>
+            <!-- /////////////////////////// -->
+            <button class="button-md">
+              <i class="icon fi fi-bs-angle-small-down"></i>
+              <span>Themes</span>
+            </button>
+            
+            <div class="menu__subbuttons">
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Default</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
+              </div>
+              
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Sage green</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+              
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Dark</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+            </div>
+          </div>
+            
 
-          <!-- add the sub tabs here later: auto break, auto start -->
-          <!-- <div class="settings">
-          </div> -->
-
-          <button class="button-md">
-            <i class="icon fi fi-br-angle-small-down"></i> <spans>Themes</spans
-          </button>
-
-          <button class="button-md">
-            <i class="icon fi fi-br-angle-small-down"></i>
-            <span>Something</span>
-          </button>
+          <div>
+            <!-- /////////////////////////// -->
+            <button class="button-md">
+              <i class="icon fi fi-bs-angle-small-down"></i>
+              <span>Timer</span>
+            </button>
+            
+            <div class="menu__subbuttons">
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Pomodoro length</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+              
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Short break length</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+              
+              <div class="menu__subbuttons-content">
+                <button class="button-md">
+                  <span>Long break length</span>
+                </button>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <button class="menu__hamburger">
-        <i class="fi fi-bs-menu-burger"></i>
+      
+      <button class="menu__hamburger button-lg">
+        <i class="fi fi-bs-menu-burger icon"></i>
         <!-- <i class="fi fi-rr-cross"></i> -->
       </button>
-
+      
       <div class="app">
         <div class="display grid">
           <div class="display__container container">
@@ -125,10 +199,21 @@
                       <span>Review HTML</span>
                       <span class="task__heading-completed"> - completed -</span>
                     </button>
-                    <button class="task__check"><i class="icon fi fi-bs-check"></i></button>
+                    <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
                   </div>
                   <textarea class="task__content hidden" placeholder="Add a note..."></textarea>
                 </div>
+
+
+                <!-- This makes a new form to add a new task. -->
+                <div class="add-task">
+                  <div class="task-form">
+                    <button class="button-lg open-task">X</button>
+                    <button class="button-lg submit-task">SUBMIT</button>
+                    <textarea class="task__content" placeholder="What are you working on?"></textarea>
+                  </div>
+                </div>
+
                <!--  -->
             </div>
 

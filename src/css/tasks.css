@@ -22,11 +22,11 @@
 
 .open-tasks-container {
   display: flex;
-  display: none;
+  /* display: none; */
   flex-direction: column;
   gap: 3.6rem;
 
-  padding: 3.6rem;
+  padding: 4.8rem;
   border: 3px solid var(--secondary-color-retro--darker);
 }
 
@@ -72,11 +72,6 @@
 
 /* button */
 .task__check {
-  /* position: absolute; */
-  /* top: 50%;
-  right: 1rem;
-  transform: translateY(-50%); */
-
   cursor: pointer;
   background-color: var(--primary-color-retro--lighter);
   border: 3px solid var(--secondary-color-retro);
@@ -85,12 +80,49 @@
 /* tick icon */
 .task__check .icon {
   display: block;
-  color: var(--secondary-color-retro);
+  color: transparent;
   padding: 0.5rem;
+}
+
+.task__check .icon.completed {
+  color: var(--secondary-color-retro);
 }
 
 .task__text {
   padding: 1.2rem;
+  font-size: 1.4rem;
+  color: var(--secondary-color-retro);
+}
+
+/* ADD TASKS SECTION */
+
+.add-task {
+  position: relative;
+  margin-top: 4.8rem;
+}
+
+.open-task {
+  position: absolute;
+  top: -60%;
+  left: 0;
+}
+
+.submit-task {
+  position: absolute;
+  bottom: -45%;
+  right: 0;
   font-size: 1.2rem;
+  padding: 0.6rem 1.2rem;
+
+  border-bottom: 4px solid var(--secondary-color-retro--darker);
+}
+
+.submit-task:active {
+  transform: translateY(1px);
+}
+
+.add-task .task__content {
+  min-height: 8rem;
+  font-size: 1.6rem;
   color: var(--secondary-color-retro);
 }
