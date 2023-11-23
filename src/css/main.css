@@ -85,12 +85,12 @@ body {
   /* border-right: 3px solid var(--secondary-color-retro--darker); */
   border-bottom: 5px solid var(--secondary-color-retro--darker);
 
-  /* transition: all 0.2s ease; */
+  transition: all 0.1s ease-out;
 }
 
 .button-lg:active {
   border: none;
-  /* transform: translateY(5px); */
+  transform: translateY(5px);
 }
 
 .button-md {

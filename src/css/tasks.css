@@ -21,8 +21,8 @@
 /* --- */
 
 .open-tasks-container {
-  /* display: none; */
   display: flex;
+  display: none;
   flex-direction: column;
   gap: 3.6rem;
 
