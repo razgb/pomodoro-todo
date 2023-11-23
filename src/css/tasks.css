@@ -11,6 +11,7 @@
 
 /* This button opens up all the tasks. */
 .tasks__container > .button-md {
+  position: relative;
   margin-bottom: 3.6rem;
   font-size: 2.4rem;
 }
@@ -25,20 +26,37 @@
   flex-direction: column;
   gap: 3.6rem;
 
-  padding: 2.4rem;
-  border: 1px solid var(--secondary-color-retro--darker);
+  padding: 3.6rem;
+  border: 3px solid var(--secondary-color-retro--darker);
 }
 
 /* .task {
 } */
 
-/* Contains task note and check button */
+/* textarea input */
 .task__content {
   /* display: none; */
-  min-height: 6rem;
+  resize: none;
+  overflow: auto;
+
+  min-height: 10rem;
+  min-width: 100%;
+  max-width: 150%;
+  padding: 1.6rem;
+
+  color: var(--secondary-color-retro--text);
+  font-family: "Press Start 2p";
+  font-size: 1.2rem;
+  line-height: 1.5;
 
   background-color: var(--primary-color-retro--lighter);
-  border: 3px solid var(--secondary-color-retro--darker);
+  border: 2px solid var(--secondary-color-retro--darker);
+}
+.task__content:focus {
+  outline: none;
+}
+.task__content::placeholder {
+  color: var(--secondary-color-retro--darker);
 }
 
 .task__heading {
@@ -46,6 +64,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 1.2rem;
+}
+.task__heading-completed {
+  font-size: 1rem;
+  color: var(--secondary-color-retro--darker);
 }
 
 /* button */

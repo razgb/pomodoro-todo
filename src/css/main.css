@@ -26,7 +26,7 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --primary-color-retro--lighter: #160e1d;
   --secondary-color-retro: #fc6677;
   --secondary-color-retro--darker: #752f37;
-  --secondary-color-retro--text: #b54854;
+  --secondary-color-retro--text: #c5505e;
 
   --selection-color-retro: #fc6677;
 
@@ -37,7 +37,7 @@ themes: retro, minimal, soft. All having dark themes respectively.
 }
 
 ::selection {
-  color: #fff;
+  color: #ddd;
   background-color: var(--selection-color-retro);
 }
 
