@@ -17,7 +17,7 @@
 
 .menu__container {
   margin-top: 10rem;
-  margin-left: 2rem;
+  margin-inline: 2rem;
   /* width: 100%; */
 
   display: flex;
@@ -28,7 +28,7 @@
 
 .menu__container > div {
   width: 100%;
-  padding-inline: 2rem;
+  /* padding-inline: 2rem; */
 }
 
 .menu__container > div > .button-md {
@@ -64,11 +64,30 @@
 }
 
 .menu__subbuttons .button-md {
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: var(--secondary-color-retro--text);
 }
 
 .menu__subbuttons .task__check {
   color: var(--secondary-color-retro--darkest);
   border: 3px solid var(--secondary-color-retro--darker);
+}
+
+.menu__input {
+  text-align: center;
+  caret-shape: underscore;
+  max-width: 6rem;
+  min-height: 3rem;
+  font-family: var(--font-family);
+  background-color: var(--primary-color-retro--lighter);
+  color: var(--secondary-color-retro--text);
+  border: 3px solid var(--secondary-color-retro--darker);
+}
+
+.menu__input:focus {
+  outline: none;
+}
+
+.menu__input:focus::placeholder {
+  color: transparent;
 }

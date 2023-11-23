@@ -31,6 +31,8 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --secondary-color-retro--text: #c5505e;
   --selection-color-retro: #fc6677;
 
+  --font-family: "Press Start 2p";
+
   /* --primary-color-retro: #001818; */
   /* --primary-color-retro--lighter: #001f1e; */
   /* --secondary-color-retro: #02a4a1; */
@@ -53,8 +55,10 @@ html {
 }
 
 body {
+  /* min-height: 100vh; */
   font-family: "Press Start 2p", sans-serif;
   color: var(--secondary-color-retro);
+  background-color: var(--primary-color-retro);
 }
 
 .main {
@@ -62,8 +66,7 @@ body {
 }
 
 .app {
-  min-height: 100vh;
-  background-color: var(--primary-color-retro);
+  margin-left: 20%;
 }
 
 .container {

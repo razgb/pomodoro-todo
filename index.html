@@ -97,34 +97,34 @@
             </div>
           </div>
             
+          <!-- /////////////////////////// -->
 
           <div>
-            <!-- /////////////////////////// -->
             <button class="button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
-              <span>Timer</span>
+              <span>Time config</span>
             </button>
             
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
                 <button class="button-md">
-                  <span>Pomodoro length</span>
+                  <span>Pomodoro </span>
                 </button>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <input placeholder="25" type="text" class="menu__input">
               </div>
               
               <div class="menu__subbuttons-content">
                 <button class="button-md">
-                  <span>Short break length</span>
+                  <span>Short break </span>
                 </button>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <input placeholder="5" type="text" class="menu__input">
               </div>
               
               <div class="menu__subbuttons-content">
                 <button class="button-md">
-                  <span>Long break length</span>
+                  <span>Long break </span> 
                 </button>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <input placeholder="15" type="text" class="menu__input">
               </div>
             </div>
           </div>
@@ -148,16 +148,11 @@
               <button class="button-lg btn-long">LONG BREAK</button>
             </div>
 
-              <div class="display__timer">
-                <span class="display__timer-numbers">25:00</span>
-                <!-- <span class="display__timer-numbers">break</span> -->
-              </div>
-
-              <!-- <div class="display__start-container">
-              </div> -->
-
-                <!-- Positioned absolute -->
-                <button class="button-lg display__start-button">START</button>
+            <div class="display__timer">
+              <span class="display__timer-numbers">25:00</span>
+              <!-- <span class="display__timer-numbers">break</span> -->
+            </div>
+              <button class="button-lg display__start-button">START</button>
             </div>
           </div>
 
@@ -197,7 +192,7 @@
                     <button class="button-md">
                       <i class="icon fi fi-bs-angle-small-down"></i>
                       <span>Review HTML</span>
-                      <span class="task__heading-completed"> - completed -</span>
+                      <span class="task__heading-completed"> - complete -</span>
                     </button>
                     <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
                   </div>
@@ -207,8 +202,9 @@
 
                 <!-- This makes a new form to add a new task. -->
                 <div class="add-task">
+                  <!-- <button class="button-lg open-task">ADD TASK</button> -->
+                  <button class="button-lg open-task">X</button>
                   <div class="task-form">
-                    <button class="button-lg open-task">X</button>
                     <button class="button-lg submit-task">SUBMIT</button>
                     <textarea class="task__content" placeholder="What are you working on?"></textarea>
                   </div>
