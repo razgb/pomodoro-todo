@@ -1,0 +1,74 @@
+.tasks {
+  padding: 9.6rem;
+}
+
+.tasks__container {
+  max-width: 80rem;
+
+  /* Up to change once whole design complete.  */
+  min-width: 60rem;
+}
+
+/* This button opens up all the tasks. */
+.tasks__container > .button-md {
+  margin-bottom: 3.6rem;
+  font-size: 2.4rem;
+}
+.open-tasks > .icon {
+  font-size: 4rem;
+}
+/* --- */
+
+.open-tasks-container {
+  /* display: none; */
+  display: flex;
+  flex-direction: column;
+  gap: 3.6rem;
+
+  padding: 2.4rem;
+  border: 1px solid var(--secondary-color-retro--darker);
+}
+
+/* .task {
+} */
+
+/* Contains task note and check button */
+.task__content {
+  /* display: none; */
+  min-height: 6rem;
+
+  background-color: var(--primary-color-retro--lighter);
+  border: 3px solid var(--secondary-color-retro--darker);
+}
+
+.task__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.2rem;
+}
+
+/* button */
+.task__check {
+  /* position: absolute; */
+  /* top: 50%;
+  right: 1rem;
+  transform: translateY(-50%); */
+
+  cursor: pointer;
+  background-color: var(--primary-color-retro--lighter);
+  border: 3px solid var(--secondary-color-retro);
+}
+
+/* tick icon */
+.task__check .icon {
+  display: block;
+  color: var(--secondary-color-retro);
+  padding: 0.5rem;
+}
+
+.task__text {
+  padding: 1.2rem;
+  font-size: 1.2rem;
+  color: var(--secondary-color-retro);
+}

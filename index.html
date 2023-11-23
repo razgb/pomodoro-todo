@@ -15,6 +15,7 @@
 
     <link rel="stylesheet" href="src/css/main.css" />
     <link rel="stylesheet" href="src/css/display.css" />
+    <link rel="stylesheet" href="src/css/tasks.css" />
     <link rel="stylesheet" href="src/css/menu.css" />
     <link rel="stylesheet" href="src/css/settings.css" />
     <link rel="stylesheet" href="src/css/todo.css" />
@@ -25,11 +26,11 @@
       href="https://cdn-uicons.flaticon.com/2.0.0/uicons-regular-rounded/css/uicons-regular-rounded.css"
     />
 
+    
+
     <!-- Bold rounded flaticon icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdn-uicons.flaticon.com/2.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css"
-    />
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+
   </head>
 
   <body>
@@ -37,13 +38,19 @@
       <div class="menu">
         <div class="menu__container">
           <!-- Animated icon, logo, settings, themes... etc -->
-          <button class="menu__button">
+          <button class="button-md">
             <i class="icon fi fi-br-angle-small-down"></i> <span>Settings</span>
           </button>
-          <button class="menu__button">
-            <i class="icon fi fi-br-angle-small-down"></i> <span>Themes</span>
+
+          <!-- add the sub tabs here later: auto break, auto start -->
+          <!-- <div class="settings">
+          </div> -->
+
+          <button class="button-md">
+            <i class="icon fi fi-br-angle-small-down"></i> <spans>Themes</spans
           </button>
-          <button class="menu__button">
+
+          <button class="button-md">
             <i class="icon fi fi-br-angle-small-down"></i>
             <span>Something</span>
           </button>
@@ -51,29 +58,73 @@
       </div>
 
       <button class="menu__hamburger">
-        <i class="fi fi-br-menu-burger"></i>
+        <i class="fi fi-bs-menu-burger"></i>
         <!-- <i class="fi fi-rr-cross"></i> -->
       </button>
 
-      <div class="display grid">
-        <div class="display__container container">
-          <div class="display__buttons">
-            <button class="display__button">POMODORO</button>
-            <button class="display__button">SHORT BREAK</button>
-            <button class="display__button">LONG BREAK</button>
-          </div>
-          <div class="display__timer">
-            <span class="display__timer-numbers">25:00</span>
+      <div class="app">
+        <div class="display grid">
+          <div class="display__container container">
+              <div class="display__buttons">
+                <button class="button-lg">POMODORO</button>
+                <button class="button-lg">SHORT BREAK</button>
+                <button class="button-lg">LONG BREAK</button>
+              </div>
+              <div class="display__timer">
+                <span class="display__timer-numbers">25:00</span>
+                <!-- <span class="display__timer-numbers">break</span> -->
+              </div>
+
+              <!-- <div class="display__buttons">
+                <button class="display__button">Pomodoro</button>
+                <button class="display__button">Short break</button>
+                <button class="display__button">Long break</button>
+              </div> -->
+
+              <div class="display__start-container">
+                <button class="button-lg display__start-button">START</button>
+              </div>
+            </div>
           </div>
 
-          <!-- <div class="display__buttons">
-            <button class="display__button">Pomodoro</button>
-            <button class="display__button">Short break</button>
-            <button class="display__button">Long break</button>
-          </div> -->
+          <div class="tasks grid">
+            <div class="tasks__container container">
+              <button class="button-md open-tasks">
+                <i class="icon fi fi-bs-angle-small-down open"></i>
+                <span>TASKS</span>
+              </button>
 
-          <div class="display__start-container">
-            <button class="display__button display__start-button">START</button>
+              <div class="open-tasks-container">
+                <div class="task">
+                  <div class="task__heading">
+                    <button class="button-md">
+                      <i class="icon fi fi-bs-angle-small-down open"></i>
+                      <span>Study anatomy</span>
+                    </button>
+                    <button class="task__check"><i class="icon fi fi-bs-check"></i></button>
+                  </div>
+                  <div class="task__content">
+                    <p class="task__text">Structure of yahya's coochie</p>
+                  </div>
+                </div>
+
+                <!-- <div class="task">
+                  <div class="task__heading">
+                    <button class="button-md">
+                      <i class="icon fi fi-bs-angle-small-down open"></i>
+                      <span>Powerpoint for sunday</span>
+                    </button>
+                    <button class="task__check"><i class="icon fi fi-bs-check"></i></button>
+                  </div>
+                  <div class="task__content">
+                    <p class="task__text">Ms. Hanar's class</p>
+                  </div>
+                </div> -->
+
+                <!--  -->
+            </div>
+
+            </div>
           </div>
         </div>
       </div>

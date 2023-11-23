@@ -20,21 +20,26 @@ themes: retro, minimal, soft. All having dark themes respectively.
 
 */
 
+/* --secondary-color-retro: #78348a; */
 :root {
   --primary-color-retro: #0e0912;
   --primary-color-retro--lighter: #160e1d;
-  --primary-color-retro--lightest: #02a4a1;
-  /* --secondary-color-retro: #78348a; */
-
-  /* --secondary-color-retro: #02a4a1; */
   --secondary-color-retro: #fc6677;
-  --secondary-color-retro--lighter: #752f37;
+  --secondary-color-retro--darker: #752f37;
+  --secondary-color-retro--text: #b54854;
+
+  --selection-color-retro: #fc6677;
+
+  /* --primary-color-retro: #001818; */
+  /* --primary-color-retro--lighter: #001f1e; */
+  /* --secondary-color-retro: #02a4a1; */
+  /* --secondary-color-retro--lighter: #016463; */
 }
 
-/* ::selection {
+::selection {
   color: #fff;
-  background-color: #45a6a4;
-} */
+  background-color: var(--selection-color-retro);
+}
 
 * {
   padding: 0;
@@ -46,16 +51,66 @@ html {
   font-size: 62.5%;
 }
 
-/* body {
-  font-family: sans-serif;
-} */
+body {
+  font-family: "Press Start 2p", sans-serif;
+  color: var(--secondary-color-retro);
+}
 
 .main {
   position: relative;
 }
 
+.app {
+  min-height: 100vh;
+  background-color: var(--primary-color-retro);
+}
+
 .container {
   margin: 0 auto;
+}
+
+.button-lg {
+  cursor: pointer;
+
+  font-family: "Press Start 2p", sans-serif;
+  font-size: 1.4rem;
+  background-color: var(--secondary-color-retro);
+
+  /* border-radius: 0.2rem; */
+
+  padding: 1.2rem 1.6rem;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  /* border-right: 3px solid var(--secondary-color-retro--darker); */
+  border-bottom: 5px solid var(--secondary-color-retro--darker);
+
+  /* transition: all 0.2s ease; */
+}
+
+.button-lg:active {
+  border: none;
+  /* transform: translateY(5px); */
+}
+
+.button-md {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  cursor: pointer;
+
+  font-family: "Press Start 2p", sans-serif;
+  font-size: 1.6rem;
+  color: var(--secondary-color-retro);
+  background-color: transparent;
+  border: none;
+
+  transition: all 0.3s ease;
+}
+
+.button-md .icon {
+  font-size: 2.4rem;
 }
 
 .flex {
@@ -80,6 +135,10 @@ html {
 
 .hidden {
   display: none;
+}
+
+.open {
+  transform: rotate(180deg);
 }
 
 /* Used with menu */
