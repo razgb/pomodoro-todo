@@ -9,7 +9,7 @@
   background-color: var(--primary-color-retro--lighter);
   height: 100%;
 
-  transition: all 0.2 ease;
+  transition: all 0.3s ease-in;
 
   box-shadow: 2px 0 20px 1px var(--secondary-color-retro--darkest);
   /* box-shadow: 10px 0 20px 1px var(--primary-color-retro--lighter); */
