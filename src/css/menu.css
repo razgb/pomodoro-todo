@@ -26,6 +26,11 @@
   gap: 2.4rem;
 }
 
+.mode-active {
+  border: none;
+  transform: translateY(3px);
+}
+
 .menu__container > div {
   width: 100%;
   /* padding-inline: 2rem; */

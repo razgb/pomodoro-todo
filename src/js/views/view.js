@@ -1,9 +1,11 @@
 class view {
   _parentContainer = "";
   _menuState = false;
+
   _display = document.querySelector(".display__timer-numbers");
   _startButton = document.querySelector(".display__start-button");
   _timerON = false;
+  _timeLeft = 25;
 
   render() {}
 
@@ -11,6 +13,7 @@ class view {
     this._parentContainer.innerHTML = "";
   }
 
+  // ADDS MENU SLIDER /W ANIMATION.
   addHandlerMenu() {
     const menuButton = document.querySelector(".menu__hamburger");
     menuButton.addEventListener("click", function () {
@@ -31,23 +34,41 @@ class view {
 
   addModeHandler() {
     const modeButtons = document.querySelector(".display__buttons");
+
+    // Delegates event to the container of all mode buttons.
     modeButtons.addEventListener("click", (e) => {
       const mode = e.target.closest(".button-lg");
       if (!mode) return;
 
-      if (mode.textContent === "POMODORO") this._display.textContent = "25:00";
-      if (mode.textContent === "SHORT BREAK")
+      // Removes the already active mode (pressed down illusion).
+      modeButtons
+        .querySelectorAll(".button-lg")
+        .forEach((button) => button.classList.remove("mode-active"));
+
+      // adds back the illusion to the clicked mode button
+      mode.classList.add("mode-active");
+
+      // dynamically changes the timeLeft variable to fit mode's function.
+      if (mode.textContent === "POMODORO") {
+        this._display.textContent = "25:00";
+        this._timeLeft = 25;
+      }
+      if (mode.textContent === "SHORT BREAK") {
         this._display.textContent = "05:00";
-      if (mode.textContent === "LONG BREAK")
+        this._timeLeft = 5;
+      }
+      if (mode.textContent === "LONG BREAK") {
         this._display.textContent = "15:00";
+        this._timeLeft = 15;
+      }
     });
   }
 
+  // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
   addStartButtonHandler() {
-    // Arrow func used to access object through 'this' keyword.
+    // Arrow func used to access object.
     this._startButton.addEventListener("click", () => {
-      let timeLeft = 25; // 25 minutes
-      let minutes = timeLeft;
+      let minutes = this._timeLeft;
       let seconds = 0;
 
       // start button has been clicked
@@ -59,7 +80,9 @@ class view {
         this._timerON = false; // reset button has been clicked
         this._display.textContent = "RESET";
         setTimeout(() => {
-          this._display.textContent = "25:00";
+          this._display.textContent = `${this._timeLeft
+            .toString()
+            .padStart(2, "0")}:00`;
           this._startButton.textContent = "START";
         }, 1000);
       }
