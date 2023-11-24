@@ -3,6 +3,10 @@ import view from "./views/view.js";
 
 const init = function () {
   view.addHandlerMenu();
+
+  view.addModeHandler();
+
+  view.addStartButtonHandler();
 };
 
 init();
