@@ -67,14 +67,14 @@ class view {
       }
       if (mode.textContent === "SHORT BREAK") {
         this._timeLeft = this._timeShortBreak;
-        this._display.textContent = `${this._thisShortBreak
+        this._display.textContent = `${this._timeShortBreak
           .toString()
           .padStart(2, "0")}:00`;
         this._timerON = false;
       }
       if (mode.textContent === "LONG BREAK") {
         this._timeLeft = this._timeLongBreak;
-        this._display.textContent = `${this._thisLongBreak
+        this._display.textContent = `${this._timeLongBreak
           .toString()
           .padStart(2, "0")}:00`;
         this._timerON = false;
@@ -84,6 +84,7 @@ class view {
     this._startButton.addEventListener("click", () => {
       // currentMode = this._mode;
 
+      console.log(this._timeLeft);
       let minutes = this._timeLeft;
       let seconds = 0;
 
@@ -161,43 +162,78 @@ class view {
   }
 
   addMenuConfig() {
-    const configContainer = document.querySelector(".config-box");
+    const resetModeToPomo = function () {
+      const modeButtons = document.querySelector(".display__buttons");
+      modeButtons
+        .querySelectorAll(".button-lg")
+        .forEach((button) => button.classList.remove("mode-active"));
 
-    configContainer.addEventListener("input", (e) => {
-      const userTimeInput = e.target.closest(".menu__input").value;
+      document.querySelector(".btn-pomo").classList.add("mode-active");
+    };
 
-      const inputCheck = () => {
-        // IF USER LEAVES FIELD EMPTY (with a limit of 3 chars - dirty solve)
-        if (
-          userTimeInput === "" ||
-          !Number.isInteger(Number(userTimeInput)) ||
-          userTimeInput[0] === "0" ||
-          userTimeInput.includes(" ")
-        ) {
-          return false;
-        }
+    const inputCheck = (userTimeInput) => {
+      if (
+        userTimeInput === "" ||
+        !Number.isInteger(Number(userTimeInput)) ||
+        userTimeInput[0] === "0" ||
+        userTimeInput.includes(" ")
+      ) {
+        return false;
+      }
 
-        // if the function passes all checks
-        return true;
-      };
+      // if the function passes all checks
+      return true;
+    };
 
+    const applyConfig = document.querySelector(".apply-config");
+    applyConfig.addEventListener("click", (e) => {
+      this.timerON = false;
+
+      const pomodoroInput = document.querySelector(".pomodoro-input");
+      const shortBreakInput = document.querySelector(".short-break-input");
+      const longBreakInput = document.querySelector(".long-break-input");
+      // console.log(pomodoroInput, shortBreakInput, longBreakInput);
+
+      // const currentDisplayButton = document.querySelector('.mode-active');
+
+      resetModeToPomo();
+
+      if (inputCheck(pomodoroInput.value)) {
+        pomodoroInput.placeholder =
+          this._timeLeft =
+          this._timePomo =
+            pomodoroInput.value;
+
+        pomodoroInput.value = "";
+        this._timerON = false;
+
+        this._display.textContent = `${this._timePomo
+          .toString()
+          .padStart(2, "0")}:00`;
+      }
+      if (inputCheck(shortBreakInput.value)) {
+        shortBreakInput.placeholder = this._timeShortBreak =
+          shortBreakInput.value;
+
+        shortBreakInput.value = "";
+        this._timerON = false;
+      }
+      if (inputCheck(longBreakInput.value)) {
+        longBreakInput.placeholder = this._timeLongBreak = longBreakInput.value;
+
+        longBreakInput.value = "";
+        this._timerON = false;
+      }
+    });
+
+    /*
       const configMode = e.target
-        .closest(".menu__input")
-        .parentElement.querySelector(".menu__subbuttons-heading").textContent;
-
-      const resetModeToPomo = function () {
-        const modeButtons = document.querySelector(".display__buttons");
-        modeButtons
-          .querySelectorAll(".button-lg")
-          .forEach((button) => button.classList.remove("mode-active"));
-
-        document.querySelector(".btn-pomo").classList.add("mode-active");
-      };
-
+      .closest(".menu__input")
+      .parentElement.querySelector(".menu__subbuttons-heading").textContent;
+      
       if (configMode === "Pomodoro") {
-        // console.log(`Input check ans: ${inputCheck(this._timePomo)}`);
         if (!inputCheck()) return;
-
+        
         this._timeLeft = this._timePomo = userTimeInput;
         this._timerON = false;
         this._display.textContent = `${userTimeInput
@@ -211,6 +247,10 @@ class view {
 
         this.timeLeft = this._timeShortBreak = userTimeInput;
         this._timerON = false;
+        this._display.textContent = `${this._timePomo
+          .toString()
+          .padStart(2, "0")}:00`;
+        resetModeToPomo();
         resetModeToPomo();
       }
 
@@ -219,9 +259,13 @@ class view {
 
         this.timeLeft = this._timeLongBreak = userTimeInput;
         this._timerON = false;
+        this._display.textContent = `${this._timePomo
+          .toString()
+          .padStart(2, "0")}:00`;
+        resetModeToPomo();
         resetModeToPomo();
       }
-    });
+      */
   }
 }
 

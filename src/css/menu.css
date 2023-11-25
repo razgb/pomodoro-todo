@@ -99,6 +99,19 @@
 /* .analytics-box {
 } */
 
+.config-box {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.apply-config {
+  position: absolute;
+  bottom: -25%;
+  right: 0;
+  font-size: 1.2rem;
+  padding: 0.4rem 0.8rem;
+}
+
 .analytics-box > .button-md {
   margin-bottom: 2.4rem;
 }
