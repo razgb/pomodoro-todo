@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
 
-  transform: translateX(-110%);
+  /* transform: translateX(-110%); */
 
   background-color: var(--primary-color-retro--lighter);
   /* height: 100%; */

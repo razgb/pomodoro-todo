@@ -12,6 +12,8 @@
   background-color: var(--primary-color-retro--lighter);
   padding: 6.4rem;
 
+  /* min-width: 80rem; */
+
   /* Pushes buttons downwards. */
   margin-bottom: 1rem;
 }

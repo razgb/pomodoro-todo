@@ -7,6 +7,14 @@ class view {
   _timerON = false;
   _timeLeft = 25;
 
+  _autoBreak = false;
+  _autoStartPomo = false;
+
+  // default values
+  _timePomo = 25;
+  _timeShortBreak = 5;
+  _timeLongBreak = 15;
+
   render() {}
 
   _clear() {
@@ -51,18 +59,24 @@ class view {
 
       // dynamically changes the timeLeft variable to fit mode's function.
       if (mode.textContent === "POMODORO") {
-        this._display.textContent = "25:00";
-        this._timeLeft = 25;
+        this._timeLeft = this._timePomo;
+        this._display.textContent = `${this._timePomo
+          .toString()
+          .padStart(2, "0")}:00`;
         this._timerON = false;
       }
       if (mode.textContent === "SHORT BREAK") {
-        this._display.textContent = "05:00";
-        this._timeLeft = 5;
+        this._timeLeft = this._timeShortBreak;
+        this._display.textContent = `${this._thisShortBreak
+          .toString()
+          .padStart(2, "0")}:00`;
         this._timerON = false;
       }
       if (mode.textContent === "LONG BREAK") {
-        this._display.textContent = "15:00";
-        this._timeLeft = 15;
+        this._timeLeft = this._timeLongBreak;
+        this._display.textContent = `${this._thisLongBreak
+          .toString()
+          .padStart(2, "0")}:00`;
         this._timerON = false;
       }
     });
@@ -115,16 +129,16 @@ class view {
   // CALLBACK FUNCTION TO ADD/REMOVE A TICK
   _addMenuTickCheckHandler(e) {
     const icon = e.target.closest(".icon"); // this is the empty box's icon .
-    if (!icon) return;
+    if (!icon) return false;
 
     console.log(icon);
 
     if (icon.classList.contains("completed")) {
       icon.classList.remove("completed"); // unticks a ticked box.
-      return false;
+      return;
     } else {
       icon.classList.add("completed"); // ticks an unticked box.
-      return true;
+      return icon;
     }
   }
 
@@ -133,14 +147,82 @@ class view {
 
   addMenuTheme() {
     const themeContainer = document.querySelector(".theme-box");
+
     themeContainer.addEventListener("click", (e) => {
-      const ticked = this._addMenuTickCheckHandler(e);
+      themeContainer
+        .querySelectorAll(".icon")
+        .forEach((icon) => icon.classList.remove("completed"));
+
+      const icon = this._addMenuTickCheckHandler(e);
+      console.log(icon);
 
       // const themeButton = e.target.closest('.button')
     });
   }
 
-  addMenuConfig() {}
+  addMenuConfig() {
+    const configContainer = document.querySelector(".config-box");
+
+    configContainer.addEventListener("input", (e) => {
+      const userTimeInput = e.target.closest(".menu__input").value;
+
+      const inputCheck = () => {
+        // IF USER LEAVES FIELD EMPTY (with a limit of 3 chars - dirty solve)
+        if (
+          userTimeInput === "" ||
+          !Number.isInteger(Number(userTimeInput)) ||
+          userTimeInput[0] === "0" ||
+          userTimeInput.includes(" ")
+        ) {
+          return false;
+        }
+
+        // if the function passes all checks
+        return true;
+      };
+
+      const configMode = e.target
+        .closest(".menu__input")
+        .parentElement.querySelector(".menu__subbuttons-heading").textContent;
+
+      const resetModeToPomo = function () {
+        const modeButtons = document.querySelector(".display__buttons");
+        modeButtons
+          .querySelectorAll(".button-lg")
+          .forEach((button) => button.classList.remove("mode-active"));
+
+        document.querySelector(".btn-pomo").classList.add("mode-active");
+      };
+
+      if (configMode === "Pomodoro") {
+        // console.log(`Input check ans: ${inputCheck(this._timePomo)}`);
+        if (!inputCheck()) return;
+
+        this._timeLeft = this._timePomo = userTimeInput;
+        this._timerON = false;
+        this._display.textContent = `${userTimeInput
+          .toString()
+          .padStart(2, "0")}:00`;
+        resetModeToPomo();
+      }
+
+      if (configMode === "Short break") {
+        if (!inputCheck()) return;
+
+        this.timeLeft = this._timeShortBreak = userTimeInput;
+        this._timerON = false;
+        resetModeToPomo();
+      }
+
+      if (configMode === "Long break") {
+        if (!inputCheck()) return;
+
+        this.timeLeft = this._timeLongBreak = userTimeInput;
+        this._timerON = false;
+        resetModeToPomo();
+      }
+    });
+  }
 }
 
 export default new view();

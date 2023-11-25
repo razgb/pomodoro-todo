@@ -7,6 +7,9 @@ const init = function () {
   view.addStartButtonHandler();
 
   view.addMenuTheme();
+
+  // testing
+  view.addMenuConfig();
 };
 
 init();
