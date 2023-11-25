@@ -15,8 +15,6 @@ class view {
   _timeShortBreak = 5;
   _timeLongBreak = 15;
 
-  render() {}
-
   _clear() {
     this._parentContainer.innerHTML = "";
   }
@@ -82,9 +80,6 @@ class view {
     });
 
     this._startButton.addEventListener("click", () => {
-      // currentMode = this._mode;
-
-      console.log(this._timeLeft);
       let minutes = this._timeLeft;
       let seconds = 0;
 
@@ -136,10 +131,10 @@ class view {
 
     if (icon.classList.contains("completed")) {
       icon.classList.remove("completed"); // unticks a ticked box.
-      return;
+      return false;
     } else {
       icon.classList.add("completed"); // ticks an unticked box.
-      return icon;
+      return true;
     }
   }
 
@@ -155,7 +150,7 @@ class view {
         .forEach((icon) => icon.classList.remove("completed"));
 
       const icon = this._addMenuTickCheckHandler(e);
-      console.log(icon);
+      // console.log(icon);
 
       // const themeButton = e.target.closest('.button')
     });
@@ -186,7 +181,7 @@ class view {
     };
 
     const applyConfig = document.querySelector(".apply-config");
-    applyConfig.addEventListener("click", (e) => {
+    applyConfig.addEventListener("click", () => {
       this.timerON = false;
 
       const pomodoroInput = document.querySelector(".pomodoro-input");

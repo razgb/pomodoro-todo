@@ -27,68 +27,86 @@
     />
 
     <!-- Bold rounded flaticon icons -->
-    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.0.0/uicons-bold-straight/css/uicons-bold-straight.css'>
+    <link
+      rel="stylesheet"
+      href="https://cdn-uicons.flaticon.com/2.0.0/uicons-bold-straight/css/uicons-bold-straight.css"
+    />
 
     <script type="module" src="src/js/controller.js"></script>
   </head>
 
-  <body>
+  <body class="dark">
     <main class="main">
       <div class="menu">
         <div class="menu__container">
           <div class="settings-box">
             <button class="button-md">
-              <i class="icon fi fi-bs-angle-small-down"></i> <span>Settings</span>
+              <i class="icon fi fi-bs-angle-small-down"></i>
+              <span>Settings</span>
             </button>
-            
+
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Auto start break</h2>
-                <button class="task__check"><i class="icon fi fi-bs-check"></i></button>
+                <button class="task__check">
+                  <i class="icon fi fi-bs-check"></i>
+                </button>
               </div>
-              
+
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Auto start pomo</h2>
-                <button class="task__check"><i class="icon fi fi-bs-check"></i></button>
+                <button class="task__check">
+                  <i class="icon fi fi-bs-check"></i>
+                </button>
               </div>
-              
+
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Remove tasks</h2>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <button class="task__check">
+                  <i class="icon fi fi-bs-check"></i>
+                </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Button sounds</h2>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <button class="task__check">
+                  <i class="icon fi fi-bs-check"></i>
+                </button>
               </div>
             </div>
           </div>
-            
+
           <div class="theme-box">
             <!-- /////////////////////////// -->
             <button class="button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Themes</span>
             </button>
-            
+
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Default</h2>
-                <button class="task__check" data-name="default"><i class="icon fi fi-bs-check completed"></i></button>
+                <button class="task__check" data-name="default">
+                  <i class="icon fi fi-bs-check completed"></i>
+                </button>
               </div>
-              
+
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Sage green</h2>
-                <button class="task__check" data-name="green"><i class="icon fi fi-bs-check "></i></button>
+                <button class="task__check" data-name="green">
+                  <i class="icon fi fi-bs-check"></i>
+                </button>
               </div>
-              
+
               <div class="menu__subbuttons-content">
                 <h2 class="menu__subbuttons-heading">Dark mode</h2>
-                <button class="task__check" data-name="dark"><i class="icon fi fi-bs-check "></i></button>
+                <button class="task__check" data-name="dark">
+                  <i class="icon fi fi-bs-check"></i>
+                </button>
               </div>
             </div>
           </div>
-            
+
           <!-- /////////////////////////// -->
 
           <div class="config-box">
@@ -96,21 +114,36 @@
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Time config</span>
             </button>
-            
+
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
-                <h2 class="menu__subbuttons-heading ">Pomodoro</h2>
-                <input placeholder="25" type="text" maxlength="2" class="menu__input pomodoro-input">
+                <h2 class="menu__subbuttons-heading">Pomodoro</h2>
+                <input
+                  placeholder="25"
+                  type="text"
+                  maxlength="2"
+                  class="menu__input pomodoro-input"
+                />
               </div>
-              
+
               <div class="menu__subbuttons-content">
-                <h2 class="menu__subbuttons-heading ">Short break</h2>
-                <input placeholder="5" type="text"  maxlength="2" class="menu__input short-break-input">
+                <h2 class="menu__subbuttons-heading">Short break</h2>
+                <input
+                  placeholder="5"
+                  type="text"
+                  maxlength="2"
+                  class="menu__input short-break-input"
+                />
               </div>
-              
+
               <div class="menu__subbuttons-content">
-                <h2 class="menu__subbuttons-heading ">Long break</h2>
-                <input placeholder="15" type="text" maxlength="2" class="menu__input long-break-input">
+                <h2 class="menu__subbuttons-heading">Long break</h2>
+                <input
+                  placeholder="15"
+                  type="text"
+                  maxlength="2"
+                  class="menu__input long-break-input"
+                />
               </div>
 
               <button class="button-lg apply-config">APPLY</button>
@@ -123,18 +156,18 @@
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Analytics</span>
             </button>
-            
+
             <div class="menu__analytics-container">
               <div class="menu__analytics-content">
                 <h2 class="menu__subbuttons-heading">Time studied today:</h2>
                 <span class="menu__subbuttons-text">0 hrs, 0 mins</span>
               </div>
-              
+
               <div class="menu__analytics-content">
                 <h2 class="menu__subbuttons-heading">Sessions today:</h2>
                 <span class="menu__subbuttons-text">0 sessions</span>
               </div>
-              
+
               <div class="menu__analytics-content">
                 <h2 class="menu__subbuttons-heading">Total time studied:</h2>
                 <span class="menu__subbuttons-text">0 days, 0 hrs, 0 mins</span>
@@ -143,18 +176,17 @@
           </div>
         </div>
       </div>
-      
+
       <button class="menu__hamburger button-lg">
         <i class="fi fi-bs-menu-burger icon"></i>
         <!-- <i class="fi fi-rr-cross icon"></i> -->
       </button>
-      
+
       <div class="app">
         <div class="display grid">
           <div class="display__container container">
-            
             <!-- All three buttons are positioned absolute -->
-            
+
             <div class="display__buttons">
               <button class="button-lg btn-pomo mode-active">POMODORO</button>
               <button class="button-lg btn-short">SHORT BREAK</button>
@@ -165,67 +197,81 @@
               <span class="display__timer-numbers">25:00</span>
               <!-- <span class="display__timer-numbers">break</span> -->
             </div>
-              <button class="button-lg display__start-button">START</button>
-            </div>
+            <button class="button-lg display__start-button">START</button>
           </div>
+        </div>
 
-          <div class="tasks grid">
-            <div class="tasks__container container">
-              <button class="button-md open-tasks">
-                <i class="icon fi fi-bs-angle-small-down"></i>
-                <span>TASKS</span>
-              </button>
+        <div class="tasks grid">
+          <div class="tasks__container container">
+            <button class="button-md open-tasks">
+              <i class="icon fi fi-bs-angle-small-down"></i>
+              <span>TASKS</span>
+            </button>
 
-              <div class="open-tasks-container">
-                <div class="task">
-                  <div class="task__heading">
-                    <button class="button-md">
-                      <i class="icon fi fi-bs-angle-small-down open"></i>
-                      <span>Study anatomy</span>
-                    </button>
-                    <button class="task__check"><i class="icon fi fi-bs-check"></i></button>
-                  </div>
-                  <textarea class="task__content" placeholder="Add a note..."></textarea>
+            <div class="open-tasks-container">
+              <div class="task">
+                <div class="task__heading">
+                  <button class="button-md">
+                    <i class="icon fi fi-bs-angle-small-down open"></i>
+                    <span>Study anatomy</span>
+                  </button>
+                  <button class="task__check">
+                    <i class="icon fi fi-bs-check"></i>
+                  </button>
                 </div>
+                <textarea
+                  class="task__content"
+                  placeholder="Add a note..."
+                ></textarea>
+              </div>
 
-              
-                <div class="task">
-                  <div class="task__heading">
-                    <button class="button-md">
-                      <i class="icon fi fi-bs-angle-small-down open"></i>
-                      <span>Powerpoints</span>
-                    </button>
-                    <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
-                  </div>
-                  <textarea class="task__content" placeholder="Add a note..."></textarea>
+              <div class="task">
+                <div class="task__heading">
+                  <button class="button-md">
+                    <i class="icon fi fi-bs-angle-small-down open"></i>
+                    <span>Powerpoints</span>
+                  </button>
+                  <button class="task__check">
+                    <i class="icon fi fi-bs-check"></i>
+                  </button>
                 </div>
+                <textarea
+                  class="task__content"
+                  placeholder="Add a note..."
+                ></textarea>
+              </div>
 
-                <div class="task">
-                  <div class="task__heading">
-                    <button class="button-md">
-                      <i class="icon fi fi-bs-angle-small-down"></i>
-                      <span>Review HTML</span>
-                      <span class="task__heading-completed"> - complete -</span>
-                    </button>
-                    <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
-                  </div>
-                  <textarea class="task__content hidden" placeholder="Add a note..."></textarea>
+              <div class="task">
+                <div class="task__heading">
+                  <button class="button-md">
+                    <i class="icon fi fi-bs-angle-small-down"></i>
+                    <span>Review HTML</span>
+                    <span class="task__heading-completed"> - complete -</span>
+                  </button>
+                  <button class="task__check">
+                    <i class="icon fi fi-bs-check completed"></i>
+                  </button>
                 </div>
+                <textarea
+                  class="task__content hidden"
+                  placeholder="Add a note..."
+                ></textarea>
+              </div>
 
-
-                <!-- This makes a new form to add a new task. -->
-                <div class="add-task">
-                  <!-- <button class="button-lg open-task">ADD TASK</button> -->
-                  <button class="button-lg open-task">X</button>
-                  <div class="task-form">
-                    <button class="button-lg submit-task">SUBMIT</button>
-                    <textarea class="task__content" placeholder="What are you working on?"></textarea>
-                  </div>
+              <!-- This makes a new form to add a new task. -->
+              <div class="add-task">
+                <!-- <button class="button-lg open-task">ADD TASK</button> -->
+                <button class="button-lg open-task">X</button>
+                <div class="task-form">
+                  <button class="button-lg submit-task">SUBMIT</button>
+                  <textarea
+                    class="task__content"
+                    placeholder="What are you working on?"
+                  ></textarea>
                 </div>
+              </div>
 
-               <!--  -->
-            </div>
-
+              <!--  -->
             </div>
           </div>
         </div>
