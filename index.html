@@ -36,36 +36,35 @@
     <main class="main">
       <div class="menu">
         <div class="menu__container">
-          <div>
+          <div class="settings-box">
             <button class="button-md">
               <i class="icon fi fi-bs-angle-small-down"></i> <span>Settings</span>
             </button>
             
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Auto start break</span>
-                </button>
+                <h2 class="menu__subbuttons-heading">Auto start break</h2>
                 <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
               </div>
               
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Auto start pomo</span>
-                </button>
+                <h2 class="menu__subbuttons-heading">Auto start pomo</h2>
                 <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
               </div>
               
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Remove tasks</span>
-                </button>
+                <h2 class="menu__subbuttons-heading">Remove tasks</h2>
+                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+              </div>
+
+              <div class="menu__subbuttons-content">
+                <h2 class="menu__subbuttons-heading">Button sounds</h2>
                 <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
               </div>
             </div>
           </div>
             
-          <div>
+          <div class="theme-box">
             <!-- /////////////////////////// -->
             <button class="button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
@@ -74,31 +73,25 @@
             
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Default</span>
-                </button>
-                <button class="task__check"><i class="icon fi fi-bs-check completed"></i></button>
+                <h2 class="menu__subbuttons-heading">Default</h2>
+                <button class="task__check" data-name="default"><i class="icon fi fi-bs-check completed"></i></button>
               </div>
               
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Sage green</span>
-                </button>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <h2 class="menu__subbuttons-heading">Sage green</h2>
+                <button class="task__check" data-name="green"><i class="icon fi fi-bs-check "></i></button>
               </div>
               
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Dark</span>
-                </button>
-                <button class="task__check"><i class="icon fi fi-bs-check "></i></button>
+                <h2 class="menu__subbuttons-heading">Dark mode</h2>
+                <button class="task__check" data-name="dark"><i class="icon fi fi-bs-check "></i></button>
               </div>
             </div>
           </div>
             
           <!-- /////////////////////////// -->
 
-          <div>
+          <div class="config-box">
             <button class="button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Time config</span>
@@ -106,57 +99,43 @@
             
             <div class="menu__subbuttons">
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Pomodoro </span>
-                </button>
+                <h2 class="menu__subbuttons-heading">Pomodoro</h2>
                 <input placeholder="25" type="text" class="menu__input">
               </div>
               
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Short break </span>
-                </button>
+                <h2 class="menu__subbuttons-heading">Short break</h2>
                 <input placeholder="5" type="text" class="menu__input">
               </div>
               
               <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Long break </span> 
-                </button>
+                <h2 class="menu__subbuttons-heading">Long break</h2>
                 <input placeholder="15" type="text" class="menu__input">
               </div>
             </div>
           </div>
 
-          <div>
+          <div class="analytics-box">
             <!-- /////////////////////////// -->
             <button class="button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Analytics</span>
             </button>
             
-            <div class="menu__subbuttons">
-              <div class="menu__subbuttons-content">
-
-                <!--THESE SHOULD NOT BE BUTTONS FUTURE ME.
-                    TRY MAKING THEM NORMAL HEADINGS AND MAKE  
-                    A CUSTOM DIV BOX AS WELL FOR THE DATA. -->
-
-                <button class="button-md">
-                  <span>Time studied today:</span>
-                </button>
+            <div class="menu__analytics-container">
+              <div class="menu__analytics-content">
+                <h2 class="menu__subbuttons-heading">Time studied today:</h2>
+                <span class="menu__subbuttons-text">0 hrs, 0 mins</span>
               </div>
               
-              <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Sessions today:</span>
-                </button>
+              <div class="menu__analytics-content">
+                <h2 class="menu__subbuttons-heading">Sessions today:</h2>
+                <span class="menu__subbuttons-text">0 sessions</span>
               </div>
               
-              <div class="menu__subbuttons-content">
-                <button class="button-md">
-                  <span>Total time studied:</span>
-                </button>
+              <div class="menu__analytics-content">
+                <h2 class="menu__subbuttons-heading">Total time studied:</h2>
+                <span class="menu__subbuttons-text">0 days, 0 hrs, 0 mins</span>
               </div>
             </div>
           </div>

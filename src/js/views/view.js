@@ -6,6 +6,7 @@ class view {
   _startButton = document.querySelector(".display__start-button");
   _timerON = false;
   _timeLeft = 25;
+  _mode = "pomodoro";
 
   render() {}
 
@@ -14,7 +15,7 @@ class view {
   }
 
   // ADDS MENU SLIDER /W ANIMATION.
-  addHandlerMenu() {
+  addMenuSliderHandler() {
     const menuButton = document.querySelector(".menu__hamburger");
     menuButton.addEventListener("click", function () {
       const menuTab = document.querySelector(".menu");
@@ -109,6 +110,36 @@ class view {
       }, 1000);
     });
   }
+
+  // CALLBACK FUNCTION TO ADD/REMOVE A TICK
+  _addMenuTickCheckHandler(e) {
+    const icon = e.target.closest(".icon"); // this is the empty box's icon .
+    if (!icon) return;
+
+    console.log(icon);
+
+    if (icon.classList.contains("completed")) {
+      icon.classList.remove("completed"); // unticks a ticked box.
+      return false;
+    } else {
+      icon.classList.add("completed"); // ticks an unticked box.
+      return true;
+    }
+  }
+
+  // Contains: auto start pomo, auto start break, remove tasks settings.
+  addMenuSettings() {}
+
+  addMenuTheme() {
+    const themeContainer = document.querySelector(".theme-box");
+    themeContainer.addEventListener("click", (e) => {
+      const ticked = this._addMenuTickCheckHandler(e);
+
+      // const themeButton = e.target.closest('.button')
+    });
+  }
+
+  addMenuConfig() {}
 }
 
 export default new view();

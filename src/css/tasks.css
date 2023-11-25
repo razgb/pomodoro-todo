@@ -85,6 +85,9 @@
   padding: 0.5rem;
 }
 
+/* /////////////////////////////////////////// */
+/* THIS CLASS IS ALSO USED FOR THE MENU TICKS. */
+/* /////////////////////////////////////////// */
 .task__check .icon.completed {
   color: var(--secondary-color-retro);
 }

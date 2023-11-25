@@ -16,28 +16,24 @@
 }
 
 .menu__container {
-  margin-top: 10rem;
+  margin-top: 12rem;
   margin-inline: 2rem;
   /* width: 100%; */
 
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 2.4rem;
-}
-
-.mode-active {
-  border: none;
-  transform: translateY(3px);
+  gap: 3.6rem;
 }
 
 .menu__container > div {
   width: 100%;
-  /* padding-inline: 2rem; */
 }
 
-.menu__container > div > .button-md {
-  margin-bottom: 1rem;
+.settings-box > .button-md,
+.theme-box > .button-md,
+.config-box > .button-md {
+  margin-bottom: 1.6rem;
 }
 
 .menu__hamburger {
@@ -60,17 +56,19 @@
   display: flex;
   flex-direction: column;
   gap: 1.6rem;
+
+  /* display: none; */
+}
+
+.menu__subbuttons-heading {
+  font-size: 1rem;
+  color: var(--secondary-color-retro--text);
 }
 
 .menu__subbuttons-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.menu__subbuttons .button-md {
-  font-size: 1rem;
-  color: var(--secondary-color-retro--text);
 }
 
 .menu__subbuttons .task__check {
@@ -95,4 +93,32 @@
 
 .menu__input:focus::placeholder {
   color: transparent;
+}
+
+/* ////////////////// */
+/* ANALYTICS SECTION: */
+
+.analytics-box {
+}
+
+.analytics-box > .button-md {
+  margin-bottom: 2.4rem;
+}
+
+.menu__analytics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4.8rem;
+}
+
+.menu__analytics-content {
+}
+
+.analytics-box .menu__subbuttons-heading {
+  color: var(--secondary-color-retro);
+  margin-bottom: 2.4rem;
+}
+
+.menu__subbuttons-text {
+  color: var(--secondary-color-retro--text);
 }
