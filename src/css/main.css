@@ -33,7 +33,7 @@ themes: retro, minimal, soft. All having dark themes respectively.
 
   --font-family: "Press Start 2p";
 }
-
+/* 
 .dark {
   --primary-color-retro: #000000;
   --primary-color-retro--lighter: #0f0f0f;
@@ -52,7 +52,7 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --secondary-color-retro--darkest: #004342;
   --secondary-color-retro--text: #01928f;
   --selection-color-retro: #02c4c1;
-}
+} */
 
 ::selection {
   color: #ddd;
