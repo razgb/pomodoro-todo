@@ -4,8 +4,6 @@ import view from "./views/view.js";
 const init = function () {
   view.addMenuSliderHandler();
 
-  view.addModeHandler();
-
   view.addStartButtonHandler();
 
   view.addMenuTheme();

@@ -6,7 +6,6 @@ class view {
   _startButton = document.querySelector(".display__start-button");
   _timerON = false;
   _timeLeft = 25;
-  _mode = "pomodoro";
 
   render() {}
 
@@ -14,7 +13,7 @@ class view {
     this._parentContainer.innerHTML = "";
   }
 
-  // ADDS MENU SLIDER /W ANIMATION.
+  // ADDS MENU SLIDER /W ANIMATION.s
   addMenuSliderHandler() {
     const menuButton = document.querySelector(".menu__hamburger");
     menuButton.addEventListener("click", function () {
@@ -33,7 +32,8 @@ class view {
     });
   }
 
-  addModeHandler() {
+  // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
+  addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
 
     // Delegates event to the container of all mode buttons.
@@ -41,7 +41,7 @@ class view {
       const mode = e.target.closest(".button-lg");
       if (!mode) return;
 
-      // Removes the already active mode (pressed down illusion).
+      // Removes active mode (pressed down illusion).
       modeButtons
         .querySelectorAll(".button-lg")
         .forEach((button) => button.classList.remove("mode-active"));
@@ -53,28 +53,28 @@ class view {
       if (mode.textContent === "POMODORO") {
         this._display.textContent = "25:00";
         this._timeLeft = 25;
+        this._timerON = false;
       }
       if (mode.textContent === "SHORT BREAK") {
         this._display.textContent = "05:00";
         this._timeLeft = 5;
+        this._timerON = false;
       }
       if (mode.textContent === "LONG BREAK") {
         this._display.textContent = "15:00";
         this._timeLeft = 15;
+        this._timerON = false;
       }
     });
-  }
 
-  // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
-  addStartButtonHandler() {
-    // Arrow func used to access object.
     this._startButton.addEventListener("click", () => {
+      // currentMode = this._mode;
+
       let minutes = this._timeLeft;
       let seconds = 0;
 
-      // start button has been clicked
       if (this._startButton.textContent === "START") {
-        this._timerON = true;
+        this._timerON = true; // start button has been clicked
         this._display.textContent = "START";
         setTimeout(() => (this._startButton.textContent = "RESET"), 1000);
       } else {
@@ -92,6 +92,7 @@ class view {
         // Guard clause
         if (!this._timerON) {
           clearInterval(timer);
+          this._startButton.textContent = "START";
           return;
         }
 
