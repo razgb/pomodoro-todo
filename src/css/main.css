@@ -87,9 +87,42 @@ body {
   color: var(--secondary-color-retro);
   background-color: var(--primary-color-retro);
 
-  /* height: 100vh; */
+  /* used for the loading app animation */
+  position: relative;
+
+  min-height: 100vh;
+
+  z-index: 1;
 
   /* transition: all; */
+}
+
+.loading-app {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background-color: var(--primary-color-retro);
+
+  z-index: 999;
+
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.loading-app.loading-hidden {
+  /* display: none; */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0s 0.3s; /* Delay the visibility change */
+}
+
+.loading-app__heading {
+  font-size: 3.6rem;
+  color: var(--secondary-color-retro);
 }
 
 .main {
@@ -97,7 +130,7 @@ body {
 }
 
 .app {
-  transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in-out;
 }
 
 .container {
@@ -106,6 +139,7 @@ body {
 
 .button-lg {
   cursor: pointer;
+  color: var(--primary-color-retro);
 
   font-family: "Press Start 2p", sans-serif;
   font-size: 1.4rem;

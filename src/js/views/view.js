@@ -22,6 +22,13 @@ class view {
     this._parentContainer.innerHTML = "";
   }
 
+  loadAppAnimation() {
+    const loadingContainer = document.querySelector(".loading-app");
+    setTimeout(() => {
+      loadingContainer.classList.add("loading-hidden");
+    }, 1000);
+  }
+
   // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
   addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
@@ -152,7 +159,7 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 1000);
+      }, 100);
     });
   }
 
