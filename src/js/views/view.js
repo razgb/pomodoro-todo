@@ -159,7 +159,7 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 100);
+      }, 1000);
     });
   }
 
