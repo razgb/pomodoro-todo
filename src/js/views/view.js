@@ -8,7 +8,7 @@ class view {
   _timerON = false;
   _timeLeft = 25;
 
-  _autoBreak = false;
+  _autoShortBreak = false;
   _autoStartPomo = false;
   _removeTasks = false;
   _buttonSounds = true;
@@ -82,15 +82,65 @@ class view {
         }, 1000);
       }
 
+      let i = 0; // used to make autoshortbreak run once.
       let timer = setInterval(() => {
-        // Guard clause
         if (!this._timerON) {
           clearInterval(timer);
           this._startButton.textContent = "START";
           return;
         }
 
-        if (minutes === 0 && seconds === 0) return; // Timer complete.
+        // WHEN THE USER TURNS ON SHORT BREAK.
+        if (minutes === 0 && seconds === 0 && this._autoShortBreak) {
+          if (i > 0) {
+            this._timerON = false;
+            this._autoShortBreak = false; // edge case so 2 short breaks don't occur.
+            this._display.textContent = "END";
+            setTimeout(
+              () =>
+                (this._display.textContent = `${this._timeShortBreak
+                  .toString()
+                  .padStart(2, "0")}:00`),
+              1000
+            );
+            return;
+          }
+
+          this._display.textContent = "END";
+
+          modeButtons
+            .querySelectorAll(".button-lg")
+            .forEach((button) => button.classList.remove("mode-active"));
+
+          document.querySelector(".btn-short").classList.add("mode-active");
+
+          minutes = this._timeShortBreak;
+
+          this._display.textContent = `${this._timeShortBreak
+            .toString()
+            .padStart(2, "0")}:00`;
+
+          this._startButton.textContent = "RESET";
+          i++;
+        } // Timer complete.
+
+        // WHEN TIMER ENDS AND BOTH AUTOSHORTBREAK & AUTOSTARTPOMO ARE OFF
+        if (
+          minutes === 0 &&
+          seconds === 0 &&
+          this._autoShortBreak === false &&
+          this._autoStartPomo === false
+        ) {
+          this._timerON = false;
+          this._display.textContent = "END";
+
+          setTimeout(() => {
+            this._display.textContent = `${this._timeShortBreak
+              .toString()
+              .padStart(2, "0")}:00`;
+          }, 1000);
+          return;
+        } // Timer complete.
 
         --seconds;
 
@@ -102,7 +152,7 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 1000);
+      }, 100);
     });
   }
 
@@ -147,17 +197,17 @@ class view {
     settingsContainer.addEventListener("click", (e) => {
       const icon = e.target.closest(".task__check")?.querySelector(".icon"); // this is the empty box's icon .
       if (!icon) return;
-      console.log(icon);
+      // console.log(icon);
 
       const feature = icon
         .closest(".menu__subbuttons-content")
         .querySelector(".menu__heading");
 
       const featureName = feature.textContent;
-      console.log(featureName);
+      // console.log(featureName);
 
       const manageFeature = (boolean) => {
-        if (featureName === "Auto start break") this._autoBreak = boolean;
+        if (featureName === "Auto start break") this._autoShortBreak = boolean;
         if (featureName === "Auto start pomo") this._autoStartPomo = boolean;
         if (featureName === "Remove tasks") this._removeTasks = boolean;
         if (featureName === "Button sounds") this._buttonSounds = boolean;
@@ -173,11 +223,7 @@ class view {
 
       // (info) To check how code works
       /*
-      console.log(
-        this._autoBreak,
-        this._autoStartPomo,
-        this._removeTasks,
-        this._buttonSounds
+      console.log(this._autoShortBreak,this._autoStartPomo,this._removeTasks,this._buttonSounds
       );
       */
     });

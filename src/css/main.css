@@ -37,14 +37,13 @@ themes: retro, minimal, soft. All having dark themes respectively.
 /* 
 */
 body.mocha {
-  --primary-color-retro: #0e0501;
-  --primary-color-retro--lighter: #140801;
-  /* --secondary-color-retro: #f8ce9a; */
-  --secondary-color-retro: #f8dab6;
+  --primary-color-retro: #0a0301;
+  --primary-color-retro--lighter: #100601;
+  --secondary-color-retro: #f8ce9a;
 
   --secondary-color-retro--darker: #97764b;
   --secondary-color-retro--darkest: #5a462e;
-  --secondary-color-retro--text: #b39979;
+  --secondary-color-retro--text: #b49d81;
   --selection-color-retro: rgb(143, 123, 103);
 }
 body.aquamarine {
@@ -89,6 +88,8 @@ body {
   background-color: var(--primary-color-retro);
 
   /* height: 100vh; */
+
+  /* transition: all; */
 }
 
 .main {

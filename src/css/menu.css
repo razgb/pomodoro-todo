@@ -4,17 +4,12 @@
   top: 0;
   left: 0;
 
-  transform: translateX(-110%);
-
   background-color: var(--primary-color-retro--lighter);
-  /* height: 100%; */
-
+  box-shadow: 2px 0 20px 1px var(--secondary-color-retro--darkest);
+  transform: translateX(-110%);
   min-height: 100vh;
 
   transition: all 0.2s ease-in;
-
-  box-shadow: 2px 0 20px 1px var(--secondary-color-retro--darkest);
-  /* box-shadow: 10px 0 20px 1px var(--primary-color-retro--lighter); */
 }
 
 .menu__container {
