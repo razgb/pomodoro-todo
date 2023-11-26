@@ -76,6 +76,8 @@ body {
   font-family: "Press Start 2p", sans-serif;
   color: var(--secondary-color-retro);
   background-color: var(--primary-color-retro);
+
+  /* height: 100vh; */
 }
 
 .main {

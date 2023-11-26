@@ -20,25 +20,6 @@ class view {
     this._parentContainer.innerHTML = "";
   }
 
-  // ADDS MENU SLIDER /W ANIMATION.s
-  addMenuSliderHandler() {
-    const menuButton = document.querySelector(".menu__hamburger");
-    menuButton.addEventListener("click", function () {
-      const menuTab = document.querySelector(".menu");
-      const app = document.querySelector(".app");
-
-      if (!this._menuState) {
-        menuTab.style.transform = "translateX(0)";
-        app.style.marginLeft = "20%";
-        this._menuState = true;
-      } else {
-        menuTab.style.transform = "translateX(-110%)";
-        app.style.marginLeft = "0";
-        this._menuState = false;
-      }
-    });
-  }
-
   // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
   addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
@@ -123,6 +104,42 @@ class view {
     });
   }
 
+  // ADDS MENU SLIDER /W ANIMATION.s
+  addMenuSliderHandler() {
+    const menuButton = document.querySelector(".menu__hamburger");
+    menuButton.addEventListener("click", function () {
+      const menu = document.querySelector(".menu");
+      const app = document.querySelector(".app");
+
+      if (!this._menuState) {
+        menu.style.transform = "translateX(0)";
+        app.style.marginLeft = "20%";
+        this._menuState = true;
+      } else {
+        menu.style.transform = "translateX(-110%)";
+        app.style.marginLeft = "0";
+        this._menuState = false;
+      }
+    });
+
+    const menuContainer = document.querySelector(".menu__container");
+    menuContainer.addEventListener("click", (e) => {
+      const menuTab = e.target.closest(".button-md"); // e.g. settings, theme, config, analytics
+      if (!menuTab) return;
+
+      // Elements that collapse once button is clicked.
+      const menuContent =
+        menuTab.parentElement.querySelector(".menu__subbuttons");
+      menuContent.classList.toggle("hidden");
+
+      // Selecting respective 'feature-box' container to add/remove margin.
+      const featureBox = menuContent.parentElement;
+      if (!menuContent.classList.contains("hidden")) {
+        featureBox.style.marginBottom = "4.8rem";
+      } else featureBox.style.marginBottom = "0";
+    });
+  }
+
   // CALLBACK FUNCTION TO ADD/REMOVE A TICK
   _addMenuTickCheckHandler(e) {
     const icon = e.target.closest(".icon"); // this is the empty box's icon .
@@ -137,7 +154,6 @@ class view {
     }
   }
 
-  // Contains: auto start pomo, auto start break, remove tasks settings.
   addMenuSettings() {}
 
   addMenuTheme() {
@@ -284,6 +300,8 @@ class view {
       }
       */
   }
+
+  // analytics code goes here
 }
 
 export default new view();
