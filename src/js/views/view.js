@@ -10,6 +10,8 @@ class view {
 
   _autoBreak = false;
   _autoStartPomo = false;
+  _removeTasks = false;
+  _buttonSounds = true;
 
   // default values
   _timePomo = 25;
@@ -140,28 +142,54 @@ class view {
     });
   }
 
-  // CALLBACK FUNCTION TO ADD/REMOVE A TICK
-  _addMenuTickCheckHandler(e) {
-    const icon = e.target.closest(".icon"); // this is the empty box's icon .
-    if (!icon) return false;
+  addMenuSettingsHandler() {
+    const settingsContainer = document.querySelector(".settings-box");
+    settingsContainer.addEventListener("click", (e) => {
+      const icon = e.target.closest(".task__check")?.querySelector(".icon"); // this is the empty box's icon .
+      if (!icon) return;
+      console.log(icon);
 
-    if (icon.classList.contains("completed")) {
-      icon.classList.remove("completed"); // unticks a ticked box.
-      return false;
-    } else {
-      icon.classList.add("completed"); // ticks an unticked box.
-      return true;
-    }
+      const feature = icon
+        .closest(".menu__subbuttons-content")
+        .querySelector(".menu__heading");
+
+      const featureName = feature.textContent;
+      console.log(featureName);
+
+      const manageFeature = (boolean) => {
+        if (featureName === "Auto start break") this._autoBreak = boolean;
+        if (featureName === "Auto start pomo") this._autoStartPomo = boolean;
+        if (featureName === "Remove tasks") this._removeTasks = boolean;
+        if (featureName === "Button sounds") this._buttonSounds = boolean;
+      };
+
+      if (icon.classList.contains("completed")) {
+        icon.classList.remove("completed"); // unticks a ticked box.
+        manageFeature(false);
+      } else {
+        icon.classList.add("completed"); // ticks an unticked box.
+        manageFeature(true);
+      }
+
+      // (info) To check how code works
+      /*
+      console.log(
+        this._autoBreak,
+        this._autoStartPomo,
+        this._removeTasks,
+        this._buttonSounds
+      );
+      */
+    });
   }
 
-  addMenuSettings() {}
-
-  addMenuTheme() {
+  addMenuThemeHandler() {
     const themeContainer = document.querySelector(".theme-box");
 
     themeContainer.addEventListener("click", (e) => {
-      const icon = e.target.closest(".icon"); // this is the empty box's icon .
-      if (!icon) return false;
+      // CUSTOM VERSION OF addMenuTickCheckHandler()
+      const icon = e.target.closest(".task__check")?.querySelector(".icon"); // this is the empty box's icon .
+      if (!icon) return;
 
       themeContainer
         .querySelectorAll(".icon")
@@ -181,22 +209,28 @@ class view {
         document.body.className = "";
         this._currentTheme = "Default";
       }
-      if (theme === "Sage green") {
+      if (theme === "Mocha") {
         if (theme === this._currentTheme) return; // do nothing
         document.body.className = "";
-        document.body.classList.add("sage-green");
-        this._currentTheme = "sage-green";
+        document.body.classList.add("mocha");
+        this._currentTheme = "Mocha";
+      }
+      if (theme === "Aquamarine") {
+        if (theme === this._currentTheme) return; // do nothing
+        document.body.className = "";
+        document.body.classList.add("aquamarine");
+        this._currentTheme = "Aquamarine";
       }
       if (theme === "Dark mode") {
         if (theme === this._currentTheme) return; // do nothing
         document.body.className = "";
         document.body.classList.add("dark-mode");
-        this._currentTheme = "dark";
+        this._currentTheme = "Dark";
       }
     });
   }
 
-  addMenuConfig() {
+  addMenuConfigHandler() {
     const resetModeToPomo = function () {
       const modeButtons = document.querySelector(".display__buttons");
       modeButtons
@@ -301,7 +335,7 @@ class view {
       */
   }
 
-  // analytics code goes here
+  // analytics function() goes here
 }
 
 export default new view();

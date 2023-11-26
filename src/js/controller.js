@@ -8,10 +8,9 @@ const init = function () {
 
   view.addStartButtonHandler();
 
-  view.addMenuTheme();
-
-  // testing
-  view.addMenuConfig();
+  view.addMenuConfigHandler();
+  view.addMenuSettingsHandler();
+  view.addMenuThemeHandler();
 };
 
 init();

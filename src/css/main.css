@@ -36,6 +36,27 @@ themes: retro, minimal, soft. All having dark themes respectively.
 
 /* 
 */
+body.mocha {
+  --primary-color-retro: #0e0501;
+  --primary-color-retro--lighter: #140801;
+  /* --secondary-color-retro: #f8ce9a; */
+  --secondary-color-retro: #f8dab6;
+
+  --secondary-color-retro--darker: #97764b;
+  --secondary-color-retro--darkest: #5a462e;
+  --secondary-color-retro--text: #b39979;
+  --selection-color-retro: rgb(143, 123, 103);
+}
+body.aquamarine {
+  --primary-color-retro: #001818;
+  --primary-color-retro--lighter: #001f1e;
+  /* --secondary-color-retro: #85d9d8; */
+  --secondary-color-retro: #a6f9f7;
+  --secondary-color-retro--darker: #689998;
+  --secondary-color-retro--darkest: #004342;
+  --secondary-color-retro--text: #57a3a2;
+  --selection-color-retro: #02c4c1;
+}
 body.dark-mode {
   --primary-color-retro: #000000;
   --primary-color-retro--lighter: #0f0f0f;
@@ -44,16 +65,6 @@ body.dark-mode {
   --secondary-color-retro--darkest: rgb(55, 55, 55);
   --secondary-color-retro--text: #949393;
   --selection-color-retro: #525252;
-}
-
-body.sage-green {
-  --primary-color-retro: #001818;
-  --primary-color-retro--lighter: #001f1e;
-  --secondary-color-retro: #02c0bc;
-  --secondary-color-retro--darker: #016463;
-  --secondary-color-retro--darkest: #004342;
-  --secondary-color-retro--text: #01928f;
-  --selection-color-retro: #02c4c1;
 }
 
 ::selection {
