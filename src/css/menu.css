@@ -58,7 +58,7 @@
   /* display: none; */
 }
 
-.menu__subbuttons-heading {
+.menu__heading {
   font-size: 1rem;
   color: var(--secondary-color-retro--text);
 }
@@ -76,7 +76,6 @@
 
 .menu__input {
   text-align: center;
-  caret-shape: underscore;
   max-width: 6rem;
   min-height: 3rem;
   font-family: var(--font-family);
@@ -125,7 +124,7 @@
 /* .menu__analytics-content {
 } */
 
-.analytics-box .menu__subbuttons-heading {
+.analytics-box .menu__heading {
   color: var(--secondary-color-retro);
   margin-bottom: 2.4rem;
 }

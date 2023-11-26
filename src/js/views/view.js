@@ -1,5 +1,6 @@
 class view {
   _parentContainer = "";
+  _currentTheme = "Default";
   _menuState = false;
 
   _display = document.querySelector(".display__timer-numbers");
@@ -127,8 +128,6 @@ class view {
     const icon = e.target.closest(".icon"); // this is the empty box's icon .
     if (!icon) return false;
 
-    console.log(icon);
-
     if (icon.classList.contains("completed")) {
       icon.classList.remove("completed"); // unticks a ticked box.
       return false;
@@ -145,14 +144,39 @@ class view {
     const themeContainer = document.querySelector(".theme-box");
 
     themeContainer.addEventListener("click", (e) => {
+      const icon = e.target.closest(".icon"); // this is the empty box's icon .
+      if (!icon) return false;
+
       themeContainer
         .querySelectorAll(".icon")
         .forEach((icon) => icon.classList.remove("completed"));
 
-      const icon = this._addMenuTickCheckHandler(e);
-      // console.log(icon);
+      if (icon.classList.contains("completed")) {
+        icon.classList.remove("completed"); // unticks a ticked box.
+      } else {
+        icon.classList.add("completed"); // ticks an unticked box.
+      }
 
-      // const themeButton = e.target.closest('.button')
+      // parent is the button containing icon => sibling is .menu__heading
+      const theme = icon.parentElement.previousElementSibling.textContent;
+
+      if (theme === "Default") {
+        if (theme === this._currentTheme) return; // do nothing
+        document.body.className = "";
+        this._currentTheme = "Default";
+      }
+      if (theme === "Sage green") {
+        if (theme === this._currentTheme) return; // do nothing
+        document.body.className = "";
+        document.body.classList.add("sage-green");
+        this._currentTheme = "sage-green";
+      }
+      if (theme === "Dark mode") {
+        if (theme === this._currentTheme) return; // do nothing
+        document.body.className = "";
+        document.body.classList.add("dark-mode");
+        this._currentTheme = "dark";
+      }
     });
   }
 
@@ -187,12 +211,10 @@ class view {
       const pomodoroInput = document.querySelector(".pomodoro-input");
       const shortBreakInput = document.querySelector(".short-break-input");
       const longBreakInput = document.querySelector(".long-break-input");
-      // console.log(pomodoroInput, shortBreakInput, longBreakInput);
-
-      // const currentDisplayButton = document.querySelector('.mode-active');
 
       resetModeToPomo();
 
+      // Entire app resets back to original pomodoro button state.
       if (inputCheck(pomodoroInput.value)) {
         pomodoroInput.placeholder =
           this._timeLeft =

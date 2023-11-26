@@ -33,18 +33,20 @@ themes: retro, minimal, soft. All having dark themes respectively.
 
   --font-family: "Press Start 2p";
 }
+
 /* 
-.dark {
+*/
+body.dark-mode {
   --primary-color-retro: #000000;
   --primary-color-retro--lighter: #0f0f0f;
-  --secondary-color-retro: #e1e1e1;
-  --secondary-color-retro--darker: #c0c0c0;
-  --secondary-color-retro--darkest: #aaaaaa;
-  --secondary-color-retro--text: #818080;
-  --selection-color-retro: #dddddd;
+  --secondary-color-retro: #c3c1c1;
+  --secondary-color-retro--darker: #525252;
+  --secondary-color-retro--darkest: rgb(55, 55, 55);
+  --secondary-color-retro--text: #949393;
+  --selection-color-retro: #525252;
 }
 
-.green-theme {
+body.sage-green {
   --primary-color-retro: #001818;
   --primary-color-retro--lighter: #001f1e;
   --secondary-color-retro: #02c0bc;
@@ -52,7 +54,7 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --secondary-color-retro--darkest: #004342;
   --secondary-color-retro--text: #01928f;
   --selection-color-retro: #02c4c1;
-} */
+}
 
 ::selection {
   color: #ddd;
