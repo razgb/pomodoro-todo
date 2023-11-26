@@ -1,8 +1,29 @@
+.authorMessage {
+  background-color: antiquewhite;
+  padding: 0.8rem;
+
+  position: absolute;
+
+  top: 50%;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.authorMessage__heading {
+  color: black;
+  font-size: 0.8rem;
+}
+
 .tasks {
   padding: 9.6rem;
 }
 
 .tasks__container {
+  /* ////////////////////////////////////// */
+  /* CHANGE THIS AFTER THE MESSAGE PLEASE */
+  position: relative;
+  /* //////////////// */
+
   max-width: 80rem;
 
   /* Up to change once whole design complete.  */
