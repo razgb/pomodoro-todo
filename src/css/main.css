@@ -56,12 +56,12 @@ body.aquamarine {
   --secondary-color-retro--text: #57a3a2;
   --selection-color-retro: #02c4c1;
 }
-body.dark-mode {
+body.night {
   --primary-color-retro: #000000;
-  --primary-color-retro--lighter: #0f0f0f;
-  --secondary-color-retro: #c3c1c1;
-  --secondary-color-retro--darker: #525252;
-  --secondary-color-retro--darkest: rgb(55, 55, 55);
+  --primary-color-retro--lighter: #000000;
+  --secondary-color-retro: #cccccc;
+  --secondary-color-retro--darker: #6b6a6a;
+  --secondary-color-retro--darkest: #3a3a3a;
   --secondary-color-retro--text: #949393;
   --selection-color-retro: #525252;
 }

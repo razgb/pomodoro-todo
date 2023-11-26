@@ -267,11 +267,11 @@ class view {
         document.body.classList.add("aquamarine");
         this._currentTheme = "Aquamarine";
       }
-      if (theme === "Dark mode") {
+      if (theme === "Night") {
         if (theme === this._currentTheme) return; // do nothing
         document.body.className = "";
-        document.body.classList.add("dark-mode");
-        this._currentTheme = "Dark";
+        document.body.classList.add("night");
+        this._currentTheme = "Night";
       }
     });
   }
