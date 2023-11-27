@@ -99,9 +99,7 @@ body {
 
 .loading-app {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+
   width: 100%;
   height: 100%;
   background-color: var(--primary-color-retro);
@@ -121,6 +119,10 @@ body {
 }
 
 .loading-app__heading {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 3.6rem;
   color: var(--secondary-color-retro);
 }

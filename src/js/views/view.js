@@ -24,13 +24,37 @@ class view {
 
   loadAppAnimation() {
     const loadingContainer = document.querySelector(".loading-app");
+    const loadingHeading = document.querySelector(".loading-app__heading");
+
+    // let i = 0;
+    // const removeAddDots = () => {
+    //   let loading = setInterval(() => {
+    //     if (i === 4) {
+    //       i = 0;
+    //       loadingHeading.textContent = "Loading"; // 3 intentional spaces.
+    //     }
+
+    //     if (i !== 0) {
+    //       loadingHeading.textContent = loadingHeading.textContent + ".";
+    //     }
+
+    //     i++;
+    //   }, 150);
+
+    // const splitHeading = loadingHeading.textContent.split("");
+    // const indexOfFirstBlank = splitHeading.indexOf(" ");
+    // splitHeading[indexOfFirstBlank] = ".";
+    // loadingHeading.textContent = splitHeading.join("");
+    // setTimeout(() => clearInterval(loading), 3000);
+    // };
+    // removeAddDots();
+
     setTimeout(() => {
       loadingContainer.classList.add("loading-hidden");
     }, 1000);
   }
 
-  // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
-  addStartButtonHandler() {
+  addModeButtonsHandler() {
     const modeButtons = document.querySelector(".display__buttons");
 
     // Delegates event to the container of all mode buttons.
@@ -69,6 +93,14 @@ class view {
         this._timerON = false;
       }
     });
+  }
+
+  // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
+  addStartButtonHandler() {
+    const modeButtons = document.querySelector(".display__buttons");
+
+    // Entire function depends on this.
+    const startingMode = document.querySelector(".mode-active").textContent;
 
     this._startButton.addEventListener("click", () => {
       let minutes = this._timeLeft;
@@ -85,7 +117,7 @@ class view {
           this._display.textContent = `${this._timeLeft
             .toString()
             .padStart(2, "0")}:00`;
-          this._startButton.textContent = "START";
+          // this._startButton.textContent = "START";
         }, 1000);
       }
 
@@ -97,19 +129,31 @@ class view {
           return;
         }
 
+        // if (minutes === 0 && seconds === 0 && this._autoShortBreak && this._startPomo)
+
         // WHEN THE USER TURNS ON SHORT BREAK.
-        if (minutes === 0 && seconds === 0 && this._autoShortBreak) {
-          if (i > 0) {
+        if (
+          minutes === 0 &&
+          seconds === 0 &&
+          this._autoShortBreak &&
+          startingMode === "POMODORO"
+        ) {
+          if (i > 0 && !this._autoStartPomo) {
             this._timerON = false;
             this._autoShortBreak = false; // edge case so 2 short breaks don't occur.
             this._display.textContent = "END";
+            modeButtons
+              .querySelectorAll(".button-lg")
+              .forEach((button) => button.classList.remove("mode-active"));
+            document.querySelector(".btn-pomo").classList.add("mode-active");
             setTimeout(
               () =>
-                (this._display.textContent = `${this._timeShortBreak
+                (this._display.textContent = `${this._timePomo
                   .toString()
                   .padStart(2, "0")}:00`),
               1000
             );
+
             return;
           }
 
@@ -118,7 +162,6 @@ class view {
           modeButtons
             .querySelectorAll(".button-lg")
             .forEach((button) => button.classList.remove("mode-active"));
-
           document.querySelector(".btn-short").classList.add("mode-active");
 
           minutes = this._timeShortBreak;
