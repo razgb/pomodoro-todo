@@ -184,7 +184,7 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 50);
+      }, 1000);
     });
   }
 
@@ -370,47 +370,6 @@ class view {
         this._timerON = false;
       }
     });
-
-    /*
-      const configMode = e.target
-      .closest(".menu__input")
-      .parentElement.querySelector(".menu__subbuttons-heading").textContent;
-      
-      if (configMode === "Pomodoro") {
-        if (!inputCheck()) return;
-        
-        this._timeLeft = this._timePomo = userTimeInput;
-        this._timerON = false;
-        this._display.textContent = `${userTimeInput
-          .toString()
-          .padStart(2, "0")}:00`;
-        resetModeToPomo();
-      }
-
-      if (configMode === "Short break") {
-        if (!inputCheck()) return;
-
-        this.timeLeft = this._timeShortBreak = userTimeInput;
-        this._timerON = false;
-        this._display.textContent = `${this._timePomo
-          .toString()
-          .padStart(2, "0")}:00`;
-        resetModeToPomo();
-        resetModeToPomo();
-      }
-
-      if (configMode === "Long break") {
-        if (!inputCheck()) return;
-
-        this.timeLeft = this._timeLongBreak = userTimeInput;
-        this._timerON = false;
-        this._display.textContent = `${this._timePomo
-          .toString()
-          .padStart(2, "0")}:00`;
-        resetModeToPomo();
-        resetModeToPomo();
-      }
-      */
   }
 
   // analytics function() goes here
