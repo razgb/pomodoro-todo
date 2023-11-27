@@ -31,7 +31,15 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --secondary-color-retro--text: #c5505e;
   --selection-color-retro: #fc6677;
 
-  --font-family: "Press Start 2p";
+  /* --primary-color-retro: #0a0301;
+  --primary-color-retro--lighter: #100601;
+  --secondary-color-retro: #f8ce9a;
+  --secondary-color-retro--darker: #97764b;
+  --secondary-color-retro--darkest: #5a462e;
+  --secondary-color-retro--text: #b49d81;
+  --selection-color-retro: rgb(143, 123, 103); */
+
+  --font-family: "Press Start 2p", sans-serif;
 }
 
 /* 
@@ -83,7 +91,7 @@ html {
 
 body {
   /* min-height: 100vh; */
-  font-family: "Press Start 2p", sans-serif;
+  font-family: var(--font-family);
   color: var(--secondary-color-retro);
   background-color: var(--primary-color-retro);
 
@@ -143,7 +151,7 @@ body {
   cursor: pointer;
   color: var(--primary-color-retro);
 
-  font-family: "Press Start 2p", sans-serif;
+  font-family: var(--font-family);
   font-size: 1.4rem;
   background-color: var(--secondary-color-retro);
 
@@ -175,7 +183,7 @@ body {
 
   cursor: pointer;
 
-  font-family: "Press Start 2p", sans-serif;
+  font-family: var(--font-family);
   font-size: 1.6rem;
   color: var(--secondary-color-retro);
   background-color: transparent;

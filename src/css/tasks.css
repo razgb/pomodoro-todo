@@ -67,7 +67,7 @@
   padding: 1.6rem;
 
   color: var(--secondary-color-retro--text);
-  font-family: "Press Start 2p";
+  font-family: var(--font-family);
   font-size: 1.2rem;
   line-height: 1.5;
 

@@ -8,8 +8,8 @@ class view {
   _timerON = false;
   _timeLeft = 25;
 
-  _autoShortBreak = false;
-  _autoStartPomo = false;
+  _autoShortBreak = true;
+  _autoStartPomo = true;
   _removeTasks = false;
   _buttonSounds = true;
 
@@ -121,7 +121,16 @@ class view {
         }, 1000);
       }
 
+      const switchModeTo = function (mode) {
+        // (info) mode name as a string.
+        modeButtons
+          .querySelectorAll(".button-lg")
+          .forEach((button) => button.classList.remove("mode-active"));
+        document.querySelector(`.btn-${mode}`).classList.add("mode-active");
+      };
+
       let i = 0; // used to make autoshortbreak run once.
+      let currentMode = startingMode;
       let timer = setInterval(() => {
         if (!this._timerON) {
           clearInterval(timer);
@@ -129,58 +138,29 @@ class view {
           return;
         }
 
-        // if (minutes === 0 && seconds === 0 && this._autoShortBreak && this._startPomo)
-
-        // WHEN THE USER TURNS ON SHORT BREAK.
-        if (
-          minutes === 0 &&
-          seconds === 0 &&
-          this._autoShortBreak &&
-          startingMode === "POMODORO"
-        ) {
-          if (i > 0 && !this._autoStartPomo) {
-            this._timerON = false;
-            this._autoShortBreak = false; // edge case so 2 short breaks don't occur.
-            this._display.textContent = "END";
-            modeButtons
-              .querySelectorAll(".button-lg")
-              .forEach((button) => button.classList.remove("mode-active"));
-            document.querySelector(".btn-pomo").classList.add("mode-active");
-            setTimeout(
-              () =>
-                (this._display.textContent = `${this._timePomo
-                  .toString()
-                  .padStart(2, "0")}:00`),
-              1000
-            );
-
+        if (minutes === 0 && seconds === 0 && this._autoStartPomo) {
+          if (currentMode === "POMODORO") {
+            switchModeTo("short");
+            minutes = this._timeShortBreak;
+            this._display.textContent = `${this._timeShortBreak
+              .toString()
+              .padStart(2, "0")}:00`;
+            currentMode = "SHORT BREAK";
+            return;
+          } else if (currentMode === "SHORT BREAK") {
+            switchModeTo("pomo");
+            minutes = this._timePomo;
+            this._display.textContent = `${this._timePomo
+              .toString()
+              .padStart(2, "0")}:00`;
+            currentMode = "POMODORO";
             return;
           }
+        }
 
-          this._display.textContent = "END";
+        //
 
-          modeButtons
-            .querySelectorAll(".button-lg")
-            .forEach((button) => button.classList.remove("mode-active"));
-          document.querySelector(".btn-short").classList.add("mode-active");
-
-          minutes = this._timeShortBreak;
-
-          this._display.textContent = `${this._timeShortBreak
-            .toString()
-            .padStart(2, "0")}:00`;
-
-          this._startButton.textContent = "RESET";
-          i++;
-        } // Timer complete.
-
-        // WHEN TIMER ENDS AND BOTH AUTOSHORTBREAK & AUTOSTARTPOMO ARE OFF
-        if (
-          minutes === 0 &&
-          seconds === 0 &&
-          this._autoShortBreak === false &&
-          this._autoStartPomo === false
-        ) {
+        if (minutes === 0 && seconds === 0 && this._autoStartPomo === false) {
           this._timerON = false;
           this._display.textContent = "END";
 
@@ -192,6 +172,8 @@ class view {
           return;
         } // Timer complete.
 
+        //
+
         --seconds;
 
         if (seconds < 0) {
@@ -202,11 +184,11 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 1000);
+      }, 50);
     });
   }
 
-  // ADDS MENU SLIDER /W ANIMATION.s
+  // ADDS MENU SLIDER /W ANIMATIONS
   addMenuSliderHandler() {
     const menuButton = document.querySelector(".menu__hamburger");
     menuButton.addEventListener("click", function () {
@@ -257,8 +239,8 @@ class view {
       // console.log(featureName);
 
       const manageFeature = (boolean) => {
-        if (featureName === "Auto start break") this._autoShortBreak = boolean;
-        if (featureName === "Auto start pomo") this._autoStartPomo = boolean;
+        if (featureName === "Loop pomo & break") this._autoStartPomo = boolean;
+        // if (featureName === "Auto start break") this._autoShortBreak = boolean; OLD CODE
         if (featureName === "Remove tasks") this._removeTasks = boolean;
         if (featureName === "Button sounds") this._buttonSounds = boolean;
       };
@@ -273,7 +255,7 @@ class view {
 
       // (info) To check how code works
       /*
-      console.log(this._autoShortBreak,this._autoStartPomo,this._removeTasks,this._buttonSounds
+      console.log(this._autoStartPomo,this._removeTasks,this._buttonSounds
       );
       */
     });
@@ -435,3 +417,43 @@ class view {
 }
 
 export default new view();
+
+/* 
+  // old legacy app code for memories. 
+
+  else if (
+          minutes === 0 &&
+          seconds === 0 &&
+          this._autoShortBreak &&
+          startingMode === "POMODORO"
+        ) {
+          // WHEN THE USER TURNS ON SHORT BREAK.
+          if (i > 0) {
+            this._timerON = false;
+            this._autoShortBreak = false;
+            this._display.textContent = "END";
+
+            switchModeTo("pomo");
+
+            setTimeout(
+              () =>
+                (this._display.textContent = `${this._timePomo
+                  .toString()
+                  .padStart(2, "0")}:00`),
+              1000
+            );
+            return; // Timer complete.
+          }
+
+          switchModeTo("short");
+
+          minutes = this._timeShortBreak;
+
+          this._display.textContent = `${this._timeShortBreak
+            .toString()
+            .padStart(2, "0")}:00`;
+
+          this._startButton.textContent = "RESET";
+          i++;
+        }
+  */
