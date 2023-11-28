@@ -8,7 +8,6 @@ class view {
   _timerON = false;
   _timeLeft = 25;
 
-  _autoShortBreak = true;
   _autoStartPomo = true;
   _removeTasks = false;
   _buttonSounds = true;
@@ -61,6 +60,7 @@ class view {
     }, 2000);
   }
 
+  // Changes pomodoro modes
   addModeButtonsHandler() {
     const modeButtons = document.querySelector(".display__buttons");
 
@@ -105,7 +105,7 @@ class view {
     });
   }
 
-  // THIS FUNCTION IS RUN BY THE addModeHandler FUNCTION!!!
+  // App works based of start button.
   addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
 
@@ -113,6 +113,13 @@ class view {
     this._startButton.addEventListener("click", () => {
       let minutes = this._timeLeft;
       let seconds = 0;
+      const switchModeTo = function (mode) {
+        // (info) mode name as a string.
+        modeButtons
+          .querySelectorAll(".button-lg")
+          .forEach((button) => button.classList.remove("mode-active"));
+        document.querySelector(`.btn-${mode}`).classList.add("mode-active");
+      };
 
       if (this._startButton.textContent === "START") {
         this._timerON = true; // start button has been clicked
@@ -122,6 +129,7 @@ class view {
       } else {
         this._timerON = false; // reset button has been clicked
         this._display.textContent = "RESET";
+        switchModeTo("pomo");
         setTimeout(() => {
           this._display.textContent = `${this._timeLeft
             .toString()
@@ -132,15 +140,6 @@ class view {
 
       // Has to be defined afer determining what the start button is.
       const startingMode = document.querySelector(".mode-active").textContent;
-      // console.log(startingMode);
-
-      const switchModeTo = function (mode) {
-        // (info) mode name as a string.
-        modeButtons
-          .querySelectorAll(".button-lg")
-          .forEach((button) => button.classList.remove("mode-active"));
-        document.querySelector(`.btn-${mode}`).classList.add("mode-active");
-      };
 
       let i = 0; // used to make the infinite loop run once fully every interval.
       let currentMode = startingMode;
@@ -229,7 +228,7 @@ class view {
     });
   }
 
-  // ADDS MENU SLIDER /W ANIMATIONS
+  // Adds menu slider
   addMenuSliderHandler() {
     const menuButton = document.querySelector(".menu__hamburger");
     menuButton.addEventListener("click", function () {
@@ -305,6 +304,8 @@ class view {
         document.querySelector(".tasks").classList.remove("hidden");
       }
 
+      this._saveUserPreferences();
+
       /* (info) To check how code works
       console.log(this._autoStartPomo,this._removeTasks,this._buttonSounds
       );
@@ -362,6 +363,8 @@ class view {
         document.body.classList.add("light");
         this._currentTheme = "Light";
       }
+
+      this._saveUserPreferences();
     });
   }
 
@@ -392,12 +395,11 @@ class view {
     const applyConfig = document.querySelector(".apply-config");
     applyConfig.addEventListener("click", () => {
       this.timerON = false;
+      resetModeToPomo();
 
       const pomodoroInput = document.querySelector(".pomodoro-input");
       const shortBreakInput = document.querySelector(".short-break-input");
       const longBreakInput = document.querySelector(".long-break-input");
-
-      resetModeToPomo();
 
       // Entire app resets back to original pomodoro button state.
       if (inputCheck(pomodoroInput.value)) {
@@ -407,7 +409,6 @@ class view {
             pomodoroInput.value;
 
         pomodoroInput.value = "";
-        this._timerON = false;
 
         this._display.textContent = `${this._timePomo
           .toString()
@@ -418,13 +419,93 @@ class view {
           shortBreakInput.value;
 
         shortBreakInput.value = "";
-        this._timerON = false;
       }
       if (inputCheck(longBreakInput.value)) {
         longBreakInput.placeholder = this._timeLongBreak = longBreakInput.value;
 
         longBreakInput.value = "";
-        this._timerON = false;
+      }
+
+      this._saveUserPreferences();
+    });
+  }
+
+  // Used at the end of each settings handler to save user settings.
+  _saveUserPreferences() {
+    let data = {
+      loopPomo: this._autoStartPomo,
+      removeTasks: this._removeTasks,
+      buttonSounds: this._buttonSounds,
+      pomoLength: this._timePomo,
+      shortBreakLength: this._timeShortBreak,
+      longBreakLength: this._timeLongBreak,
+      theme: this._currentTheme,
+    };
+
+    localStorage.setItem("data", JSON.stringify(data));
+  }
+
+  loadUserPreferences() {
+    const dataJSON = localStorage.getItem("data");
+    if (!dataJSON) return;
+
+    const data = JSON.parse(dataJSON);
+    // console.log(data);
+
+    this._autoStartPomo = data.loopPomo;
+    this._removeTasks = data.removeTasks;
+    this._buttonSounds = data.buttonSounds;
+
+    this._timeLeft = data.pomoLength;
+    this._timePomo = data.pomoLength;
+    this._timeShortBreak = data.shortBreakLength;
+    this._timeLongBreak = data.longBreakLength;
+
+    this._currentTheme = data.theme;
+
+    // Turning display into time set before:
+    this._display.textContent = `${this._timeLeft
+      .toString()
+      .padStart(2, "0")}:00`;
+
+    // Reflecting settings change on the page:
+    const headings = document.querySelectorAll(".menu__heading");
+    // console.log(headings);
+
+    headings.forEach((heading) => {
+      const icon = heading.nextElementSibling.querySelector(".icon");
+      if (!icon) {
+        const input = heading.nextElementSibling;
+        if (!input) return;
+
+        if (heading.textContent === "Pomodoro") {
+          input.placeholder = this._timePomo;
+        }
+        if (heading.textContent === "Short break") {
+          input.placeholder = this._timeShortBreak;
+        }
+        if (heading.textContent === "Long break") {
+          input.placeholder = this._timeLongBreak;
+        }
+
+        return;
+      }
+
+      // Removing the tick by default for all menu headings:
+      icon.classList.remove("completed");
+
+      if (heading.textContent === "Loop pomo & break") {
+        if (this._autoStartPomo === true) icon.classList.add("completed");
+      }
+      if (heading.textContent === "Remove tasks") {
+        if (this._removeTasks === true) icon.classList.add("completed");
+      }
+      if (heading.textContent === "Button sounds") {
+        if (this._buttonSounds === true) icon.classList.add("completed");
+      }
+      if (heading.textContent === this._currentTheme) {
+        icon.classList.add("completed");
+        document.body.classList.add(heading.textContent.toLowerCase());
       }
     });
   }

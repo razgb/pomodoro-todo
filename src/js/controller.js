@@ -4,7 +4,7 @@ import view from "./views/view.js";
 view.loadAppAnimation();
 
 const init = function () {
-  // In place of this comment there should be a function to load in the browser data.
+  view.loadUserPreferences();
 
   view.addMenuSliderHandler();
 
