@@ -251,6 +251,12 @@ class view {
     menuContainer.addEventListener("click", (e) => {
       const menuTab = e.target.closest(".button-md"); // e.g. settings, theme, config, analytics
       if (!menuTab) return;
+      const menuIcon = menuTab.querySelector(".icon");
+      if (!menuIcon) return;
+
+      // Might change this into an animation by editing only the down class & removing up.
+      menuIcon.classList.toggle("fi-bs-angle-small-down");
+      menuIcon.classList.toggle("fi-bs-angle-small-up");
 
       // Elements that collapse once button is clicked.
       const menuContent =
@@ -270,18 +276,16 @@ class view {
     settingsContainer.addEventListener("click", (e) => {
       const icon = e.target.closest(".task__check")?.querySelector(".icon"); // this is the empty box's icon .
       if (!icon) return;
-      // console.log(icon);
 
       const feature = icon
         .closest(".menu__subbuttons-content")
         .querySelector(".menu__heading");
 
       const featureName = feature.textContent;
-      // console.log(featureName);
 
+      // Only one executes.
       const manageFeature = (boolean) => {
         if (featureName === "Loop pomo & break") this._autoStartPomo = boolean;
-        // if (featureName === "Auto start break") this._autoShortBreak = boolean; OLD CODE
         if (featureName === "Remove tasks") this._removeTasks = boolean;
         if (featureName === "Button sounds") this._buttonSounds = boolean;
       };
@@ -294,8 +298,14 @@ class view {
         manageFeature(true);
       }
 
-      // (info) To check how code works
-      /*
+      // Code to hide the tasks section for minimalism.
+      if (this._removeTasks) {
+        document.querySelector(".tasks").classList.add("hidden");
+      } else {
+        document.querySelector(".tasks").classList.remove("hidden");
+      }
+
+      /* (info) To check how code works
       console.log(this._autoStartPomo,this._removeTasks,this._buttonSounds
       );
       */
