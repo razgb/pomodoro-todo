@@ -18,6 +18,11 @@ class view {
   _timeShortBreak = 5;
   _timeLongBreak = 15;
 
+  // testing values:
+  // _timePomo = 1;
+  // _timeShortBreak = 1;
+  // _timeLongBreak = 15;
+
   _clear() {
     this._parentContainer.innerHTML = "";
   }
@@ -47,13 +52,13 @@ class view {
       const indexOfFirstBlank = splitHeading.indexOf(" ");
       splitHeading[indexOfFirstBlank] = ".";
       loadingHeading.textContent = splitHeading.join("");
-      setTimeout(() => clearInterval(loading), 1500);
+      setTimeout(() => clearInterval(loading), 2000);
     };
     removeAddDots();
 
     setTimeout(() => {
       loadingContainer.classList.add("loading-hidden");
-    }, 1500);
+    }, 2000);
   }
 
   addModeButtonsHandler() {
@@ -78,6 +83,7 @@ class view {
         this._display.textContent = `${this._timePomo
           .toString()
           .padStart(2, "0")}:00`;
+        this._startButton.textContent = "START";
         this._timerON = false;
       }
       if (mode.textContent === "SHORT BREAK") {
@@ -85,6 +91,7 @@ class view {
         this._display.textContent = `${this._timeShortBreak
           .toString()
           .padStart(2, "0")}:00`;
+        this._startButton.textContent = "START";
         this._timerON = false;
       }
       if (mode.textContent === "LONG BREAK") {
@@ -92,6 +99,7 @@ class view {
         this._display.textContent = `${this._timeLongBreak
           .toString()
           .padStart(2, "0")}:00`;
+        this._startButton.textContent = "START";
         this._timerON = false;
       }
     });
@@ -101,9 +109,7 @@ class view {
   addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
 
-    // Entire function depends on this.
-    const startingMode = document.querySelector(".mode-active").textContent;
-
+    // EVENT LISTENER
     this._startButton.addEventListener("click", () => {
       let minutes = this._timeLeft;
       let seconds = 0;
@@ -111,7 +117,8 @@ class view {
       if (this._startButton.textContent === "START") {
         this._timerON = true; // start button has been clicked
         this._display.textContent = "START";
-        setTimeout(() => (this._startButton.textContent = "RESET"), 1000);
+        this._startButton.textContent = "RESET";
+        // setTimeout(() => (this._startButton.textContent = "RESET"), 1000);
       } else {
         this._timerON = false; // reset button has been clicked
         this._display.textContent = "RESET";
@@ -119,9 +126,13 @@ class view {
           this._display.textContent = `${this._timeLeft
             .toString()
             .padStart(2, "0")}:00`;
-          // this._startButton.textContent = "START";
+          this._startButton.textContent = "START";
         }, 1000);
       }
+
+      // Has to be defined afer determining what the start button is.
+      const startingMode = document.querySelector(".mode-active").textContent;
+      // console.log(startingMode);
 
       const switchModeTo = function (mode) {
         // (info) mode name as a string.
@@ -131,33 +142,59 @@ class view {
         document.querySelector(`.btn-${mode}`).classList.add("mode-active");
       };
 
-      let i = 0; // used to make autoshortbreak run once.
+      let i = 0; // used to make the infinite loop run once fully every interval.
       let currentMode = startingMode;
+
       let timer = setInterval(() => {
-        if (!this._timerON) {
+        if (!this._timerON && this._startButton.textContent !== "RESET") {
           clearInterval(timer);
-          this._startButton.textContent = "START";
           return;
         }
 
-        if (minutes === 0 && seconds === 0 && this._autoStartPomo) {
-          if (currentMode === "POMODORO") {
-            switchModeTo("short");
-            minutes = this._timeShortBreak;
-            this._display.textContent = `${this._timeShortBreak
-              .toString()
-              .padStart(2, "0")}:00`;
-            currentMode = "SHORT BREAK";
-            return;
-          } else if (currentMode === "SHORT BREAK") {
-            switchModeTo("pomo");
-            minutes = this._timePomo;
-            this._display.textContent = `${this._timePomo
-              .toString()
-              .padStart(2, "0")}:00`;
-            currentMode = "POMODORO";
-            return;
-          }
+        if (minutes === 0 && seconds === 0 && this._autoStartPomo && i < 1) {
+          i++;
+          this._timerON = false;
+          this._display.textContent = "END";
+
+          let messageIndex = 0;
+          setTimeout(() => {
+            // prettier-ignore
+            const messages = [`${currentMode === "POMODORO" ? "SHORT" : "POMO"}`, `${currentMode === "POMODORO" ? "BREAK" : "DORO"}`,"IN","3","2","1"];
+
+            let timerMessage = setInterval(() => {
+              this._display.textContent = messages[messageIndex];
+              messageIndex++;
+              if (messageIndex > 5) {
+                clearInterval(timerMessage);
+                return;
+              }
+            }, 500); // in total 3000
+          }, 1000);
+
+          setTimeout(() => {
+            // Else if used so only ONE if {} block runs.
+            if (currentMode === "POMODORO") {
+              this._timerON = true;
+              switchModeTo("short");
+              minutes = this._timeShortBreak;
+              currentMode = "SHORT BREAK";
+              this._display.textContent = `${this._timeShortBreak
+                .toString()
+                .padStart(2, "0")}:00`;
+              i = 0;
+              return;
+            } else if (currentMode === "SHORT BREAK") {
+              this._timerON = true;
+              switchModeTo("pomo");
+              minutes = this._timePomo;
+              currentMode = "POMODORO";
+              this._display.textContent = `${this._timePomo
+                .toString()
+                .padStart(2, "0")}:00`;
+              i = 0;
+              return;
+            }
+          }, 4500); // 1000 + 3000 + on purpose 500 to make the last second show nicely.
         }
 
         //
@@ -170,11 +207,13 @@ class view {
             this._display.textContent = `${this._timeShortBreak
               .toString()
               .padStart(2, "0")}:00`;
+            this._startButton.textContent = "START";
           }, 1000);
           return;
         } // Timer complete.
 
-        //
+        // Needed for the infinite timer loop feature
+        if (!this._timerON || i >= 1) return;
 
         --seconds;
 

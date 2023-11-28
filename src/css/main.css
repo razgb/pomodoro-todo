@@ -31,9 +31,6 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --secondary-color-retro--text: #c5505e;
   --selection-color-retro: #fc6677;
 
-  /* --primary-color-retro: #d8cee1; */
-  /* --primary-color-retro: #f5f8fa; */
-
   --font-family: "Press Start 2p", sans-serif;
 }
 
@@ -52,7 +49,6 @@ body.mocha {
 body.aqua {
   --primary-color-retro: #001818;
   --primary-color-retro--lighter: #001f1e;
-  /* --secondary-color-retro: #85d9d8; */
   --secondary-color-retro: #a6f9f7;
   --secondary-color-retro--darker: #689998;
   --secondary-color-retro--darkest: #004342;
@@ -106,8 +102,6 @@ body {
   min-height: 100vh;
 
   z-index: 1;
-
-  /* transition: all; */
 }
 
 .loading-app {
