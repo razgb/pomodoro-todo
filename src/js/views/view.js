@@ -26,32 +26,34 @@ class view {
     const loadingContainer = document.querySelector(".loading-app");
     const loadingHeading = document.querySelector(".loading-app__heading");
 
-    // let i = 0;
-    // const removeAddDots = () => {
-    //   let loading = setInterval(() => {
-    //     if (i === 4) {
-    //       i = 0;
-    //       loadingHeading.textContent = "Loading"; // 3 intentional spaces.
-    //     }
+    // Akar's recommendation: make a flex box that contains the loading text + '...' that are seperate.
 
-    //     if (i !== 0) {
-    //       loadingHeading.textContent = loadingHeading.textContent + ".";
-    //     }
+    let i = 0;
+    const removeAddDots = () => {
+      let loading = setInterval(() => {
+        if (i === 4) {
+          i = 0;
+          loadingHeading.textContent = "Loading"; // 3 intentional spaces.
+        }
 
-    //     i++;
-    //   }, 150);
+        if (i !== 0) {
+          loadingHeading.textContent = loadingHeading.textContent + ".";
+        }
 
-    // const splitHeading = loadingHeading.textContent.split("");
-    // const indexOfFirstBlank = splitHeading.indexOf(" ");
-    // splitHeading[indexOfFirstBlank] = ".";
-    // loadingHeading.textContent = splitHeading.join("");
-    // setTimeout(() => clearInterval(loading), 3000);
-    // };
-    // removeAddDots();
+        i++;
+      }, 150);
+
+      const splitHeading = loadingHeading.textContent.split("");
+      const indexOfFirstBlank = splitHeading.indexOf(" ");
+      splitHeading[indexOfFirstBlank] = ".";
+      loadingHeading.textContent = splitHeading.join("");
+      setTimeout(() => clearInterval(loading), 1500);
+    };
+    removeAddDots();
 
     setTimeout(() => {
       loadingContainer.classList.add("loading-hidden");
-    }, 1000);
+    }, 1500);
   }
 
   addModeButtonsHandler() {
@@ -293,17 +295,23 @@ class view {
         document.body.classList.add("mocha");
         this._currentTheme = "Mocha";
       }
-      if (theme === "Aquamarine") {
+      if (theme === "Aqua") {
         if (theme === this._currentTheme) return; // do nothing
         document.body.className = "";
-        document.body.classList.add("aquamarine");
-        this._currentTheme = "Aquamarine";
+        document.body.classList.add("aqua");
+        this._currentTheme = "Aqua";
       }
       if (theme === "Night") {
         if (theme === this._currentTheme) return; // do nothing
         document.body.className = "";
         document.body.classList.add("night");
         this._currentTheme = "Night";
+      }
+      if (theme === "Light") {
+        if (theme === this._currentTheme) return; // do nothing
+        document.body.className = "";
+        document.body.classList.add("light");
+        this._currentTheme = "Light";
       }
     });
   }

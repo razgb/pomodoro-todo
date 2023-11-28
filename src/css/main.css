@@ -31,13 +31,8 @@ themes: retro, minimal, soft. All having dark themes respectively.
   --secondary-color-retro--text: #c5505e;
   --selection-color-retro: #fc6677;
 
-  /* --primary-color-retro: #0a0301;
-  --primary-color-retro--lighter: #100601;
-  --secondary-color-retro: #f8ce9a;
-  --secondary-color-retro--darker: #97764b;
-  --secondary-color-retro--darkest: #5a462e;
-  --secondary-color-retro--text: #b49d81;
-  --selection-color-retro: rgb(143, 123, 103); */
+  /* --primary-color-retro: #d8cee1; */
+  /* --primary-color-retro: #f5f8fa; */
 
   --font-family: "Press Start 2p", sans-serif;
 }
@@ -54,7 +49,7 @@ body.mocha {
   --secondary-color-retro--text: #b49d81;
   --selection-color-retro: rgb(143, 123, 103);
 }
-body.aquamarine {
+body.aqua {
   --primary-color-retro: #001818;
   --primary-color-retro--lighter: #001f1e;
   /* --secondary-color-retro: #85d9d8; */
@@ -72,6 +67,16 @@ body.night {
   --secondary-color-retro--darkest: #3a3a3a;
   --secondary-color-retro--text: #949393;
   --selection-color-retro: #525252;
+}
+body.light {
+  --primary-color-retro: #e5f2fc;
+  --primary-color-retro--lighter: #f1f8fd;
+  --secondary-color-retro: #7cc1ec;
+  --secondary-color-retro--darker: #6fadd4;
+  --secondary-color-retro--darkest: #e5ecf3;
+
+  --secondary-color-retro--text: #77b9e2;
+  --selection-color-retro: #918f8f;
 }
 
 ::selection {
@@ -118,7 +123,6 @@ body {
   visibility: visible;
   transition: opacity 0.3s, visibility 0.3s;
 }
-
 .loading-app.loading-hidden {
   /* display: none; */
   opacity: 0;
@@ -126,14 +130,25 @@ body {
   transition: opacity 0.3s, visibility 0s 0.3s; /* Delay the visibility change */
 }
 
-.loading-app__heading {
+.loading-app__container {
   position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translateX(-50%);
+  display: flex;
+}
+
+.loading-app__wall {
+  width: 40vw;
+  height: 100vh;
+  /* background-color: rgb(248, 195, 175); */
+  /* padding: 1rem; */
+}
+
+.loading-app__heading {
+  margin-top: 40vh;
   font-size: 3.6rem;
   color: var(--secondary-color-retro);
 }
+
+/*  */
 
 .main {
   position: relative;
