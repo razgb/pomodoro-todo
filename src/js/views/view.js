@@ -499,6 +499,7 @@ class view {
       }
       if (heading.textContent === "Remove tasks") {
         if (this._removeTasks === true) icon.classList.add("completed");
+        document.querySelector(".tasks").classList.add("hidden");
       }
       if (heading.textContent === "Button sounds") {
         if (this._buttonSounds === true) icon.classList.add("completed");
