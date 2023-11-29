@@ -480,12 +480,15 @@ class view {
 
         if (heading.textContent === "Pomodoro") {
           input.placeholder = this._timePomo;
+          return;
         }
         if (heading.textContent === "Short break") {
           input.placeholder = this._timeShortBreak;
+          return;
         }
         if (heading.textContent === "Long break") {
           input.placeholder = this._timeLongBreak;
+          return;
         }
 
         return;
@@ -495,20 +498,35 @@ class view {
       icon.classList.remove("completed");
 
       if (heading.textContent === "Loop pomo & break") {
-        if (this._autoStartPomo === true) icon.classList.add("completed");
+        if (this._autoStartPomo === true) {
+          icon.classList.add("completed");
+          return;
+        }
       }
       if (heading.textContent === "Remove tasks") {
-        if (this._removeTasks === true) icon.classList.add("completed");
-        document.querySelector(".tasks").classList.add("hidden");
+        if (this._removeTasks === true) {
+          icon.classList.add("completed");
+          document.querySelector(".tasks").classList.add("hidden");
+          return;
+        }
       }
       if (heading.textContent === "Button sounds") {
-        if (this._buttonSounds === true) icon.classList.add("completed");
+        if (this._buttonSounds === true) {
+          icon.classList.add("completed");
+          return;
+        }
       }
       if (heading.textContent === this._currentTheme) {
         icon.classList.add("completed");
         document.body.classList.add(heading.textContent.toLowerCase());
       }
     });
+
+    // bring menu back to page's z-index:
+    document.querySelector(".menu").style.zIndex = 0;
+
+    // Show HTML after loading setings finish.
+    document.querySelector(".main").style.display = "block";
   }
 
   // analytics function() goes here
@@ -518,7 +536,7 @@ export default new view();
 
 /* 
   // old legacy app code for memories. 
-
+  
   else if (
           minutes === 0 &&
           seconds === 0 &&

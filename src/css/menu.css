@@ -9,6 +9,9 @@
   transform: translateX(-110%);
   min-height: 100vh;
 
+  /* Will change back to 0 once page loads in */
+  z-index: -1;
+
   transition: all 0.2s ease-in-out;
 }
 
