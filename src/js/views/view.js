@@ -25,10 +25,6 @@ class view {
   _timeStudiedAllTime = 0; // (Seconds) Updated by the localStorage
   _currentYear = 2023;
 
-  _clear() {
-    this._parentContainer.innerHTML = "";
-  }
-
   loadAppAnimation() {
     const loadingContainer = document.querySelector(".loading-app");
     const loadingHeading = document.querySelector(".loading-app__heading");
@@ -260,6 +256,67 @@ class view {
     });
   }
 
+  addTaskHandler() {
+    const openTasksButton = document.querySelector(".open-tasks");
+    openTasksButton.addEventListener("click", (e) => {
+      document
+        .querySelector(".open-tasks-container")
+        .classList.toggle("hidden");
+
+      openTasksButton.querySelector(".icon").classList.toggle("open");
+    });
+
+    const openTasksContainer = document.querySelector(".open-tasks-container");
+    openTasksContainer.addEventListener("click", (e) => {
+      const icon = e.target.closest(".task__check")?.querySelector(".icon"); // this is the empty box's icon .
+      if (icon) {
+        if (icon.classList.contains("completed")) {
+          icon.classList.remove("completed"); // unticks a ticked box.
+          return;
+        } else {
+          icon.classList.add("completed"); // ticks an unticked box.
+          return;
+        }
+      }
+
+      const taskHeadingButton = e.target.closest(".button-md");
+      if (taskHeadingButton) {
+        const textArea = taskHeadingButton.parentElement.nextElementSibling;
+        textArea.classList.toggle("hidden");
+
+        // const taskHeadingButtonIcon = taskHeadingButton.
+        taskHeadingButton.querySelector(".icon").classList.toggle("open");
+        return;
+      }
+
+      const addTaskButton = e.target.closest(".add-task-button");
+      if (addTaskButton) {
+        // Hide the task button
+        addTaskButton.classList.add("hidden");
+
+        // Show the task creator
+        openTasksContainer
+          .querySelector(".task-form")
+          .classList.remove("hidden");
+        openTasksContainer
+          .querySelector(".close-task-button")
+          .classList.remove("hidden");
+      }
+
+      const closeTaskButton = e.target.closest(".close-task-button");
+      if (closeTaskButton) {
+        // hide the task creator
+        closeTaskButton.classList.add("hidden");
+        openTasksContainer.querySelector(".task-form").classList.add("hidden");
+
+        // show the task button
+        openTasksContainer
+          .querySelector(".add-task-button")
+          .classList.remove("hidden");
+      }
+    });
+  }
+
   // Adds menu slider
   addMenuSliderHandler() {
     const menuButton = document.querySelector(".menu__hamburger");
@@ -285,9 +342,8 @@ class view {
       const menuIcon = menuTab.querySelector(".icon");
       if (!menuIcon) return;
 
-      // Might change this into an animation by editing only the down class & removing up.
-      menuIcon.classList.toggle("fi-bs-angle-small-down");
-      menuIcon.classList.toggle("fi-bs-angle-small-up");
+      // Might change this into an animation by editing only the down class with transitions
+      menuIcon.classList.toggle("open");
 
       // Elements that collapse once button is clicked.
       const menuContent =
@@ -484,6 +540,7 @@ class view {
     };
   }
 
+  // TURN INTO PRIVATE FUNCTION IN FREE TIME
   // Time argument: Time passed based off this._timerON. If a time didn't fully finish then the time difference will be recorded.
   addToAnalytics(minutes) {
     const mins = Number(minutes);

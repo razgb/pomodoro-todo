@@ -8,6 +8,7 @@ const init = function () {
 
   view.loadUserPreferences();
 
+  view.addTaskHandler();
   view.addMenuSliderHandler();
 
   view.addModeButtonsHandler();

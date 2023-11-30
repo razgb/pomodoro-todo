@@ -230,11 +230,9 @@
 
         <div class="tasks grid">
           <div class="tasks__container container">
-            <div class="authorMessage">
+            <!-- <div class="authorMessage">
               <h2 class="authorMessage__heading">- Under development -</h2>
-            </div>
-
-            <!-- ///////////////////////////////////////// -->
+            </div> -->
 
             <button class="button-md open-tasks">
               <i class="icon fi fi-bs-angle-small-down"></i>
@@ -245,7 +243,7 @@
               <div class="task">
                 <div class="task__heading">
                   <button class="button-md">
-                    <i class="icon fi fi-bs-angle-small-down open"></i>
+                    <i class="icon fi fi-bs-angle-small-down"></i>
                     <span>Study anatomy</span>
                   </button>
                   <button class="task__check">
@@ -253,7 +251,7 @@
                   </button>
                 </div>
                 <textarea
-                  class="task__content"
+                  class="task__content hidden"
                   placeholder="Add a note..."
                 ></textarea>
               </div>
@@ -261,7 +259,7 @@
               <div class="task">
                 <div class="task__heading">
                   <button class="button-md">
-                    <i class="icon fi fi-bs-angle-small-down open"></i>
+                    <i class="icon fi fi-bs-angle-small-down"></i>
                     <span>Powerpoints</span>
                   </button>
                   <button class="task__check">
@@ -269,7 +267,7 @@
                   </button>
                 </div>
                 <textarea
-                  class="task__content"
+                  class="task__content hidden"
                   placeholder="Add a note..."
                 ></textarea>
               </div>
@@ -279,7 +277,6 @@
                   <button class="button-md">
                     <i class="icon fi fi-bs-angle-small-down"></i>
                     <span>Review HTML</span>
-                    <span class="task__heading-completed"> - complete -</span>
                   </button>
                   <button class="task__check">
                     <i class="icon fi fi-bs-check completed"></i>
@@ -292,11 +289,11 @@
               </div>
 
               <!-- This makes a new form to add a new task. -->
-              <div class="add-task">
-                <!-- <button class="button-lg open-task">ADD TASK</button> -->
-                <button class="button-lg open-task">X</button>
-                <div class="task-form">
-                  <button class="button-lg submit-task">SUBMIT</button>
+              <div class="add-task-container">
+                <button class="button-lg add-task-button">ADD TASK</button>
+                <button class="button-lg close-task-button hidden">X</button>
+                <div class="task-form hidden">
+                  <button class="button-lg submit-task-button">SUBMIT</button>
                   <textarea
                     class="task__content"
                     placeholder="What are you working on?"
