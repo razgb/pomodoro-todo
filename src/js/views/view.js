@@ -17,10 +17,13 @@ class view {
   _timeShortBreak = 5;
   _timeLongBreak = 15;
 
-  // testing values:
-  // _timePomo = 1;
-  // _timeShortBreak = 1;
-  // _timeLongBreak = 15;
+  // this just initialises the day.
+  _day = 0;
+
+  _timeStudiedToday = 0; // (seconds)
+  _sessionsToday = 0;
+  _timeStudiedAllTime = 0; // (Seconds) Updated by the localStorage
+  _currentYear = 2023;
 
   _clear() {
     this._parentContainer.innerHTML = "";
@@ -155,6 +158,18 @@ class view {
           this._timerON = false;
           this._display.textContent = "END";
 
+          if (startingMode === "LONG BREAK") {
+            switchModeTo("pomo");
+
+            setTimeout(() => {
+              this._display.textContent = `${this._timePomo
+                .toString()
+                .padStart(2, "0")}:00`;
+              this._startButton.textContent = "START";
+            }, 1000);
+            return;
+          }
+
           let messageIndex = 0;
           setTimeout(() => {
             // prettier-ignore
@@ -175,7 +190,11 @@ class view {
             if (currentMode === "POMODORO") {
               this._timerON = true;
               switchModeTo("short");
+
               minutes = this._timeShortBreak;
+              this.addToAnalytics(minutes); // Live display to user.
+              this._saveUserPreferences(); // Only save minutes in study sessions.
+
               currentMode = "SHORT BREAK";
               this._display.textContent = `${this._timeShortBreak
                 .toString()
@@ -186,6 +205,7 @@ class view {
               this._timerON = true;
               switchModeTo("pomo");
               minutes = this._timePomo;
+
               currentMode = "POMODORO";
               this._display.textContent = `${this._timePomo
                 .toString()
@@ -198,12 +218,24 @@ class view {
 
         //
 
-        if (minutes === 0 && seconds === 0 && this._autoStartPomo === false) {
+        if (
+          minutes === 0 &&
+          seconds === 0 &&
+          this._autoStartPomo === false &&
+          i < 1
+        ) {
+          i++;
           this._timerON = false;
           this._display.textContent = "END";
+          switchModeTo("pomo");
 
+          if (startingMode === "POMODORO") {
+            console.log(this._timePomo);
+            this.addToAnalytics(this._timePomo);
+            this._saveUserPreferences();
+          }
           setTimeout(() => {
-            this._display.textContent = `${this._timeShortBreak
+            this._display.textContent = `${this._timePomo
               .toString()
               .padStart(2, "0")}:00`;
             this._startButton.textContent = "START";
@@ -224,7 +256,7 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 1000);
+      }, 50);
     });
   }
 
@@ -430,6 +462,77 @@ class view {
     });
   }
 
+  _calculateTimePassed(seconds) {
+    if (!Number.isInteger(0)) return false;
+    const dayCalculation = seconds / 3600 / 24;
+    const totalDays = Math.trunc(dayCalculation); // 0.34 days = 0, 1.23 days = 1.
+
+    const hourCalculation = Math.trunc(seconds / 3600);
+    const totalHours =
+      hourCalculation > 24 ? hourCalculation - 24 * totalDays : hourCalculation;
+
+    const minuteCalculation = seconds / 60;
+    const totalMins =
+      minuteCalculation > 60
+        ? Math.round(minuteCalculation - 60 * hourCalculation)
+        : Math.round(minuteCalculation);
+
+    return {
+      days: totalDays,
+      hours: totalHours,
+      minutes: totalMins,
+    };
+  }
+
+  // Time argument: Time passed based off this._timerON. If a time didn't fully finish then the time difference will be recorded.
+  addToAnalytics(minutes) {
+    const mins = Number(minutes);
+
+    const date = new Date();
+    const day = date.getDay();
+    // console.log(day, this._day);
+    if (day !== this._day) {
+      this._day = day;
+      this._timeStudiedToday = 0;
+      this._sessionsToday = 0;
+    }
+
+    this._timeStudiedToday += mins * 60;
+    this._timeStudiedAllTime += mins * 60; // adds the total time today on to itself.
+    if (mins !== 0) ++this._sessionsToday;
+
+    // These are not the total hours & mins.
+    const currentTimePassed = this._calculateTimePassed(this._timeStudiedToday);
+    const allTimePassed = this._calculateTimePassed(this._timeStudiedAllTime);
+
+    const currentHours = currentTimePassed.hours;
+    const currentMinutes = currentTimePassed.minutes;
+
+    const daysAllTime = allTimePassed.days;
+    const hoursAllTime = allTimePassed.hours;
+    const minutesAllTime = allTimePassed.minutes;
+
+    const analyticsHeadings = document
+      .querySelector(".analytics-box")
+      .querySelectorAll(".menu__heading");
+    analyticsHeadings.forEach((index) => {
+      const heading = index.textContent;
+      const text = index.nextElementSibling;
+
+      if (heading === "Time studied today:") {
+        text.textContent = `${currentHours} hrs, ${currentMinutes} mins`;
+      }
+      if (heading === "Sessions today:") {
+        text.textContent = `${this._sessionsToday} ${
+          this._sessionsToday > 1 ? "sessions" : "session"
+        }`;
+      }
+      if (heading === `Total time (${this._currentYear}):`) {
+        text.textContent = `${daysAllTime}d, ${hoursAllTime}h, ${minutesAllTime}m`;
+      }
+    });
+  }
+
   // Used at the end of each settings handler to save user settings.
   _saveUserPreferences() {
     let data = {
@@ -440,38 +543,53 @@ class view {
       shortBreakLength: this._timeShortBreak,
       longBreakLength: this._timeLongBreak,
       theme: this._currentTheme,
+
+      day: this._day,
+
+      timeStudiedToday: this._timeStudiedToday,
+      sessionsToday: this._sessionsToday,
+      timeStudiedAllTime: this._timeStudiedAllTime,
     };
 
     localStorage.setItem("data", JSON.stringify(data));
   }
 
   loadUserPreferences() {
+    // bring menu back to page's z-index:
+    document.querySelector(".menu").style.zIndex = 0;
+
+    // Show HTML after loading setings finish.
+    document.querySelector(".main").style.display = "block";
+
     const dataJSON = localStorage.getItem("data");
     if (!dataJSON) return;
-
     const data = JSON.parse(dataJSON);
-    // console.log(data);
+    console.log(data);
 
     this._autoStartPomo = data.loopPomo;
     this._removeTasks = data.removeTasks;
     this._buttonSounds = data.buttonSounds;
-
     this._timeLeft = data.pomoLength;
     this._timePomo = data.pomoLength;
     this._timeShortBreak = data.shortBreakLength;
     this._timeLongBreak = data.longBreakLength;
-
     this._currentTheme = data.theme;
 
-    // Turning display into time set before:
+    this._day = data.day;
+    this._timeStudiedToday = data.timeStudiedToday;
+    this._sessionsToday = data.sessionsToday;
+    this._timeStudiedAllTime = data.timeStudiedAllTime;
+
+    // Turning display into pomo time set in last session:
     this._display.textContent = `${this._timeLeft
       .toString()
       .padStart(2, "0")}:00`;
 
-    // Reflecting settings change on the page:
-    const headings = document.querySelectorAll(".menu__heading");
-    // console.log(headings);
+    // Little trick: 0 minutes added.
+    this.addToAnalytics(0);
 
+    // APPLIES ALL CODE WRITTEN ABOVE TO EACH SETTING.
+    const headings = document.querySelectorAll(".menu__heading");
     headings.forEach((heading) => {
       const icon = heading.nextElementSibling.querySelector(".icon");
       if (!icon) {
@@ -521,12 +639,10 @@ class view {
         document.body.classList.add(heading.textContent.toLowerCase());
       }
     });
+  }
 
-    // bring menu back to page's z-index:
-    document.querySelector(".menu").style.zIndex = 0;
-
-    // Show HTML after loading setings finish.
-    document.querySelector(".main").style.display = "block";
+  resetUserPreferences() {
+    localStorage.setItem("data", "");
   }
 
   // analytics function() goes here
@@ -534,42 +650,22 @@ class view {
 
 export default new view();
 
-/* 
-  // old legacy app code for memories. 
-  
-  else if (
-          minutes === 0 &&
-          seconds === 0 &&
-          this._autoShortBreak &&
-          startingMode === "POMODORO"
-        ) {
-          // WHEN THE USER TURNS ON SHORT BREAK.
-          if (i > 0) {
-            this._timerON = false;
-            this._autoShortBreak = false;
-            this._display.textContent = "END";
-
-            switchModeTo("pomo");
-
-            setTimeout(
-              () =>
-                (this._display.textContent = `${this._timePomo
-                  .toString()
-                  .padStart(2, "0")}:00`),
-              1000
-            );
-            return; // Timer complete.
-          }
-
-          switchModeTo("short");
-
-          minutes = this._timeShortBreak;
-
-          this._display.textContent = `${this._timeShortBreak
-            .toString()
-            .padStart(2, "0")}:00`;
-
-          this._startButton.textContent = "RESET";
-          i++;
-        }
-  */
+/*     const currentTimePassed = this._calculateTimePassed(this._timeStudiedToday);
+    const allTimePassed = this._calculateTimePassed(this._timeStudiedAllTime);
+    const currentHours = currentTimePassed.hours;
+    const currentMinutes = currentTimePassed.minutes;
+    const daysAllTime = allTimePassed.days;
+    const hoursAllTime = allTimePassed.hours;
+    const minutesAllTime = allTimePassed.minutes;
+    if (heading.textContent === "Time studied today:") {
+      heading.nextElementSibling.textContent = `${currentHours} hrs, ${currentMinutes} mins`;
+    }
+    if (heading.textContent === "Sessions today:") {
+      heading.nextElementSibling.textContent = `${this._sessionsToday} ${
+        this._sessionsToday > 0 ? "sessions" : "session"
+      }`;
+    }
+    if (heading.textContent === "Time studied today:") {
+      heading.nextElementSibling.textContent = `${daysAllTime}d, ${hoursAllTime}h, ${minutesAllTime}m`;
+    }
+*/

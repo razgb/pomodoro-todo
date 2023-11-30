@@ -14,11 +14,6 @@ padding:
   - small 1.2rem 2.4rem (buttons)
   - medium 
   - large 6.4rem (timer)
-
-themes: retro, minimal, soft. All having dark themes respectively. 
-
-
-
 */
 
 /* --secondary-color-retro: #78348a; */
@@ -76,7 +71,7 @@ body.light {
 }
 
 ::selection {
-  color: #ddd;
+  color: #fff;
   background-color: var(--selection-color-retro);
 }
 
