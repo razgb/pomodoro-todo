@@ -677,6 +677,7 @@ class view {
       shortBreakLength: this._timeShortBreak,
       longBreakLength: this._timeLongBreak,
       theme: this._currentTheme,
+      version: this._version,
 
       day: this._day,
 
@@ -697,15 +698,19 @@ class view {
 
     let dataJSON = localStorage.getItem("data");
     if (!dataJSON) return;
+    const data = JSON.parse(dataJSON);
 
-    if (this._version !== 1) {
+    // for past beta version users.
+    if (!data.version) {
       this.resetUserPreferences();
       this._version = 1;
+      this._saveUserPreferences();
       return;
     }
 
-    const data = JSON.parse(dataJSON);
     console.log(data);
+
+    this._version = data.version;
 
     this._autoStartPomo = data.loopPomo;
     this._removeTasks = data.removeTasks;
