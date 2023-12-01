@@ -700,12 +700,9 @@ class view {
     if (!dataJSON) return;
     const data = JSON.parse(dataJSON);
 
-    // for past beta version users.
     if (!data.version) {
       this.resetUserPreferences();
-      this._version = 1;
-      this._saveUserPreferences();
-      return;
+      this._version = data.version = 1;
     }
 
     console.log(data);
@@ -725,8 +722,6 @@ class view {
     this._timeStudiedToday = data.timeStudiedToday;
     this._sessionsToday = data.sessionsToday;
     this._timeStudiedAllTime = data.timeStudiedAllTime;
-
-    // Reset user preferences if version not 1.0
 
     // Turning display into pomo time set in last session:
     this._display.textContent = `${this._timeLeft

@@ -3,6 +3,7 @@ import view from "./views/view.js";
 view.loadAppAnimation();
 
 const init = function () {
+  // view.resetUserPreferences();
   view.loadUserPreferences();
 
   view.addTaskContainerHandler();
