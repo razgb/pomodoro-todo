@@ -29,8 +29,6 @@ class view {
     const loadingContainer = document.querySelector(".loading-app");
     const loadingHeading = document.querySelector(".loading-app__heading");
 
-    // Akar's recommendation: make a flex box that contains the loading text + '...' that are seperate.
-
     let i = 0;
     const removeAddDots = () => {
       let loading = setInterval(() => {
