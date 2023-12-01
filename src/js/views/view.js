@@ -1,4 +1,6 @@
 class view {
+  _version = 0;
+
   _parentContainer = "";
   _currentTheme = "Default";
   _menuState = false;
@@ -693,8 +695,15 @@ class view {
     // Show HTML after loading setings finish.
     document.querySelector(".main").style.display = "block";
 
-    const dataJSON = localStorage.getItem("data");
+    let dataJSON = localStorage.getItem("data");
     if (!dataJSON) return;
+
+    if (this._version !== 1) {
+      this.resetUserPreferences();
+      this._version = 1;
+      return;
+    }
+
     const data = JSON.parse(dataJSON);
     console.log(data);
 
@@ -711,6 +720,8 @@ class view {
     this._timeStudiedToday = data.timeStudiedToday;
     this._sessionsToday = data.sessionsToday;
     this._timeStudiedAllTime = data.timeStudiedAllTime;
+
+    // Reset user preferences if version not 1.0
 
     // Turning display into pomo time set in last session:
     this._display.textContent = `${this._timeLeft
