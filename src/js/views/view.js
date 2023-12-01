@@ -252,72 +252,149 @@ class view {
         this._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 50);
+      }, 1000);
     });
   }
 
-  addTaskHandler() {
+  addTaskContainerHandler() {
     const openTasksButton = document.querySelector(".open-tasks");
     openTasksButton.addEventListener("click", (e) => {
       document
-        .querySelector(".open-tasks-container")
+        .querySelector(".open-tasks__container")
         .classList.toggle("hidden");
 
       openTasksButton.querySelector(".icon").classList.toggle("open");
     });
 
-    const openTasksContainer = document.querySelector(".open-tasks-container");
+    const openTasksContainer = document.querySelector(".open-tasks__container");
     openTasksContainer.addEventListener("click", (e) => {
-      const icon = e.target.closest(".task__check")?.querySelector(".icon"); // this is the empty box's icon .
+      const checkBox = e.target.closest(".task__check");
+      const icon = checkBox?.querySelector(".icon"); // this is the empty box's icon .
+
       if (icon) {
+        const textArea = checkBox
+          .closest(".task")
+          .querySelector(".task__textarea");
+        const headingText =
+          icon.parentElement.previousElementSibling.querySelector(
+            ".heading-text"
+          );
+        const headingIcon = headingText.previousElementSibling;
+
+        // IF CHECKED: MAKE EVERYTHING DARKER ELSE MAKE EVERYTHING BACK TO NORMAL
         if (icon.classList.contains("completed")) {
           icon.classList.remove("completed"); // unticks a ticked box.
+          headingText.style.color = "var(--secondary-color-retro)";
+          headingIcon.style.color = "var(--secondary-color-retro)";
+          icon.style.color = "transparent";
+          checkBox.style.border = "3px solid var(--secondary-color-retro)";
           return;
         } else {
           icon.classList.add("completed"); // ticks an unticked box.
+          headingText.style.color = "var(--secondary-color-retro--darker)";
+          headingIcon.style.color = "var(--secondary-color-retro--darker)";
+          icon.style.color = "var(--secondary-color-retro--darker)";
+          checkBox.style.border =
+            "3px solid var(--secondary-color-retro--darker)";
+          textArea.classList.add("hidden");
           return;
         }
       }
 
       const taskHeadingButton = e.target.closest(".button-md");
-      if (taskHeadingButton) {
+      if (taskHeadingButton && taskHeadingButton.textContent !== "CANCEL") {
         const textArea = taskHeadingButton.parentElement.nextElementSibling;
         textArea.classList.toggle("hidden");
-
-        // const taskHeadingButtonIcon = taskHeadingButton.
         taskHeadingButton.querySelector(".icon").classList.toggle("open");
         return;
       }
 
-      const addTaskButton = e.target.closest(".add-task-button");
-      if (addTaskButton) {
-        // Hide the task button
-        addTaskButton.classList.add("hidden");
+      const submitTaskButton = openTasksContainer.querySelector(
+        ".submit-task-button"
+      );
+      const addTaskButton =
+        openTasksContainer.querySelector(".add-task-button");
+      const cancelTaskButton = openTasksContainer.querySelector(
+        ".cancel-task-button"
+      );
+      const addTaskForm = openTasksContainer.querySelector(".add-task__form");
 
-        // Show the task creator
-        openTasksContainer
-          .querySelector(".task-form")
-          .classList.remove("hidden");
-        openTasksContainer
-          .querySelector(".close-task-button")
-          .classList.remove("hidden");
+      if (e.target.closest(".cancel-task-button") === cancelTaskButton) {
+        addTaskButton.classList.remove("hidden");
+        cancelTaskButton.classList.add("hidden");
+        submitTaskButton.classList.add("hidden");
+        addTaskForm.classList.add("hidden");
+        return;
       }
 
-      const closeTaskButton = e.target.closest(".close-task-button");
-      if (closeTaskButton) {
+      if (e.target.closest(".add-task-button") === addTaskButton) {
+        addTaskButton.classList.add("hidden");
+        submitTaskButton.classList.remove("hidden");
+        cancelTaskButton.classList.remove("hidden");
+        addTaskForm.classList.remove("hidden");
+        return;
+      }
+    });
+  }
+
+  addTaskFormHandler() {
+    const openTasksContainer = document.querySelector(".open-tasks__container");
+
+    const taskForm = document.querySelector(".add-task__form");
+    ["click", "submit"].forEach((ev) =>
+      taskForm.addEventListener(ev, (e) => {
+        e.preventDefault();
+
+        const submit = e.target.closest(".submit-task-button");
+        if (!submit) return;
+        const taskInput = taskForm.querySelector(".add-task__input");
+        if (!taskInput.value) return;
+
+        // hide the submit button
+        openTasksContainer
+          .querySelector(".submit-task-button")
+          .classList.add("hidden");
+
         // hide the task creator
-        closeTaskButton.classList.add("hidden");
-        openTasksContainer.querySelector(".task-form").classList.add("hidden");
+        openTasksContainer
+          .querySelector(".add-task__form")
+          .classList.add("hidden");
 
         // show the task button
         openTasksContainer
           .querySelector(".add-task-button")
           .classList.remove("hidden");
-      }
-    });
+
+        const markup = `
+      <div class="task">
+      <div class="task__heading">
+      <button class="button-md">
+      <i class="icon fi fi-bs-angle-small-down open"></i>
+      <span class="heading-text">${taskInput.value}</span>
+      </button>
+      <button class="task__check">
+      <i class="icon fi fi-bs-check"></i>
+      </button>
+      </div>
+      <textarea
+      class="task__textarea"
+      placeholder="Add a note..."
+      ></textarea>
+      </div>
+      `;
+        taskInput.value = "";
+
+        taskForm.insertAdjacentHTML("beforebegin", markup);
+      })
+    );
   }
 
-  // Adds menu slider
+  // ////////////////////////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////////////////////////
+  // ////////////////////////////////////////////////////////////////////////////////////////////
+
   addMenuSliderHandler() {
     const menuButton = document.querySelector(".menu__hamburger");
     menuButton.addEventListener("click", function () {
@@ -701,8 +778,6 @@ class view {
   resetUserPreferences() {
     localStorage.setItem("data", "");
   }
-
-  // analytics function() goes here
 }
 
 export default new view();

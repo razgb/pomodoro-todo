@@ -8,12 +8,13 @@ const init = function () {
 
   view.loadUserPreferences();
 
-  view.addTaskHandler();
-  view.addMenuSliderHandler();
+  view.addTaskContainerHandler();
+  view.addTaskFormHandler();
 
-  view.addModeButtonsHandler();
   view.addStartButtonHandler();
 
+  view.addMenuSliderHandler();
+  view.addModeButtonsHandler();
   view.addMenuConfigHandler();
   view.addMenuSettingsHandler();
   view.addMenuThemeHandler();

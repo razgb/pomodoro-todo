@@ -238,69 +238,36 @@
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>TASKS</span>
             </button>
-
-            <div class="open-tasks-container">
-              <div class="task">
+            
+            <div class="open-tasks__container">
+              <div class="task hidden">
                 <div class="task__heading">
                   <button class="button-md">
                     <i class="icon fi fi-bs-angle-small-down"></i>
-                    <span>Study anatomy</span>
+                    <span class="heading-text">Study anatomy</span>
                   </button>
                   <button class="task__check">
                     <i class="icon fi fi-bs-check"></i>
                   </button>
                 </div>
                 <textarea
-                  class="task__content hidden"
+                  class="task__textarea hidden"
                   placeholder="Add a note..."
                 ></textarea>
               </div>
 
-              <div class="task">
-                <div class="task__heading">
-                  <button class="button-md">
-                    <i class="icon fi fi-bs-angle-small-down"></i>
-                    <span>Powerpoints</span>
-                  </button>
-                  <button class="task__check">
-                    <i class="icon fi fi-bs-check"></i>
-                  </button>
-                </div>
-                <textarea
-                  class="task__content hidden"
-                  placeholder="Add a note..."
-                ></textarea>
-              </div>
-
-              <div class="task">
-                <div class="task__heading">
-                  <button class="button-md">
-                    <i class="icon fi fi-bs-angle-small-down"></i>
-                    <span>Review HTML</span>
-                  </button>
-                  <button class="task__check">
-                    <i class="icon fi fi-bs-check completed"></i>
-                  </button>
-                </div>
-                <textarea
-                  class="task__content hidden"
-                  placeholder="Add a note..."
-                ></textarea>
-              </div>
-
-              <!-- This makes a new form to add a new task. -->
-              <div class="add-task-container">
-                <button class="button-lg add-task-button">ADD TASK</button>
-                <button class="button-lg close-task-button hidden">X</button>
-                <div class="task-form hidden">
+              <div class="add-task__container">
+                <form class="add-task__form">
+                  <input
+                  class="add-task__input"
+                  placeholder="What are you working on?"
+                  ></input>
+                  <span class="button-md cancel-task-button hidden">CANCEL</span>
                   <button class="button-lg submit-task-button">SUBMIT</button>
-                  <textarea
-                    class="task__content"
-                    placeholder="What are you working on?"
-                  ></textarea>
-                </div>
+                </form>
               </div>
-
+              
+              <button class="button-lg add-task-button hidden">ADD TASK</button>
               <!--  -->
             </div>
           </div>

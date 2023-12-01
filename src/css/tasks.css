@@ -24,10 +24,10 @@
   position: relative;
   /* //////////////// */
 
-  max-width: 80rem;
+  max-width: 60rem;
 
   /* Up to change once whole design complete.  */
-  min-width: 60rem;
+  width: 100%;
 }
 
 /* This button opens up all the tasks. */
@@ -41,55 +41,34 @@
 }
 /* --- */
 
-.open-tasks-container {
+.open-tasks__container {
+  position: relative;
   display: flex;
-  /* display: none; */
   flex-direction: column;
   gap: 3.6rem;
 
-  padding: 4.8rem;
+  padding: 3.2rem;
   padding-bottom: 6.4rem;
   border: 3px solid var(--secondary-color-retro--darker);
+  background-color: var(--primary-color-retro--lighter);
+
+  transition: all 0.2s ease-in;
 }
 
-.open-tasks-container.hidden {
+.open-tasks__container.hidden {
   display: none;
 }
 
-/* .task {
-} */
-
-/* textarea input */
-.task__content {
-  /* display: none; */
-  resize: none;
-  overflow: auto;
-
-  min-height: 10rem;
-  min-width: 100%;
-  max-width: 150%;
-  padding: 1.6rem;
-
-  color: var(--secondary-color-retro--text);
-  font-family: var(--font-family);
-  font-size: 1.2rem;
-  line-height: 1.5;
-
-  background-color: var(--primary-color-retro--lighter);
-  border: 2px solid var(--secondary-color-retro--darker);
-}
-.task__content:focus {
-  outline: none;
-}
-.task__content::placeholder {
-  color: var(--secondary-color-retro--darker);
+.task {
+  margin-bottom: 3.6rem;
 }
 
 .task__heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 1.2rem;
+  margin-bottom: 0.8rem;
+  gap: 2.4rem;
 }
 
 /* button */
@@ -106,6 +85,31 @@
   padding: 0.5rem;
 }
 
+/* textarea input */
+.add-task__input {
+  /* display: none; */
+  resize: none;
+  overflow: auto;
+
+  min-height: 8rem;
+  min-width: 100%;
+  padding-inline: 1.6rem;
+
+  color: var(--secondary-color-retro--text);
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  line-height: 1.5;
+
+  background-color: var(--primary-color-retro--lighter);
+  border: 2px solid var(--secondary-color-retro--darker);
+}
+.add-task__input:focus {
+  outline: none;
+}
+.add-task__input::placeholder {
+  color: var(--secondary-color-retro--darker);
+}
+
 /* /////////////////////////////////////////// */
 /* THIS CLASS IS ALSO USED FOR THE MENU TICKS. */
 /* /////////////////////////////////////////// */
@@ -119,46 +123,76 @@
   color: var(--secondary-color-retro);
 }
 
-/* ADD TASKS SECTION */
+.task__textarea {
+  resize: none;
+  overflow: auto;
+  min-height: 8rem;
+  max-height: 12rem;
+  min-width: 100%;
+  padding: 1.6rem;
+  padding-right: 6.4rem;
 
-.add-task-container {
+  color: var(--secondary-color-retro--text);
+  font-family: var(--font-family);
+  font-size: 1.2rem;
+  line-height: 1.5;
+
+  background-color: var(--primary-color-retro--lighter);
+  border: 2px solid var(--secondary-color-retro--darker);
+}
+.task__textarea:focus {
+  outline: none;
+}
+
+/* //////////////////////// */
+/* ADD TASKS SECTION */
+/* //////////////////////// */
+.add-task__container {
   position: relative;
-  margin-top: 3.2rem;
+  /* margin-top: 3.2rem; */
+}
+.task__textarea::placeholder {
+  color: var(--secondary-color-retro--darkest);
+}
+
+.add-task__form {
+  position: relative;
 }
 
 .add-task-button {
   position: absolute;
-  top: 0;
-  left: 0;
+  /* top: 0;
+  left: 0; */
   padding: 1.2rem 2.4rem;
-}
 
+  bottom: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .add-task-button:active {
-  transform: translate(0, 3px);
-}
-
-.close-task-button {
-  position: absolute;
-  top: -48%;
-  left: 0;
+  transform: translate(-50%, 3px);
 }
 
 .submit-task-button {
   position: absolute;
-  bottom: -35%;
+  bottom: -50%;
   right: 0;
-  font-size: 1.2rem;
-  padding: 0.6rem 1.2rem;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.2rem;
 
   border-bottom: 4px solid var(--secondary-color-retro--darker);
 }
-
 .submit-task-button:active {
   transform: translateY(1px);
 }
 
-.add-task .task__content {
-  min-height: 8rem;
-  font-size: 1.6rem;
+.cancel-task-button {
+  position: absolute;
+  bottom: -50%;
+  right: 20%;
+  font-size: 1.4rem;
+  padding: 0.8rem 1.2rem;
+
   color: var(--secondary-color-retro);
+  border-bottom: 4px solid transparent;
 }
