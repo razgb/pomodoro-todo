@@ -7,8 +7,8 @@
   background-color: var(--primary-color-retro--lighter);
   box-shadow: 2px 0 20px 1px var(--secondary-color-retro--darkest);
   transform: translateX(-110%);
-  /* min-height: 100vh; */
-  height: 100vh;
+  min-height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   padding: 12rem 2rem;
 

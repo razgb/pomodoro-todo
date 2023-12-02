@@ -19,13 +19,15 @@ class view {
   _timeShortBreak = 5;
   _timeLongBreak = 15;
 
-  // this just initialises the day.
+  // this just initialises the day. (used to reset daily hours studied and sessions studied)
   _day = 0;
 
   _timeStudiedToday = 0; // (seconds)
   _sessionsToday = 0;
   _timeStudiedAllTime = 0; // (Seconds) Updated by the localStorage
   _currentYear = 2023;
+
+  _openTasksContainer = document.querySelector(".open-tasks__container");
 
   loadAppAnimation() {
     const loadingContainer = document.querySelector(".loading-app");
@@ -267,6 +269,10 @@ class view {
     });
 
     const openTasksContainer = document.querySelector(".open-tasks__container");
+    openTasksContainer.addEventListener("keyup", () => {
+      this._saveOpenTasksContainerNotes();
+    });
+
     openTasksContainer.addEventListener("click", (e) => {
       const checkBox = e.target.closest(".task__check");
       const icon = checkBox?.querySelector(".icon"); // this is the empty box's icon .
@@ -280,35 +286,61 @@ class view {
             ".heading-text"
           );
         const headingIcon = headingText.previousElementSibling;
+        const deleteButton = checkBox
+          .closest(".task")
+          .querySelector(".delete-task-button");
 
-        // IF CHECKED: MAKE EVERYTHING DARKER ELSE MAKE EVERYTHING BACK TO NORMAL
         if (icon.classList.contains("completed")) {
           icon.classList.remove("completed"); // unticks a ticked box.
           headingText.style.color = "var(--secondary-color-retro)";
           headingIcon.style.color = "var(--secondary-color-retro)";
           icon.style.color = "transparent";
           checkBox.style.border = "3px solid var(--secondary-color-retro)";
+          this._saveUserPreferences();
           return;
         } else {
           icon.classList.add("completed"); // ticks an unticked box.
           headingText.style.color = "var(--secondary-color-retro--darker)";
           headingIcon.style.color = "var(--secondary-color-retro--darker)";
+          headingIcon.classList.remove("open");
           icon.style.color = "var(--secondary-color-retro--darker)";
           checkBox.style.border =
             "3px solid var(--secondary-color-retro--darker)";
           textArea.classList.add("hidden");
+          deleteButton.classList.add("hidden");
+          this._saveUserPreferences();
           return;
         }
       }
 
+      // TOGGLE CANCEL BUTTON WHEN YOU COME BACK. thanks :)
+
       const taskHeadingButton = e.target.closest(".button-md");
       if (taskHeadingButton && taskHeadingButton.textContent !== "CANCEL") {
+        const task = taskHeadingButton.closest(".task");
         const textArea = taskHeadingButton.parentElement.nextElementSibling;
+        const deleteTaskButton = textArea.nextElementSibling;
+        const taskHeadingIcon = taskHeadingButton.querySelector(".icon");
+
         textArea.classList.toggle("hidden");
-        taskHeadingButton.querySelector(".icon").classList.toggle("open");
+        deleteTaskButton.classList.toggle("hidden");
+        taskHeadingIcon.classList.toggle("open");
+
+        // can be turned into a utility class.
+        if (taskHeadingIcon.classList.contains("open"))
+          task.style.marginBottom = "3.6rem";
+        else task.style.marginBottom = "0";
+
+        this._saveUserPreferences();
         return;
       }
 
+      const deleteTaskButton = e.target.closest(".delete-task-button");
+      if (deleteTaskButton) {
+        deleteTaskButton.closest(".task").remove();
+      }
+
+      // THERE IS ALWAYS JUST ONE FORM ON THE PAGE.
       const submitTaskButton = openTasksContainer.querySelector(
         ".submit-task-button"
       );
@@ -324,6 +356,7 @@ class view {
         cancelTaskButton.classList.add("hidden");
         submitTaskButton.classList.add("hidden");
         addTaskForm.classList.add("hidden");
+        this._saveUserPreferences();
         return;
       }
 
@@ -332,6 +365,7 @@ class view {
         submitTaskButton.classList.remove("hidden");
         cancelTaskButton.classList.remove("hidden");
         addTaskForm.classList.remove("hidden");
+        this._saveUserPreferences();
         return;
       }
     });
@@ -380,13 +414,32 @@ class view {
       class="task__textarea"
       placeholder="Add a note..."
       ></textarea>
+      <button class="button-lg delete-task-button">DELETE TASK</button>
       </div>
       `;
         taskInput.value = "";
 
-        taskForm.insertAdjacentHTML("beforebegin", markup);
+        taskForm.parentElement.insertAdjacentHTML("beforebegin", markup);
+        this._saveUserPreferences();
       })
     );
+  }
+
+  _saveOpenTasksContainerNotes() {
+    const notes = [];
+    this._openTasksContainer
+      .querySelectorAll(".task__textarea")
+      .forEach((box) => notes.push(box.value));
+    console.log(notes);
+    return notes;
+  }
+
+  _loadOpenTasksContainerNotes(notesArr) {
+    this._openTasksContainer
+      .querySelectorAll(".task__textarea")
+      .forEach((note, i) => {
+        note.value = notesArr[i];
+      });
   }
 
   // ////////////////////////////////////////////////////////////////////////////////////////////
@@ -684,6 +737,9 @@ class view {
       timeStudiedToday: this._timeStudiedToday,
       sessionsToday: this._sessionsToday,
       timeStudiedAllTime: this._timeStudiedAllTime,
+
+      openTasksContainerMarkup: this._openTasksContainer.innerHTML,
+      taskNotes: this._saveOpenTasksContainerNotes(), // array of notes
     };
 
     localStorage.setItem("data", JSON.stringify(data));
@@ -730,6 +786,12 @@ class view {
 
     // Little trick: 0 minutes added.
     this.addToAnalytics(0);
+
+    // Insert saved tasks:
+    if (data.openTasksContainerMarkup) {
+      this._openTasksContainer.innerHTML = data.openTasksContainerMarkup;
+      this._loadOpenTasksContainerNotes(data.taskNotes);
+    }
 
     // APPLIES ALL CODE WRITTEN ABOVE TO EACH SETTING.
     const headings = document.querySelectorAll(".menu__heading");
