@@ -1,21 +1,24 @@
 import view from "./views/view.js";
+import displayView from "./views/displayView.js";
+import tasksView from "./views/tasksView.js";
+import menuView from "./views/menuView.js";
 
-view.loadAppAnimation();
+const mainView = new view();
+mainView.loadAppAnimation();
 
 const init = function () {
-  // view.resetUserPreferences();
-  view.loadUserPreferences();
+  // mainView.resetUserPreferences();
+  mainView.loadUserPreferences();
+  displayView.addStartButtonHandler();
+  displayView.addModeButtonsHandler();
 
-  view.addTaskContainerHandler();
-  view.addTaskFormHandler();
+  tasksView.addTaskContainerHandler();
+  tasksView.addTaskFormHandler();
 
-  view.addStartButtonHandler();
-
-  view.addMenuSliderHandler();
-  view.addModeButtonsHandler();
-  view.addMenuConfigHandler();
-  view.addMenuSettingsHandler();
-  view.addMenuThemeHandler();
+  menuView.addMenuSliderHandler();
+  menuView.addMenuConfigHandler();
+  menuView.addMenuSettingsHandler();
+  menuView.addMenuThemeHandler();
 };
 
 init();

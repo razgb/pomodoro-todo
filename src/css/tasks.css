@@ -151,6 +151,11 @@
   outline: none;
 }
 
+/* DO THIS FOR LATER PLEASE. */
+/* .task__textarea::-moz-input-placeholder {
+  color: white;
+} */
+
 .delete-task-button {
   position: absolute;
   /* color: var(--secondary-color-retro--darker); */
