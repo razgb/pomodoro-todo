@@ -198,6 +198,7 @@ body {
 
 .button-md .icon {
   font-size: 2.4rem;
+  transition: all 0.05s ease;
 }
 
 .flex {
@@ -225,7 +226,7 @@ body {
 }
 
 .open {
-  transform: rotate(180deg);
+  transform: rotate(-180deg);
 }
 
 /* Used with menu */

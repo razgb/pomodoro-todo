@@ -78,9 +78,11 @@ class taskView extends view {
         return;
       }
 
+      // DELETES A TASK /W IT'S NOTE.
       const deleteTaskButton = e.target.closest(".delete-task-button");
       if (deleteTaskButton) {
         deleteTaskButton.closest(".task").remove();
+        this._saveUserPreferences();
       }
 
       // THERE IS ALWAYS JUST ONE FORM ON THE PAGE.

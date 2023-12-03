@@ -165,8 +165,12 @@ class menuView extends view {
 
     const applyConfig = document.querySelector(".apply-config");
     applyConfig.addEventListener("click", () => {
-      view.timerON = false;
+      view._timerON = false;
+      view._display.textContent = `${view._timePomo
+        .toString()
+        .padStart(2, "0")}:00`;
       resetModeToPomo();
+      view._startButton.textContent = "START";
 
       const pomodoroInput = document.querySelector(".pomodoro-input");
       const shortBreakInput = document.querySelector(".short-break-input");

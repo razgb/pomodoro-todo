@@ -42,6 +42,33 @@ class displayView extends view {
     });
   }
 
+  // IDEA 1 TO MAKE THIS WORK IN THE BACKGROUND:
+  /* 
+  - Use the page visibility API and when the page is not visible, start a new Date(). 
+  - Use this date to make a time stamp of when the user left the website. 
+  - Once the user comes back (so visibility = true), create another date object and then record
+  the difference between in another variable. 
+  - Since this function is located inside the handler below, convert the millisecond difference
+  into 'minutes' and 'seconds' and then subtract it from the timer. 
+  
+  - ERROR handling: if the user times out for too long and time difference > timeLeft on timer: 
+    end the timer, switch mode & display back to pomo. 
+  */
+
+  // IDEA 2:
+
+  /* 
+  Use web workers API to run the minutes and seconds subtraction function in the background, 
+  once the user tabs back in using the visibility API, subtract the returned data from the 
+  web worker from the actual minutes and seconds
+  */
+
+  // IDEA 3:
+  /* 
+  Fully move the entire setInterval function to the webworkers API and send data 
+  back and forth every time a loop ends. 
+  */
+
   // App works based of start button.
   addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
@@ -66,9 +93,10 @@ class displayView extends view {
         view._display.textContent = "RESET";
         switchModeTo("pomo");
         setTimeout(() => {
-          view._display.textContent = `${view._timeLeft
+          view._display.textContent = `${view._timePomo
             .toString()
             .padStart(2, "0")}:00`;
+          this._timeLeft = this._timePomo;
           view._startButton.textContent = "START";
         }, 1000);
       }
