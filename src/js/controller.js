@@ -6,8 +6,13 @@ import menuView from "./views/menuView.js";
 const mainView = new view();
 mainView.loadAppAnimation();
 
+// setTimeout(() => {
+//   document.addEventListener("visibilitychange", checkVisibility);
+//   console.log("added visibility listener");
+// }, 3000);
+
 const init = function () {
-  // mainView.resetUserPreferences();
+  // mainView.resetUserPreferences(); // run this in emergencies.
   mainView.loadUserPreferences();
   displayView.addStartButtonHandler();
   displayView.addModeButtonsHandler();

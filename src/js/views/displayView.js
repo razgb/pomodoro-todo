@@ -52,22 +52,43 @@ class displayView extends view {
   into 'minutes' and 'seconds' and then subtract it from the timer. 
   
   - ERROR handling: if the user times out for too long and time difference > timeLeft on timer: 
-    end the timer, switch mode & display back to pomo. 
+  end the timer, switch mode & display back to pomo. 
   */
 
   // IDEA 2:
 
   /* 
-  Use web workers API to run the minutes and seconds subtraction function in the background, 
-  once the user tabs back in using the visibility API, subtract the returned data from the 
-  web worker from the actual minutes and seconds
-  */
+ Use web workers API to run the minutes and seconds subtraction function in the background, 
+ once the user tabs back in using the visibility API, subtract the returned data from the 
+ web worker from the actual minutes and seconds
+ */
 
   // IDEA 3:
   /* 
-  Fully move the entire setInterval function to the webworkers API and send data 
-  back and forth every time a loop ends. 
-  */
+Fully move the entire setInterval function to the webworkers API and send data 
+back and forth every time a loop ends. 
+*/
+
+  _checkVisibilityHandler = function () {
+    let visibleDate;
+    let hiddenDate;
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        const date = new Date();
+        hiddenDate = date.getTime();
+        console.log(`Hidden date: ${hiddenDate}`);
+      }
+      if (document.visibilityState === "visible") {
+        const date = new Date();
+        visibleDate = date.getTime();
+        console.log(`Visible date: ${visibleDate}`);
+      }
+      const timeDifference = visibleDate - hiddenDate;
+      console.log(timeDifference);
+    });
+
+    if (visibleDate && hiddenDate) return timeDifference;
+  };
 
   // App works based of start button.
   addStartButtonHandler() {
@@ -96,7 +117,7 @@ class displayView extends view {
           view._display.textContent = `${view._timePomo
             .toString()
             .padStart(2, "0")}:00`;
-          this._timeLeft = this._timePomo;
+          view._timeLeft = view._timePomo;
           view._startButton.textContent = "START";
         }, 1000);
       }
@@ -109,6 +130,12 @@ class displayView extends view {
           clearInterval(timer);
           return;
         }
+
+        // This part of the function accounts for the user leaving the tab in the background.
+        if (minutes !== 0 && seconds !== 0) {
+          this._checkVisibilityHandler();
+        }
+
         if (minutes === 0 && seconds === 0 && view._autoStartPomo && i < 1) {
           i++;
           view._timerON = false;
@@ -197,7 +224,7 @@ class displayView extends view {
         view._display.textContent = `${minutes
           .toString()
           .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-      }, 50);
+      }, 1000);
     });
   }
 }
