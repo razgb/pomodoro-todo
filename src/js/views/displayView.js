@@ -1,6 +1,10 @@
 import view from "./view.js";
 
 class displayView extends view {
+  _timeDifference = 0; 
+  _tabbedOut = false; 
+  _timerSecondsTracker = 0; 
+
   // Changes modes
   addModeButtonsHandler() {
     const modeButtons = document.querySelector(".display__buttons");
@@ -56,7 +60,6 @@ class displayView extends view {
   */
 
   // IDEA 2:
-
   /* 
  Use web workers API to run the minutes and seconds subtraction function in the background, 
  once the user tabs back in using the visibility API, subtract the returned data from the 
@@ -69,39 +72,75 @@ Fully move the entire setInterval function to the webworkers API and send data
 back and forth every time a loop ends. 
 */
 
-  _checkVisibilityHandler = function () {
+// make sure to add a way to turn off this event listener mid handler function. 
+  _checkVisibilityHandler = () => {
+    console.log('visibility function active.')
     let visibleDate;
     let hiddenDate;
-    document.addEventListener("visibilitychange", () => {
+    // console.log(`Hidden time stamp: ${hiddenDate}`);
+    // console.log(`Visible time stamp: ${visibleDate}`); 
+
+    document.addEventListener("visibilitychange", () => {      
       if (document.visibilityState === "hidden") {
         const date = new Date();
-        hiddenDate = date.getTime();
-        console.log(`Hidden date: ${hiddenDate}`);
+        hiddenDate = date.getTime(); 
+        this._tabbedOut = true; 
       }
       if (document.visibilityState === "visible") {
         const date = new Date();
         visibleDate = date.getTime();
-        console.log(`Visible date: ${visibleDate}`);
-      }
-      const timeDifference = visibleDate - hiddenDate;
-      console.log(timeDifference);
-    });
 
-    if (visibleDate && hiddenDate) return timeDifference;
+        // THIS WILL BE TEMPORARY UNTIL I CAN FIND SOUND FILES. 
+        setTimeout(() => document.querySelector('.display__timeout').classList.add('hidden'), 4000);
+      }
+      
+      const timeDifference = visibleDate - hiddenDate;
+      // I.E: 500 MILLISECONDS
+      if (visibleDate && hiddenDate && timeDifference >= 500) {
+        this._timeDifference = Math.round(timeDifference/1000); 
+        this._tabbedOut = false;
+
+        if (this._timeDifference > this._timerSecondsTracker) {
+          // for when user tabs out for longer than timer length. 
+          this._changeDisplay(view._timeLeft * 60);
+          view._startButton.textContent = 'START'; 
+          view._timerON = false;
+          document.querySelector('.display__timeout').classList.remove('hidden');
+          return;
+        } 
+      }
+      else return;
+      
+      console.log('User timed out.');
+      console.log(timeDifference, this._timeDifference);
+    });
   };
+
+  // Might switch to the main view file. 
+  _changeDisplay(seconds) {
+    if (seconds < 0 || !view._timerON) return; // ONLY RUNS WHEN TIMER ON. 
+    const mins = Math.trunc(seconds / 60 ? seconds / 60 : 0).toString().padStart(2, '0'); // cuts decimal part off
+    const secs = Math.round(seconds % 60 ? seconds % 60 : 0).toString().padStart(2, '0'); // the decimal part
+    view._display.textContent = `${mins}:${secs}`;
+  }
 
   // App works based of start button.
   addStartButtonHandler() {
+    this._checkVisibilityHandler();
+    ////////////////////////////////
+
     const modeButtons = document.querySelector(".display__buttons");
     // EVENT LISTENER
     view._startButton.addEventListener("click", () => {
-      let minutes = view._timeLeft;
-      let seconds = 0;
+      this._timeDifference = 0; // reset. (when user times out when timer off)
+      this._timerSecondsTracker = 0; // reset.
+      let seconds = view._timeLeft * 60;
+      
       const switchModeTo = function (mode) {
         // (info) mode name as a string.
         modeButtons
-          .querySelectorAll(".button-lg")
-          .forEach((button) => button.classList.remove("mode-active"));
+        .querySelectorAll(".button-lg")
+        .forEach((button) => button.classList.remove("mode-active"));
         document.querySelector(`.btn-${mode}`).classList.add("mode-active");
       };
       if (view._startButton.textContent === "START") {
@@ -131,21 +170,14 @@ back and forth every time a loop ends.
           return;
         }
 
-        // This part of the function accounts for the user leaving the tab in the background.
-        if (minutes !== 0 && seconds !== 0) {
-          this._checkVisibilityHandler();
-        }
-
-        if (minutes === 0 && seconds === 0 && view._autoStartPomo && i < 1) {
+        if (seconds === 0 && view._autoStartPomo && i < 1) {
           i++;
           view._timerON = false;
           view._display.textContent = "END";
           if (startingMode === "LONG BREAK") {
             switchModeTo("pomo");
             setTimeout(() => {
-              view._display.textContent = `${view._timePomo
-                .toString()
-                .padStart(2, "0")}:00`;
+              this._changeDisplay(view._timePomo * 60); 
               view._startButton.textContent = "START";
             }, 1000);
             return;
@@ -168,31 +200,30 @@ back and forth every time a loop ends.
             if (currentMode === "POMODORO") {
               view._timerON = true;
               switchModeTo("short");
-              minutes = view._timeShortBreak;
-              this.addToAnalytics(minutes); // Live display to user.
+              seconds = view._timeShortBreak * 60;
+              view._timeLeft = view._timeShortBreak; 
+              this.addToAnalytics(view._timePomo); // Live display to user.
               this._saveUserPreferences(); // Only save minutes in study sessions.
               currentMode = "SHORT BREAK";
-              view._display.textContent = `${view._timeShortBreak
-                .toString()
-                .padStart(2, "0")}:00`;
+              this._changeDisplay(seconds); 
               i = 0;
               return;
             } else if (currentMode === "SHORT BREAK") {
               view._timerON = true;
               switchModeTo("pomo");
-              minutes = view._timePomo;
+              seconds = view._timePomo * 60;
+              view._timeLeft = view._timePomo; 
               currentMode = "POMODORO";
-              view._display.textContent = `${view._timePomo
-                .toString()
-                .padStart(2, "0")}:00`;
+              this._changeDisplay(seconds); 
               i = 0;
               return;
             }
           }, 4500); // 1000 + 3000 + on purpose 500 to make the last second show nicely.
         }
+
         //
+
         if (
-          minutes === 0 &&
           seconds === 0 &&
           view._autoStartPomo === false &&
           i < 1
@@ -214,16 +245,22 @@ back and forth every time a loop ends.
           }, 1000);
           return;
         } // Timer complete.
+
         // Needed for the infinite timer loop feature
         if (!view._timerON || i >= 1) return;
+
+        if (this._timeDifference) {
+          seconds -= this._timeDifference;
+          this._timeDifference = 0; // reset the timeout.
+        }; 
+
+
+        if (this._tabbedOut) return; 
         --seconds;
-        if (seconds < 0) {
-          --minutes;
-          seconds = 59;
-        }
-        view._display.textContent = `${minutes
-          .toString()
-          .padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+        this._timerSecondsTracker = seconds; 
+        if (seconds < 0) return;
+
+        this._changeDisplay(seconds); 
       }, 1000);
     });
   }
