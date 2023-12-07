@@ -264,7 +264,7 @@ back and forth every time a loop ends.
         if (seconds < 0) return;
 
         this._changeDisplay(seconds); 
-      }, 50);
+      }, 1000);
     });
   }
 }
