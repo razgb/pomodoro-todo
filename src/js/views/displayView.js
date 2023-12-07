@@ -90,8 +90,6 @@ back and forth every time a loop ends.
         const date = new Date();
         visibleDate = date.getTime();
 
-        // THIS WILL BE TEMPORARY UNTIL I CAN FIND SOUND FILES. 
-        setTimeout(() => document.querySelector('.display__timeout').classList.add('hidden'), 4000);
       }
       
       const timeDifference = visibleDate - hiddenDate;
@@ -99,13 +97,17 @@ back and forth every time a loop ends.
       if (visibleDate && hiddenDate && timeDifference >= 500) {
         this._timeDifference = Math.round(timeDifference/1000); 
         this._tabbedOut = false;
-
+        
         if (this._timeDifference > this._timerSecondsTracker) {
+          console.log(this._timeDifference, this._timerSecondsTracker);
+
           // for when user tabs out for longer than timer length. 
           this._changeDisplay(view._timeLeft * 60);
           view._startButton.textContent = 'START'; 
           view._timerON = false;
           document.querySelector('.display__timeout').classList.remove('hidden');
+          // THIS WILL BE TEMPORARY UNTIL I CAN FIND SOUND FILES. 
+          setTimeout(() => document.querySelector('.display__timeout').classList.add('hidden'), 4000);
           return;
         } 
       }
@@ -136,13 +138,14 @@ back and forth every time a loop ends.
       this._timerSecondsTracker = 0; // reset.
       let seconds = view._timeLeft * 60;
       
-      const switchModeTo = function (mode) {
+      const switchModeTo = (mode) => {
         // (info) mode name as a string.
         modeButtons
         .querySelectorAll(".button-lg")
         .forEach((button) => button.classList.remove("mode-active"));
         document.querySelector(`.btn-${mode}`).classList.add("mode-active");
       };
+
       if (view._startButton.textContent === "START") {
         view._timerON = true; // start button has been clicked
         view._display.textContent = "START";
@@ -172,12 +175,12 @@ back and forth every time a loop ends.
 
         if (seconds === 0 && view._autoStartPomo && i < 1) {
           i++;
-          view._timerON = false;
           view._display.textContent = "END";
           if (startingMode === "LONG BREAK") {
             switchModeTo("pomo");
             setTimeout(() => {
               this._changeDisplay(view._timePomo * 60); 
+              view._timerON = false;
               view._startButton.textContent = "START";
             }, 1000);
             return;
@@ -261,7 +264,7 @@ back and forth every time a loop ends.
         if (seconds < 0) return;
 
         this._changeDisplay(seconds); 
-      }, 1000);
+      }, 50);
     });
   }
 }
