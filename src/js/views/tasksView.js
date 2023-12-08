@@ -32,7 +32,8 @@ class taskView extends view {
         const deleteButton = checkBox
           .closest(".task")
           .querySelector(".delete-task-button");
-
+        const task = icon.closest('.task'); 
+      
         if (icon.classList.contains("completed")) {
           icon.classList.remove("completed"); // unticks a ticked box.
           headingText.style.color = "var(--secondary-color-retro)";
@@ -51,6 +52,7 @@ class taskView extends view {
             "3px solid var(--secondary-color-retro--darker)";
           textArea.classList.add("hidden");
           deleteButton.classList.add("hidden");
+          task.style.marginBottom = '0';
           this._saveUserPreferences();
           return;
         }

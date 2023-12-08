@@ -65,6 +65,7 @@
 
 .task {
   position: relative;
+  margin-bottom: 3.6rem;
 }
 
 .task__heading {

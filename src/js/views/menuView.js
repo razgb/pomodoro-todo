@@ -6,15 +6,18 @@ class menuView extends view {
     menuButton.addEventListener("click", function () {
       const menu = document.querySelector(".menu");
       const app = document.querySelector(".app");
+      const topMenuCover = document.querySelector('.menu__container-cover'); 
 
       if (!view._menuState) {
         menu.style.transform = "translateX(0)";
         app.style.marginLeft = "20%";
         view._menuState = true;
+        setTimeout(() => topMenuCover.classList.remove('hidden'), 300) 
       } else {
         menu.style.transform = "translateX(-110%)";
         app.style.marginLeft = "0";
         view._menuState = false;
+        topMenuCover.classList.add('hidden'); 
       }
     });
 
