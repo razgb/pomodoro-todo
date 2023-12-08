@@ -42,6 +42,10 @@
 
 
   <body>
+    <audio class="retroClick" src="src/audio/quietRetroClick.mp3"></audio>
+    <audio class="retroStart" src="src/audio/quietRetroStart.mp3"></audio>
+    <audio class="retroEnd" src="src/audio/quietRetroEnd.mp3"></audio>
+
     <div class="loading-app">
       <div class="loading-app__container">
         <div class="loading-app__wall"></div>
@@ -57,7 +61,7 @@
 
           
           <div class="settings-box">
-            <button class="button-md">
+            <button class="audioButton button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Settings</span>
             </button>
@@ -65,21 +69,21 @@
             <div class="menu__subbuttons hidden">
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Loop pomo & break</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check completed"></i>
                 </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Remove tasks</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check"></i>
                 </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Button sounds</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check completed"></i>
                 </button>
               </div>
@@ -89,7 +93,7 @@
           <!-- /////////////////////////// -->
 
           <div class="config-box">
-            <button class="button-md">
+            <button class="audioButton button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Time config</span>
             </button>
@@ -125,7 +129,7 @@
                 />
               </div>
 
-              <button class="button-lg apply-config">APPLY</button>
+              <button class="audioButton button-lg apply-config">APPLY</button>
             </div>
           </div>
 
@@ -133,7 +137,7 @@
 
           <div class="theme-box">
             <!-- /////////////////////////// -->
-            <button class="button-md">
+            <button class="audioButton button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Themes</span>
             </button>
@@ -141,42 +145,42 @@
             <div class="menu__subbuttons hidden">
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Default</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check completed"></i>
                 </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Mocha</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check"></i>
                 </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Aqua</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check"></i>
                 </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Night</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check"></i>
                 </button>
               </div>
 
               <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Light</h2>
-                <button class="task__check">
+                <button class="audioButton task__check">
                   <i class="icon fi fi-bs-check"></i>
                 </button>
               </div>
 
               <!-- <div class="menu__subbuttons-content">
                 <h2 class="menu__heading">Dark mode</h2>
-                <button class="task__check" data-name="dark">
+                <button class="audioButton task__check" data-name="dark">
                   <i class="icon fi fi-bs-check"></i>
                 </button>
               </div> -->
@@ -185,7 +189,7 @@
 
           <div class="analytics-box">
             <!-- ///////////////////////// -->
-            <button class="button-md">
+            <button class="audioButton button-md">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>Analytics</span>
             </button>
@@ -210,7 +214,7 @@
         </div>
       </div>
 
-      <button class="menu__hamburger button-lg">
+      <button class="audioButton menu__hamburger button-lg">
         <i class="fi fi-bs-menu-burger icon"></i>
         
         <!-- <i class="fi fi-rr-cross icon"></i> -->
@@ -228,16 +232,16 @@
 
 
             <div class="display__buttons">
-              <button class="button-lg btn-pomo mode-active">POMODORO</button>
-              <button class="button-lg btn-short">SHORT BREAK</button>
-              <button class="button-lg btn-long">LONG BREAK</button>
+              <button class="audioButton button-lg btn-pomo mode-active">POMODORO</button>
+              <button class="audioButton button-lg btn-short">SHORT BREAK</button>
+              <button class="audioButton button-lg btn-long">LONG BREAK</button>
             </div>
 
             <div class="display__timer">
               <span class="display__timer-numbers">25:00</span>
               <!-- <span class="display__timer-numbers">END</span> -->
             </div>
-            <button class="button-lg display__start-button">START</button>
+            <button class="audioButton button-lg display__start-button">START</button>
           </div>
         </div>
 
@@ -247,7 +251,7 @@
               <h2 class="authorMessage__heading">- Under development -</h2>
             </div> -->
 
-            <button class="button-md open-tasks">
+            <button class="audioButton button-md open-tasks">
               <i class="icon fi fi-bs-angle-small-down"></i>
               <span>TASKS</span>
             </button>
@@ -255,11 +259,11 @@
             <div class="open-tasks__container hidden">
               <!-- <div class="task hidden">
                 <div class="task__heading">
-                  <button class="button-md">
+                  <button class="audioButton button-md">
                     <i class="icon fi fi-bs-angle-small-down"></i>
                     <span class="heading-text">Study anatomy</span>
                   </button>
-                  <button class="task__check">
+                  <button class="audioButton task__check">
                     <i class="icon fi fi-bs-check"></i>
                   </button>
                 </div>
@@ -267,7 +271,7 @@
                   class="task__textarea hidden"
                   placeholder="Add a note..."
                 ></textarea>
-                <button class="button-lg delete-task-button hidden">DELETE TASK</button>
+                <button class="audioButton button-lg delete-task-button hidden">DELETE TASK</button>
               </div> -->
 
               <div class="add-task__container">
@@ -277,11 +281,11 @@
                   placeholder="What are you working on?"
                   ></input>
                   <span class="button-md cancel-task-button hidden">CANCEL</span>
-                  <button class="button-lg submit-task-button">SUBMIT</button>
+                  <button class="audioButton button-lg submit-task-button">SUBMIT</button>
                 </form>
               </div>
               
-              <button class="button-lg add-task-button hidden">ADD TASK</button>
+              <button class="audioButton button-lg add-task-button hidden">ADD TASK</button>
               <!--  -->
             </div>
           </div>

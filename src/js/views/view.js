@@ -61,6 +61,25 @@ export default class view {
     }, 2000);
   }
 
+  playAudio(audioName) {
+    if (typeof audioName !== 'string') return; 
+    const audio = document.querySelector(`.${audioName}`)
+    audio.currentTime = 0; 
+    audio.play();
+  }
+
+  addAudioForButtons () {
+    document.body.addEventListener('click', (e)=> {
+      const button = e.target.closest('.audioButton'); 
+      if (!button || !view._buttonSounds) return;  
+
+      const buttonText = button.textContent; 
+      if (buttonText === 'START' ) this.playAudio('retroStart')
+      else if (buttonText === 'RESET' ) this.playAudio('retroEnd')
+      else this.playAudio('retroClick')
+    });
+  }
+
   _calculateTimePassed(seconds) {
     if (!Number.isInteger(0)) return false;
     const dayCalculation = seconds / 3600 / 24;

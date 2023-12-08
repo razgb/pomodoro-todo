@@ -74,11 +74,8 @@ back and forth every time a loop ends.
 
 // make sure to add a way to turn off this event listener mid handler function. 
   _checkVisibilityHandler = () => {
-    console.log('visibility function active.')
     let visibleDate;
     let hiddenDate;
-    // console.log(`Hidden time stamp: ${hiddenDate}`);
-    // console.log(`Visible time stamp: ${visibleDate}`); 
 
     document.addEventListener("visibilitychange", () => {      
       if (document.visibilityState === "hidden") {
@@ -110,7 +107,7 @@ back and forth every time a loop ends.
       }
       else return;
       
-      console.log('Timeout length:', this._timeDifference);
+      // console.log(`Timeout length: ${this._timeDifference} seconds` );
     });
   };
 
@@ -145,7 +142,7 @@ back and forth every time a loop ends.
       if (view._startButton.textContent === "START") {
         view._timerON = true; // start button has been clicked
         view._display.textContent = "START";
-        view._startButton.textContent = "RESET";
+        setTimeout(() => view._startButton.textContent = "RESET", 150);
         // setTimeout(() => (view._startButton.textContent = "RESET"), 1000);
       } else {
         view._timerON = false; // reset button has been clicked
@@ -204,6 +201,7 @@ back and forth every time a loop ends.
               this.addToAnalytics(view._timePomo); // Live display to user.
               this._saveUserPreferences(); // Only save minutes in study sessions.
               currentMode = "SHORT BREAK";
+              this.playAudio('retroEnd'); 
               this._changeDisplay(seconds); 
               i = 0;
               return;
@@ -213,6 +211,7 @@ back and forth every time a loop ends.
               seconds = view._timePomo * 60;
               view._timeLeft = view._timePomo; 
               currentMode = "POMODORO";
+              this.playAudio('retroStart'); 
               this._changeDisplay(seconds); 
               i = 0;
               return;
@@ -253,14 +252,13 @@ back and forth every time a loop ends.
           this._timeDifference = 0; // reset the timeout.
         }; 
 
-
         if (this._tabbedOut) return; 
         --seconds;
         this._timerSecondsTracker = seconds; 
         if (seconds < 0) return;
 
         this._changeDisplay(seconds); 
-      }, 1000);
+      }, 50);
     });
   }
 }
