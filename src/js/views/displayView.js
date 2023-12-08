@@ -89,7 +89,6 @@ back and forth every time a loop ends.
       if (document.visibilityState === "visible") {
         const date = new Date();
         visibleDate = date.getTime();
-
       }
       
       const timeDifference = visibleDate - hiddenDate;
@@ -98,13 +97,11 @@ back and forth every time a loop ends.
         this._timeDifference = Math.round(timeDifference/1000); 
         this._tabbedOut = false;
         
-        if (this._timeDifference > this._timerSecondsTracker) {
-          console.log(this._timeDifference, this._timerSecondsTracker);
-
+        if (this._timeDifference > this._timerSecondsTracker && view._timerON) {
           // for when user tabs out for longer than timer length. 
           this._changeDisplay(view._timeLeft * 60);
           view._startButton.textContent = 'START'; 
-          view._timerON = false;
+          view._timerON = false; 
           document.querySelector('.display__timeout').classList.remove('hidden');
           // THIS WILL BE TEMPORARY UNTIL I CAN FIND SOUND FILES. 
           setTimeout(() => document.querySelector('.display__timeout').classList.add('hidden'), 4000);
@@ -113,8 +110,7 @@ back and forth every time a loop ends.
       }
       else return;
       
-      console.log('User timed out.');
-      console.log(timeDifference, this._timeDifference);
+      console.log('Timeout length:', this._timeDifference);
     });
   };
 
