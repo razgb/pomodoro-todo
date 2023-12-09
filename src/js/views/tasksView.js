@@ -9,6 +9,10 @@ class taskView extends view {
         .classList.toggle("hidden");
 
       openTasksButton.querySelector(".icon").classList.toggle("open");
+
+      // for when the top task button is clicked and then it focuses on the input. (change location)
+      const taskTitleInput = document.querySelector('.add-task__input'); 
+      taskTitleInput.focus(); 
     });
 
     const openTasksContainer = document.querySelector(".open-tasks__container");
@@ -112,6 +116,8 @@ class taskView extends view {
         submitTaskButton.classList.remove("hidden");
         cancelTaskButton.classList.remove("hidden");
         addTaskForm.classList.remove("hidden");
+        const taskTitleInput = document.querySelector('.add-task__input'); 
+        taskTitleInput.focus(); 
         this._saveUserPreferences();
         return;
       }
@@ -149,11 +155,11 @@ class taskView extends view {
         const markup = `
       <div class="task">
       <div class="task__heading">
-      <button class="button-md">
+      <button class="audioButton button-md">
       <i class="icon fi fi-bs-angle-small-down open"></i>
       <span class="heading-text">${taskInput.value}</span>
       </button>
-      <button class="task__check">
+      <button class="audioButton task__check">
       <i class="icon fi fi-bs-check"></i>
       </button>
       </div>
@@ -161,12 +167,17 @@ class taskView extends view {
       class="task__textarea"
       placeholder="Add a note..."
       ></textarea>
-      <button class="button-lg delete-task-button">DELETE TASK</button>
+      <button class="audioButton button-lg delete-task-button">DELETE TASK</button>
       </div>
       `;
-        taskInput.value = "";
+      taskInput.value = "";
+      taskForm.parentElement.insertAdjacentHTML("beforebegin", markup);
+      
+        const newTask = document.querySelectorAll('.task'); 
+        const currentTask = Array.from(newTask).pop(); 
+        const currentTextArea = currentTask.querySelector('.task__textarea'); 
+        currentTextArea.focus();
 
-        taskForm.parentElement.insertAdjacentHTML("beforebegin", markup);
         this._saveUserPreferences();
       })
     );
