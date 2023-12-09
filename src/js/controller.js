@@ -6,11 +6,6 @@ import menuView from "./views/menuView.js";
 const mainView = new view();
 mainView.loadAppAnimation();
 
-// setTimeout(() => {
-//   document.addEventListener("visibilitychange", checkVisibility);
-//   console.log("added visibility listener");
-// }, 3000);
-
 const init = function () {
   // mainView.resetUserPreferences(); // run this in emergencies.
   mainView.loadUserPreferences();
@@ -29,3 +24,12 @@ const init = function () {
 };
 
 init();
+
+// if (window.Worker) {
+//   console.log('Web Worker works.');
+
+//   const timerWorker = new Worker('timerWorker.js'); 
+//   timerWorker.onmessage = function (e) {
+//     console.log(e.data);
+//   }
+// }
