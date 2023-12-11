@@ -137,6 +137,32 @@ body {
   color: var(--secondary-color-retro);
 }
 
+
+
+.notifications {
+  position: absolute;
+  top: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  background-color: var(--primary-color-retro--lighter);
+  padding: 2.4rem;
+
+  display: flex;
+  gap: 2.4rem;
+}
+
+.notifications-heading {
+  font-size: 1.2rem;
+  min-width: fit-content;
+}
+
+.notifications .button-md {
+  text-decoration: underline;
+  font-size: 1.2rem;
+}
+
+
 /*  */
 
 .main {

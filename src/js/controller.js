@@ -11,8 +11,9 @@ const init = function () {
   mainView.loadUserPreferences();
   mainView.addAudioForButtons(); 
 
-  displayView.addStartButtonHandler();
+  displayView.notificationPermissionHandler(); 
   displayView.addModeButtonsHandler();
+  displayView.addStartButtonHandler2();
 
   tasksView.addTaskContainerHandler();
   tasksView.addTaskFormHandler();
@@ -24,12 +25,3 @@ const init = function () {
 };
 
 init();
-
-// if (window.Worker) {
-//   console.log('Web Worker works.');
-
-//   const timerWorker = new Worker('timerWorker.js'); 
-//   timerWorker.onmessage = function (e) {
-//     console.log(e.data);
-//   }
-// }

@@ -5,9 +5,12 @@ export default class view {
   static _currentTheme = "Default";
   static _menuState = false;
 
+  static _notificationsState = false;
+  static _notificationUserResponseState = false;
+
   static _display = document.querySelector(".display__timer-numbers");
   static _startButton = document.querySelector(".display__start-button");
-  static _timerON = false;
+  static _timerState = false;
   static _timeLeft = 25;
 
   static _autoStartPomo = true;
@@ -61,22 +64,56 @@ export default class view {
     }, 2000);
   }
 
+  _requestNotifications() {
+    if (Notification.permission !== "granted") {
+      Notification.requestPermission().then((permission) => {
+        if (permission === "granted") view._notificationsState = true;
+        else view._notificationsState = false; // in case allow is clicked and then denied browser's one.
+
+        view._notificationUserResponseState = true; // user has responded.
+        console.log("User responded with: ", view._notificationsState);
+      });
+    }
+  }
+  
+  notificationPermissionHandler() {
+    const notifictionsContainer = document.querySelector(".notifications");
+    if (view._notificationUserResponseState) return;
+
+    // show the initial prompt to then open the browser request.
+    if (!view._notificationsState) {
+      setTimeout(() => notifictionsContainer.classList.remove("hidden"), 4000);
+    }
+
+    notifictionsContainer.addEventListener("click", (e) => {
+      const button = e.target.closest(".button-md");
+      if (!button) return;
+
+      if (button.textContent === "Allow") this._requestNotifications();
+      if (button.textContent === "Decline") view._notificationsState = false;
+
+      notifictionsContainer.classList.add("hidden");
+
+      this._saveUserPreferences(); 
+    });
+  }
+
   playAudio(audioName) {
-    if (typeof audioName !== 'string') return; 
-    const audio = document.querySelector(`.${audioName}`)
-    audio.currentTime = 0; 
+    if (typeof audioName !== "string") return;
+    const audio = document.querySelector(`.${audioName}`);
+    audio.currentTime = 0;
     audio.play();
   }
 
-  addAudioForButtons () {
-    document.body.addEventListener('click', (e)=> {
-      const button = e.target.closest('.audioButton'); 
-      if (!button || !view._buttonSounds) return;  
+  addAudioForButtons() {
+    document.body.addEventListener("click", (e) => {
+      const button = e.target.closest(".audioButton");
+      if (!button || !view._buttonSounds) return;
 
-      const buttonText = button.textContent; 
-      if (buttonText === 'START' ) this.playAudio('retroStart')
-      else if (buttonText === 'RESET' ) this.playAudio('retroEnd')
-      else this.playAudio('retroClick')
+      const buttonText = button.textContent;
+      if (buttonText === "START") this.playAudio("retroStart");
+      else if (buttonText === "RESET") this.playAudio("retroEnd");
+      else this.playAudio("retroClick");
     });
   }
 
@@ -155,6 +192,9 @@ export default class view {
   // Used at the end of each settings handler to save user settings.
   _saveUserPreferences() {
     let data = {
+      notificationsState: view._notificationsState,
+      notificationUserResponseState: view._notificationUserResponseState,
+
       loopPomo: view._autoStartPomo,
       removeTasks: view._removeTasks,
       buttonSounds: view._buttonSounds,
@@ -213,6 +253,11 @@ export default class view {
     console.log(data);
 
     view._version = data.version;
+
+    if (data.notificationsState) {
+      view._notificationsState = data.notificationsState;
+      view._notificationUserResponseState = data.notificationUserResponseState;
+    }
 
     view._autoStartPomo = data.loopPomo;
     view._removeTasks = data.removeTasks;
