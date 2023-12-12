@@ -11,6 +11,7 @@ const init = function () {
   mainView.loadUserPreferences();
   mainView.addAudioForButtons();
   mainView.notificationPermissionHandler();
+  mainView.visibilityHandler();
 
   displayView.addModeButtonsHandler();
   displayView.addStartButtonHandler2();

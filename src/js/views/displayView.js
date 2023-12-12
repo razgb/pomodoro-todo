@@ -1,7 +1,6 @@
 import view from "./view.js";
 
 class displayView extends view {
-  _pageVisiblible = true;
   _timerSecondsTracker = 0;
   _timerWorker;
 
@@ -58,13 +57,6 @@ class displayView extends view {
         view._timerState = false;
         return;
       }
-    });
-  }
-
-  _visibilityHandler() {
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") this._pageVisiblible = false;
-      if (document.visibilityState === "visible") this._pageVisiblible = true;
     });
   }
 
@@ -144,16 +136,16 @@ class displayView extends view {
           return;
         }
 
-        if (seconds === 0 && view._autoStartPomo && !this._pageVisiblible) {
-          if (currentMode === "Pomodoro")
-            this._showNotifications("Short break");
-          else if (currentMode === "Short break")
-            this._showNotifications("Pomodoro");
-          else if (currentMode === "Long break")
-            this._showNotifications("Long break");
-        }
+        // if (seconds === 0 && view._autoStartPomo && !view._pageVisibility) {
+        //   if (currentMode === "Pomodoro")
+        //     this._showNotifications("Short break");
+        //   else if (currentMode === "Short break")
+        //     this._showNotifications("Pomodoro");
+        //   else if (currentMode === "Long break")
+        //     this._showNotifications("Long break");
+        // }
 
-        if (seconds === 0 && view._autoStartPomo && this._pageVisiblible) {
+        if (seconds === 0 && view._autoStartPomo) {
           view._display.textContent = "END";
 
           if (startingMode === "LONG BREAK") {
@@ -225,17 +217,12 @@ class displayView extends view {
         //
 
         // thought for the future: add a visibilitychange check so that this doesnt run when tabs are changed.
-        if (
-          seconds === 0 &&
-          view._autoStartPomo === false &&
-          this._pageVisiblible
-        ) {
+        if (seconds === 0 && view._autoStartPomo === false) {
           view._timerState = false;
           view._display.textContent = "END";
           switchModeTo("pomo");
           this._resetTimerWorker();
           if (startingMode === "POMODORO") {
-            // console.log(view._timePomo);
             this.addToAnalytics(view._timePomo);
             this._saveUserPreferences();
           }

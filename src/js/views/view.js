@@ -7,6 +7,7 @@ export default class view {
 
   static _notificationsState = false;
   static _notificationUserResponseState = false;
+  static _pageVisibility = true;
 
   static _display = document.querySelector(".display__timer-numbers");
   static _startButton = document.querySelector(".display__start-button");
@@ -62,6 +63,13 @@ export default class view {
     setTimeout(() => {
       loadingContainer.classList.add("loading-hidden");
     }, 2000);
+  }
+
+  visibilityHandler() {
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") view._pageVisibility = false;
+      if (document.visibilityState === "visible") view._pageVisibility = true;
+    });
   }
 
   _requestNotifications() {
