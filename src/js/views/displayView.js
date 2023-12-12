@@ -122,7 +122,9 @@ class displayView extends view {
       }
 
       if (!this._timerWorker) {
-        this._timerWorker = new Worker("src/js/timerWorker.js");
+        this._timerWorker = new Worker(
+          new URL("src/js/timerWorker.js", import.meta.url)
+        );
       }
 
       this._timerWorker.postMessage({
