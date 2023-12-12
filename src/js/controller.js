@@ -9,9 +9,9 @@ mainView.loadAppAnimation();
 const init = function () {
   // mainView.resetUserPreferences(); // run this in emergencies.
   mainView.loadUserPreferences();
-  mainView.addAudioForButtons(); 
+  mainView.addAudioForButtons();
+  mainView.notificationPermissionHandler();
 
-  displayView.notificationPermissionHandler(); 
   displayView.addModeButtonsHandler();
   displayView.addStartButtonHandler2();
 

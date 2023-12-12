@@ -6,18 +6,18 @@ class menuView extends view {
     menuButton.addEventListener("click", function () {
       const menu = document.querySelector(".menu");
       const app = document.querySelector(".app");
-      const topMenuCover = document.querySelector('.menu__container-cover'); 
+      const topMenuCover = document.querySelector(".menu__container-cover");
 
       if (!view._menuState) {
         menu.style.transform = "translateX(0)";
         app.style.marginLeft = "20%";
         view._menuState = true;
-        setTimeout(() => topMenuCover.classList.remove('hidden'), 300) 
+        setTimeout(() => topMenuCover.classList.remove("hidden"), 300);
       } else {
         menu.style.transform = "translateX(-110%)";
         app.style.marginLeft = "0";
         view._menuState = false;
-        topMenuCover.classList.add('hidden'); 
+        topMenuCover.classList.add("hidden");
       }
     });
 
@@ -61,6 +61,8 @@ class menuView extends view {
         if (featureName === "Loop pomo & break") view._autoStartPomo = boolean;
         if (featureName === "Remove tasks") view._removeTasks = boolean;
         if (featureName === "Button sounds") view._buttonSounds = boolean;
+        if (featureName === "Allow notifications")
+          view._notificationsState = boolean;
       };
 
       if (icon.classList.contains("completed")) {
@@ -71,19 +73,26 @@ class menuView extends view {
         manageFeature(true);
       }
 
-      // Code to hide the tasks section for minimalism.
       if (view._removeTasks) {
         document.querySelector(".tasks").classList.add("hidden");
       } else {
         document.querySelector(".tasks").classList.remove("hidden");
       }
 
+      if (view._notificationsState) {
+        this._requestNotifications();
+      }
+
       this._saveUserPreferences();
 
       /* (info) To check how code works
-      console.log(view._autoStartPomo,view._removeTasks,view._buttonSounds
+      console.log(
+        view._autoStartPomo,
+        view._removeTasks,
+        view._buttonSounds,
+        view._notificationsState
       );
-      */
+       */
     });
   }
 
@@ -167,7 +176,11 @@ class menuView extends view {
     };
 
     const applyConfig = document.querySelector(".apply-config");
-    applyConfig.addEventListener("click", () => {
+    const configBox = document.querySelector(".config-box");
+
+    const configHandler = (e) => {
+      if (e.type !== "click" && e.key !== "Enter" && e.keyCode !== 13);
+
       view._timerON = false;
       view._display.textContent = `${view._timePomo
         .toString()
@@ -205,7 +218,10 @@ class menuView extends view {
       }
 
       this._saveUserPreferences();
-    });
+    };
+
+    applyConfig.addEventListener("click", configHandler);
+    configBox.addEventListener("keydown", configHandler);
   }
 }
 

@@ -72,18 +72,18 @@ export default class view {
 
         view._notificationUserResponseState = true; // user has responded.
         console.log("User responded with: ", view._notificationsState);
+
+        this._saveUserPreferences();
       });
     }
   }
-  
+
   notificationPermissionHandler() {
     const notifictionsContainer = document.querySelector(".notifications");
     if (view._notificationUserResponseState) return;
 
     // show the initial prompt to then open the browser request.
-    if (!view._notificationsState) {
-      setTimeout(() => notifictionsContainer.classList.remove("hidden"), 4000);
-    }
+    setTimeout(() => notifictionsContainer.classList.remove("hidden"), 4000);
 
     notifictionsContainer.addEventListener("click", (e) => {
       const button = e.target.closest(".button-md");
@@ -93,8 +93,28 @@ export default class view {
       if (button.textContent === "Decline") view._notificationsState = false;
 
       notifictionsContainer.classList.add("hidden");
+    });
+  }
 
-      this._saveUserPreferences(); 
+  _showNotifications(notificationHeading) {
+    if (typeof notificationHeading !== "string" || !view._notificationsState)
+      return;
+
+    // If user turns off notifications through the settings.
+    if (Notification.permission !== "granted") {
+      view._notificationsState = false;
+      this._saveUserPreferences();
+      return;
+    }
+
+    let bodyMessage = "";
+    if (notificationHeading === "Pomodoro")
+      bodyMessage = "Short break starting soon...";
+    else if (notificationHeading === "Short break")
+      bodyMessage = "Pomodoro session starting soon...";
+
+    new Notification(`${notificationHeading} comeplete.`, {
+      body: `${bodyMessage}`,
     });
   }
 
@@ -183,7 +203,7 @@ export default class view {
           view._sessionsToday > 1 ? "sessions" : "session"
         }`;
       }
-      if (heading === `Total time (${view._currentYear}):`) {
+      if (heading === `Total app usage:`) {
         text.textContent = `${daysAllTime}d, ${hoursAllTime}h, ${minutesAllTime}m`;
       }
     });
@@ -254,7 +274,7 @@ export default class view {
 
     view._version = data.version;
 
-    if (data.notificationsState) {
+    if (data.notificationUserResponseState) {
       view._notificationsState = data.notificationsState;
       view._notificationUserResponseState = data.notificationUserResponseState;
     }
@@ -267,7 +287,6 @@ export default class view {
     view._timeShortBreak = data.shortBreakLength;
     view._timeLongBreak = data.longBreakLength;
     view._currentTheme = data.theme;
-
     view._day = data.day;
     view._timeStudiedToday = data.timeStudiedToday;
     view._sessionsToday = data.sessionsToday;
@@ -329,6 +348,12 @@ export default class view {
       }
       if (heading.textContent === "Button sounds") {
         if (view._buttonSounds === true) {
+          icon.classList.add("completed");
+          return;
+        }
+      }
+      if (heading.textContent === "Allow notifications") {
+        if (view._notificationsState === true) {
           icon.classList.add("completed");
           return;
         }

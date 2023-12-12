@@ -1,16 +1,15 @@
 import view from "./view.js";
 
 class displayView extends view {
-  _pageVisiblible = true; 
-  _timerSecondsTracker = 0; 
-  _timerWorker; 
+  _pageVisiblible = true;
+  _timerSecondsTracker = 0;
+  _timerWorker;
 
-  _timerMessageShowing = false; 
+  _timerMessageShowing = false;
 
   _resetTimerWorker() {
     if (this._timerWorker) {
-      console.log('Timer reset function ran');
-      this._timerWorker.terminate(); 
+      this._timerWorker.terminate();
       this._timerWorker = undefined;
     }
   }
@@ -29,7 +28,7 @@ class displayView extends view {
       // adds back the illusion to the clicked mode button
       mode.classList.add("mode-active");
       // dynamically changes the timeLeft variable to fit mode's function.
-      if (mode.textContent === "POMODORO") { 
+      if (mode.textContent === "POMODORO") {
         this._resetTimerWorker();
         view._timeLeft = view._timePomo;
         view._display.textContent = `${view._timePomo
@@ -37,7 +36,7 @@ class displayView extends view {
           .padStart(2, "0")}:00`;
         view._startButton.textContent = "START";
         view._timerState = false;
-        return; 
+        return;
       }
       if (mode.textContent === "SHORT BREAK") {
         this._resetTimerWorker();
@@ -47,7 +46,7 @@ class displayView extends view {
           .padStart(2, "0")}:00`;
         view._startButton.textContent = "START";
         view._timerState = false;
-        return; 
+        return;
       }
       if (mode.textContent === "LONG BREAK") {
         this._resetTimerWorker();
@@ -57,46 +56,37 @@ class displayView extends view {
           .padStart(2, "0")}:00`;
         view._startButton.textContent = "START";
         view._timerState = false;
-        return; 
+        return;
       }
     });
   }
-  
-  _showNotifications(notificationHeading) {
-    if (typeof notificationHeading !== 'string' || !view._notificationsState) return; 
-
-    const notify = () => {
-      const notification = new Notification(`${notificationHeading} comeplete. `, {
-        body: 'This is a notification'
-      })
-    }
-
-    notify(); 
-  }
 
   _visibilityHandler() {
-    document.addEventListener('visibilitychange', ()=> {
-      if (document.visibilityState === 'hidden') this._pageVisiblible = false; 
-      if (document.visibilityState === 'visible') this._pageVisiblible = true; 
-    })
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") this._pageVisiblible = false;
+      if (document.visibilityState === "visible") this._pageVisiblible = true;
+    });
   }
 
-  // Might switch to the main view file. 
+  // Might switch to the main view file.
   _changeDisplay(seconds) {
-    if (seconds < 0 || !view._timerState) return; // ONLY RUNS WHEN TIMER ON. 
-    const mins = Math.trunc(seconds / 60 ? seconds / 60 : 0).toString().padStart(2, '0'); // cuts decimal part off
-    const secs = Math.round(seconds % 60 ? seconds % 60 : 0).toString().padStart(2, '0'); // the decimal part
+    if (seconds < 0 || !view._timerState) return; // ONLY RUNS WHEN TIMER ON.
+    const mins = Math.trunc(seconds / 60 ? seconds / 60 : 0)
+      .toString()
+      .padStart(2, "0"); // cuts decimal part off
+    const secs = Math.round(seconds % 60 ? seconds % 60 : 0)
+      .toString()
+      .padStart(2, "0"); // the decimal part
     view._display.textContent = `${mins}:${secs}`;
   }
-
 
   addStartButtonHandler2() {
     const modeButtons = document.querySelector(".display__buttons");
     const switchModeTo = (mode) => {
       // (info) mode name as a string.
       modeButtons
-      .querySelectorAll(".button-lg")
-      .forEach((button) => button.classList.remove("mode-active"));
+        .querySelectorAll(".button-lg")
+        .forEach((button) => button.classList.remove("mode-active"));
       document.querySelector(`.btn-${mode}`).classList.add("mode-active");
     };
 
@@ -104,21 +94,21 @@ class displayView extends view {
       if (this._timerMessageShowing) return; // error handling during message between modes.
 
       let seconds = view._timeLeft * 60;
-      const startButtonText = view._startButton.textContent; 
+      const startButtonText = view._startButton.textContent;
       const startingMode = document.querySelector(".mode-active").textContent;
       let currentMode = startingMode;
-      
+
       if (startButtonText === "START") {
         view._timerState = true; // start button has been clicked
         view._display.textContent = "START";
-        setTimeout(() => view._startButton.textContent = "RESET", 150);
+        setTimeout(() => (view._startButton.textContent = "RESET"), 150);
       } else {
         // RESET button has been clicked.
         this._resetTimerWorker();
-        view._timerState = false; 
+        view._timerState = false;
         view._display.textContent = "RESET";
         switchModeTo("pomo");
-        console.log('worker terminated due to reset button');// temp
+        console.log("worker terminated due to reset button"); // temp
 
         setTimeout(() => {
           view._display.textContent = `${view._timePomo
@@ -132,15 +122,14 @@ class displayView extends view {
       }
 
       if (!this._timerWorker) {
-        console.log('new worker created');
-        this._timerWorker = new Worker('src/js/timerWorker.js');
+        this._timerWorker = new Worker("src/js/timerWorker.js");
       }
 
       this._timerWorker.postMessage({
         timerState: view._timerState,
         seconds: seconds,
         currentMode: currentMode,
-      })
+      });
 
       this._timerWorker.onmessage = (e) => {
         seconds = e.data.seconds;
@@ -148,116 +137,122 @@ class displayView extends view {
         view._timerState = e.data.timerState;
         // console.log(seconds, currentMode, view._timerState);
 
-          if (!view._timerState) {
-            console.log('terminated worker due to false timer state');
-            this._timerWorker.terminate();
+        if (!view._timerState) {
+          this._timerWorker.terminate();
+          return;
+        }
+
+        if (seconds === 0 && view._autoStartPomo && !this._pageVisiblible) {
+          if (currentMode === "Pomodoro")
+            this._showNotifications("Short break");
+          else if (currentMode === "Short break")
+            this._showNotifications("Pomodoro");
+          else if (currentMode === "Long break")
+            this._showNotifications("Long break");
+        }
+
+        if (seconds === 0 && view._autoStartPomo && this._pageVisiblible) {
+          view._display.textContent = "END";
+
+          if (startingMode === "LONG BREAK") {
+            switchModeTo("pomo");
+            setTimeout(() => {
+              this._changeDisplay(view._timePomo * 60);
+              view._timerState = false;
+              view._startButton.textContent = "START";
+              this._showNotifications("Long break");
+            }, 1000);
             return;
           }
 
-          if (seconds === 0 && view._autoStartPomo && this._pageVisiblible) {
-            view._display.textContent = "END";
+          if (currentMode === "Pomodoro")
+            this._showNotifications("Short break");
+          else this._showNotifications("Pomodoro");
 
-            if (startingMode === "LONG BREAK") {
-              switchModeTo("pomo");
-              setTimeout(() => {
-                this._changeDisplay(view._timePomo * 60); 
-                view._timerState = false;
-                view._startButton.textContent = "START";
-              }, 1000);
-              return;
-            }
-
-            let messageIndex = 0;
-            this._timerMessageShowing = true;
-            setTimeout(() => {
-              // prettier-ignore
-              const messages = [`${currentMode === "POMODORO" ? "POMO" : "SHORT"}`, `${currentMode === "POMODORO" ? "DORO" : "BREAK"}`,"IN","3","2","1"];
-              let timerMessage = setInterval(() => {
-                view._display.textContent = messages[messageIndex];
-                messageIndex++;
-                if (messageIndex > 5) {
-                  clearInterval(timerMessage);
-                  return;
-                }
-              }, 500); // in total 3000
-            }, 1000);
-            
-            // timeout used to wait for mode change message to run. 
-            setTimeout(() => {
-              this._timerMessageShowing = false; 
-              
-              // current mode changes inside worker. 
-              if (currentMode === "SHORT BREAK") {
-                view._timerState = true;
-                switchModeTo("short");
-                seconds = view._timeShortBreak * 60;
-                view._timeLeft = view._timeShortBreak; 
-                this.addToAnalytics(view._timePomo); // Live display to user.
-                this._saveUserPreferences(); // Only save minutes in study sessions.
-                this.playAudio('retroEnd'); 
-                this._changeDisplay(seconds);
-                if (this._notificationsState) {
-                  this._showNotifications('Pomodoro'); 
-                  console.log('Sent notification');
-                } 
-                this._timerWorker.postMessage({
-                  timerState: view._timerState,
-                  seconds: seconds,
-                  currentMode: currentMode,
-                })
-              } else if (currentMode === "POMODORO") {
-                view._timerState = true;
-                switchModeTo("pomo");
-                seconds = view._timePomo * 60;
-                view._timeLeft = view._timePomo; 
-                this.playAudio('retroStart'); 
-                this._changeDisplay(seconds);
-                if (this._notificationsState) {
-                  this._showNotifications('Short break'); 
-                  console.log('Sent notification');
-                } 
-                this._timerWorker.postMessage({
-                  timerState: view._timerState,
-                  seconds: seconds,
-                  currentMode: currentMode,
-                })
-              }
-              // 
-            }, 4500); // 1000 + 3000 + on purpose 500 to make the last second show nicely.
-          }
-          
-          // 
-          
-          // thought for the future: add a visibilitychange check so that this doesnt run when tabs are changed.
-          if (seconds === 0 && view._autoStartPomo === false && this._pageVisiblible) {
-              view._timerState = false;
-              view._display.textContent = "END";
-              switchModeTo("pomo");
-              this._resetTimerWorker(); 
-              if (startingMode === "POMODORO") {
-                // console.log(view._timePomo);
-                this.addToAnalytics(view._timePomo);
-                this._saveUserPreferences();
-              }
-              setTimeout(() => {
-                view._display.textContent = `${view._timePomo
-                  .toString()
-                  .padStart(2, "0")}:00`;
-                  view._startButton.textContent = "START";
-                }, 1000);
-                if (this._notificationsState) {
-                  this._showNotifications('Timer'); 
-                  console.log('Sent notification');
-                } 
+          let messageIndex = 0;
+          this._timerMessageShowing = true;
+          setTimeout(() => {
+            // prettier-ignore
+            const messages = [`${currentMode === "POMODORO" ? "POMO" : "SHORT"}`, `${currentMode === "POMODORO" ? "DORO" : "BREAK"}`,"IN","3","2","1"];
+            let timerMessage = setInterval(() => {
+              view._display.textContent = messages[messageIndex];
+              messageIndex++;
+              if (messageIndex > 5) {
+                clearInterval(timerMessage);
                 return;
-              } // Timer complete.
-              
-              this._changeDisplay(seconds);  
-      }
+              }
+            }, 500); // in total 3000
+          }, 1000);
+
+          // timeout used to wait for mode change message to run.
+          setTimeout(() => {
+            this._timerMessageShowing = false;
+
+            // current mode changes inside worker.
+            if (currentMode === "SHORT BREAK") {
+              view._timerState = true;
+              switchModeTo("short");
+              seconds = view._timeShortBreak * 60;
+              view._timeLeft = view._timeShortBreak;
+              this.addToAnalytics(view._timePomo); // Live display to user.
+              this._saveUserPreferences(); // Only save minutes in study sessions.
+              this.playAudio("retroEnd");
+              this._changeDisplay(seconds);
+              this._timerWorker.postMessage({
+                timerState: view._timerState,
+                seconds: seconds,
+                currentMode: currentMode,
+              });
+            } else if (currentMode === "POMODORO") {
+              view._timerState = true;
+              switchModeTo("pomo");
+              seconds = view._timePomo * 60;
+              view._timeLeft = view._timePomo;
+              this.playAudio("retroStart");
+              this._changeDisplay(seconds);
+              this._timerWorker.postMessage({
+                timerState: view._timerState,
+                seconds: seconds,
+                currentMode: currentMode,
+              });
+            }
+            //
+          }, 4500); // 1000 + 3000 + on purpose 500 to make the last second show nicely.
+        }
+
+        //
+
+        // thought for the future: add a visibilitychange check so that this doesnt run when tabs are changed.
+        if (
+          seconds === 0 &&
+          view._autoStartPomo === false &&
+          this._pageVisiblible
+        ) {
+          view._timerState = false;
+          view._display.textContent = "END";
+          switchModeTo("pomo");
+          this._resetTimerWorker();
+          if (startingMode === "POMODORO") {
+            // console.log(view._timePomo);
+            this.addToAnalytics(view._timePomo);
+            this._saveUserPreferences();
+          }
+          setTimeout(() => {
+            view._display.textContent = `${view._timePomo
+              .toString()
+              .padStart(2, "0")}:00`;
+            view._startButton.textContent = "START";
+          }, 1000);
+          this._showNotifications("Timer complete");
+          return;
+        } // Timer complete.
+
+        this._changeDisplay(seconds);
+      };
     });
   }
 
- /*
+  /*
   addStartButtonHandler() {
     // this._checkVisibilityHandler();
 
@@ -439,7 +434,5 @@ class displayView extends view {
   };
    */
 }
-      
-export default new displayView();
-      
 
+export default new displayView();
