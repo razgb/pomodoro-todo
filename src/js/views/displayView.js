@@ -123,7 +123,7 @@ class displayView extends view {
 
       if (!this._timerWorker) {
         this._timerWorker = new Worker(
-          new URL("src/js/timerWorker.js", import.meta.url)
+          new URL("../timerWorker.js", import.meta.url)
         );
       }
 
@@ -245,7 +245,7 @@ class displayView extends view {
               .padStart(2, "0")}:00`;
             view._startButton.textContent = "START";
           }, 1000);
-          this._showNotifications("Timer complete");
+          this._showNotifications("Timer");
           return;
         } // Timer complete.
 

@@ -179,7 +179,7 @@ class menuView extends view {
     const configBox = document.querySelector(".config-box");
 
     const configHandler = (e) => {
-      if (e.type !== "click" && e.key !== "Enter" && e.keyCode !== 13);
+      if (e.type !== "click" && e.key !== "Enter" && e.keyCode !== 13) return;
 
       view._timerON = false;
       view._display.textContent = `${view._timePomo
