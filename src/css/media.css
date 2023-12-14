@@ -119,6 +119,10 @@
   .cancel-task-button {
     right: 22%;
   }
+
+  .add-task-button:active {
+    transform: translate(-50%, 3px);
+  }
 }
 
 @media (max-width: 450px) {

@@ -8,7 +8,7 @@ export default class view {
 
   static _notificationsState = false;
   static _notificationUserResponseState = false;
-  static _pageVisibility = true;
+  // static _pageVisibility = true; DEPRACATED.
 
   static _display = document.querySelector(".display__timer-numbers");
   static _startButton = document.querySelector(".display__start-button");
@@ -38,20 +38,23 @@ export default class view {
     const mediaQueryMobile = window.matchMedia("(max-width: 450px)");
     const mediaQueryTablet = window.matchMedia("(max-width: 900px)");
     const mediaQueryDesktop = window.matchMedia("(min-width: 901px)");
+    const checkDeviceType = () => {
+      if (mediaQueryMobile.matches) {
+        // console.log("Phone");
+        view._deviceType = "Phone";
+      } else if (mediaQueryTablet.matches) {
+        // console.log("Tablet");
+        view._deviceType = "Tablet";
+      } else {
+        // console.log("Desktop");
+        view._deviceType = "Desktop";
+      }
+      console.log(view._deviceType);
+    };
+    checkDeviceType();
 
     [mediaQueryMobile, mediaQueryTablet, mediaQueryDesktop].forEach((item) =>
-      item.addEventListener("change", () => {
-        if (mediaQueryMobile.matches) {
-          // console.log("Phone");
-          view._deviceType = "Phone";
-        } else if (mediaQueryTablet.matches) {
-          // console.log("Tablet");
-          view._deviceType = "Tablet";
-        } else {
-          // console.log("Desktop");
-          view._deviceType = "Desktop";
-        }
-      })
+      item.addEventListener("change", checkDeviceType)
     );
   }
 
@@ -87,12 +90,13 @@ export default class view {
     }, 2000);
   }
 
-  visibilityHandler() {
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") view._pageVisibility = false;
-      if (document.visibilityState === "visible") view._pageVisibility = true;
-    });
-  }
+  // DEPRACATED FUNCTION.
+  // visibilityHandler() {
+  //   document.addEventListener("visibilitychange", () => {
+  //     if (document.visibilityState === "hidden") view._pageVisibility = false;
+  //     if (document.visibilityState === "visible") view._pageVisibility = true;
+  //   });
+  // }
 
   _requestNotifications() {
     if (Notification.permission !== "granted") {
@@ -116,7 +120,8 @@ export default class view {
 
   notificationPermissionHandler() {
     const notifictionsContainer = document.querySelector(".notifications");
-    if (view._notificationUserResponseState) return;
+    if (view._notificationUserResponseState || view._deviceType !== "Desktop")
+      return;
 
     // show the initial prompt to then open the browser request.
     setTimeout(() => notifictionsContainer.classList.remove("hidden"), 4000);
