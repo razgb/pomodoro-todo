@@ -67,7 +67,7 @@ export default class view {
       let loading = setInterval(() => {
         if (i === 4) {
           i = 0;
-          loadingHeading.textContent = "Loading"; // 3 intentional spaces.
+          loadingHeading.textContent = "Loading";
         }
 
         if (i !== 0) {

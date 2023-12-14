@@ -130,9 +130,20 @@
     padding: 0.8rem 1.2rem;
     border-bottom: 3px solid var(--secondary-color-retro--darker);
   }
+  .button-lg:active {
+    border-bottom: 1px solid var(--secondary-color-retro--darker);
+    transform: translateY(2px);
+  }
+  .mode-active {
+    border-bottom: 1px solid var(--secondary-color-retro--darker);
+    transform: translateY(2px);
+  }
+  .display__start-button:active {
+    transform: translate(-50%, 1px);
+  }
 
   .loading-app__wall {
-    width: 30vw;
+    width: 35vw;
   }
   .loading-app__heading {
     font-size: 2rem;

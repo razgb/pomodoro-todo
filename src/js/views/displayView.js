@@ -100,7 +100,7 @@ class displayView extends view {
         view._timerState = false;
         view._display.textContent = "RESET";
         switchModeTo("pomo");
-        console.log("worker terminated due to reset button"); // temp
+        // console.log("worker terminated due to reset button"); // temp
 
         setTimeout(() => {
           view._display.textContent = `${view._timePomo

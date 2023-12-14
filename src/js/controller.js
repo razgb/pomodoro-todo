@@ -9,9 +9,9 @@ mainView.loadAppAnimation();
 
 const init = function () {
   mainView.loadUserPreferences();
+  mainView.screenChangeHandler();
   mainView.addAudioForButtons();
   mainView.notificationPermissionHandler();
-  mainView.screenChangeHandler();
 
   displayView.addModeButtonsHandler();
   displayView.addStartButtonHandler();
