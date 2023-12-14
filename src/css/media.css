@@ -57,7 +57,7 @@
   .slide-app {
     margin-left: 0;
   }
-  .menu__hamburger {
+  /* .menu__hamburger {
     font-size: 3.2rem;
     top: 3.6rem;
     left: 3.6rem;
@@ -67,6 +67,7 @@
     width: 3.2rem;
     height: 3.2rem;
   }
+  */
 
   .menu__container {
     gap: 1.6rem;
