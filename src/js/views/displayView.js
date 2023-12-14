@@ -72,7 +72,7 @@ class displayView extends view {
     view._display.textContent = `${mins}:${secs}`;
   }
 
-  addStartButtonHandler2() {
+  addStartButtonHandler() {
     const modeButtons = document.querySelector(".display__buttons");
     const switchModeTo = (mode) => {
       // (info) mode name as a string.

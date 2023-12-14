@@ -5,16 +5,17 @@ import menuView from "./views/menuView.js";
 
 const mainView = new view();
 mainView.loadAppAnimation();
+// mainView.resetUserPreferences(); // run this in emergencies.
 
 const init = function () {
-  // mainView.resetUserPreferences(); // run this in emergencies.
   mainView.loadUserPreferences();
   mainView.addAudioForButtons();
   mainView.notificationPermissionHandler();
   mainView.visibilityHandler();
+  mainView.screenChangeHandler();
 
   displayView.addModeButtonsHandler();
-  displayView.addStartButtonHandler2();
+  displayView.addStartButtonHandler();
 
   tasksView.addTaskContainerHandler();
   tasksView.addTaskFormHandler();

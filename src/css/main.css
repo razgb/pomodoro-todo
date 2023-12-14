@@ -193,15 +193,12 @@ body {
 }
 
 .button-lg:active {
-  /* border: none; */
   border-bottom: 2px solid var(--secondary-color-retro--darker);
   transform: translateY(3px);
 }
 
 .mode-active {
-  /* border: none; */
   border-bottom: 2px solid var(--secondary-color-retro--darker);
-
   transform: translateY(3px);
 }
 

@@ -11,8 +11,9 @@ class taskView extends view {
       openTasksButton.querySelector(".icon").classList.toggle("open");
 
       // for when the top task button is clicked and then it focuses on the input. (change location)
-      const taskTitleInput = document.querySelector('.add-task__input'); 
-      taskTitleInput.focus(); 
+      const taskTitleInput = document.querySelector(".add-task__input");
+
+      if (view._deviceType === "Desktop") taskTitleInput.focus();
     });
 
     const openTasksContainer = document.querySelector(".open-tasks__container");
@@ -36,8 +37,8 @@ class taskView extends view {
         const deleteButton = checkBox
           .closest(".task")
           .querySelector(".delete-task-button");
-        const task = icon.closest('.task'); 
-      
+        const task = icon.closest(".task");
+
         if (icon.classList.contains("completed")) {
           icon.classList.remove("completed"); // unticks a ticked box.
           headingText.style.color = "var(--secondary-color-retro)";
@@ -56,7 +57,7 @@ class taskView extends view {
             "3px solid var(--secondary-color-retro--darker)";
           textArea.classList.add("hidden");
           deleteButton.classList.add("hidden");
-          task.style.marginBottom = '0';
+          task.style.marginBottom = "0";
           this._saveUserPreferences();
           return;
         }
@@ -116,8 +117,8 @@ class taskView extends view {
         submitTaskButton.classList.remove("hidden");
         cancelTaskButton.classList.remove("hidden");
         addTaskForm.classList.remove("hidden");
-        const taskTitleInput = document.querySelector('.add-task__input'); 
-        taskTitleInput.focus(); 
+        const taskTitleInput = document.querySelector(".add-task__input");
+        if (view._deviceType === "Desktop") taskTitleInput.focus();
         this._saveUserPreferences();
         return;
       }
@@ -170,12 +171,12 @@ class taskView extends view {
       <button class="audioButton button-lg delete-task-button">DELETE TASK</button>
       </div>
       `;
-      taskInput.value = "";
-      taskForm.parentElement.insertAdjacentHTML("beforebegin", markup);
-      
-        const newTask = document.querySelectorAll('.task'); 
-        const currentTask = Array.from(newTask).pop(); 
-        const currentTextArea = currentTask.querySelector('.task__textarea'); 
+        taskInput.value = "";
+        taskForm.parentElement.insertAdjacentHTML("beforebegin", markup);
+
+        const newTask = document.querySelectorAll(".task");
+        const currentTask = Array.from(newTask).pop();
+        const currentTextArea = currentTask.querySelector(".task__textarea");
         currentTextArea.focus();
 
         this._saveUserPreferences();

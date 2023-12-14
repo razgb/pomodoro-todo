@@ -160,7 +160,7 @@
 .delete-task-button {
   position: absolute;
   /* color: var(--secondary-color-retro--darker); */
-  font-size: 1rem;
+  font-size: 1.2rem;
   bottom: -25%;
   right: 0;
 

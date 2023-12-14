@@ -39,11 +39,7 @@ class menuView extends view {
       menuIcon.classList.toggle("open");
       menuContent.classList.toggle("hidden");
 
-      // Selecting respective 'feature-box' container to add/remove margin.
       const featureBox = menuContent.parentElement;
-      // if (!menuContent.classList.contains("hidden")) {
-      //   featureBox.style.marginBottom = "4.8rem";
-      // } else featureBox.style.marginBottom = "0";
       if (!menuContent.classList.contains("hidden")) {
         featureBox.classList.add("box-margB");
       } else featureBox.classList.remove("box-margB");

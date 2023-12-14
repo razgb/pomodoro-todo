@@ -3,8 +3,24 @@
     font-size: 50%;
   }
 
+  .button-lg {
+    border-bottom: 4px solid var(--secondary-color-retro--darker);
+  }
+  .button-lg:active {
+    border-bottom: 2px solid var(--secondary-color-retro--darker);
+    transform: translateY(2px);
+  }
+
+  .mode-active {
+    border-bottom: 2px solid var(--secondary-color-retro--darker);
+    transform: translateY(2px);
+  }
+  .display__start-button:active {
+    transform: translate(-50%, 1px);
+  }
+
   .loading-app__wall {
-    width: 30vw;
+    width: 40vw;
     height: 100vh;
   }
 
@@ -17,6 +33,13 @@
   .display__container {
     padding-inline: 2.4rem;
   }
+  .display__timer {
+    min-width: 20rem;
+  }
+
+  .display__timer-numbers {
+    font-size: 7.2rem;
+  }
 
   .menu {
     width: 100vw;
@@ -26,21 +49,28 @@
     padding: 12rem 3.2rem;
     padding-top: 30vh;
     transition: all 0.15s ease-in-out;
+    box-shadow: none;
   }
   .slide-menu {
     transform: translateX(0);
   }
+  .slide-app {
+    margin-left: 0;
+  }
   .menu__hamburger {
-    font-size: 3rem;
+    font-size: 3.2rem;
+    top: 3.6rem;
+    left: 3.6rem;
   }
   .menu__hamburger .icon {
     display: block;
-    width: 3.6rem;
-    height: 3.6rem;
+    width: 3.2rem;
+    height: 3.2rem;
   }
 
   .menu__container {
     gap: 1.6rem;
+    min-width: 32rem;
   }
   div > .button-md {
     font-size: 3rem;
@@ -51,7 +81,6 @@
   }
 
   .menu__container-cover {
-    /* height: 10vh; */
     display: none;
   }
 
@@ -80,39 +109,54 @@
 
   /* TASKS SECTION */
   .tasks {
-    padding: 9.6rem 2.4rem;
+    padding: 9.6rem 3.6rem;
   }
 
   .heading-text {
-    font-size: 2.4rem;
+    font-size: 2rem;
+  }
+
+  .cancel-task-button {
+    right: 22%;
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 450px) {
+  .button-lg {
+    padding: 0.8rem 1.2rem;
+    border-bottom: 3px solid var(--secondary-color-retro--darker);
+  }
+
+  .loading-app__wall {
+    width: 30vw;
+  }
+  .loading-app__heading {
+    font-size: 2rem;
+  }
+
   .display__timer {
     min-width: 15rem;
   }
   .display__timer-numbers {
     font-size: 4.8rem;
   }
-  .display__buttons > .button-lg {
+  .display__buttons > .button-lg,
+  .cancel-task-button,
+  .submit-task-button,
+  .delete-task-button {
     font-size: 1rem;
+  }
+
+  .cancel-task-button {
+    right: 22%;
+    margin-right: 0.5rem;
   }
   .display__start-button {
     font-size: 1.8rem;
     padding: 1.2rem 2.4rem;
     letter-spacing: normal;
   }
-  .button-lg {
-    padding: 0.8rem 1.2rem;
-    border-bottom: 3px solid var(--secondary-color-retro--darker);
-  }
-  .mode-active {
-    /* border: none; */
-    border-bottom: 1px solid var(--secondary-color-retro--darker);
 
-    transform: translateY(1px);
-  }
   /* menu */
   .menu__heading {
     font-size: 1.4rem;
@@ -133,7 +177,10 @@
   }
 
   .open-tasks__container {
-    padding-bottom: 3.2rem;
+    padding-bottom: 4.8rem;
     border: 1px solid var(--secondary-color-retro--darker);
+  }
+  .add-task__input {
+    font-size: 1.2rem;
   }
 }

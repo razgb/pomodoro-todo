@@ -1,6 +1,7 @@
 export default class view {
-  static _version = 0;
+  static _deviceType = "Desktop"; // default.
 
+  static _version = 0;
   static _parentContainer = "";
   static _currentTheme = "Default";
   static _menuState = false;
@@ -23,7 +24,7 @@ export default class view {
   static _timeShortBreak = 5;
   static _timeLongBreak = 15;
 
-  // this just initialises the day. (used to reset daily hours studied and sessions studied)
+  // Initialises the day. (used to reset daily hours studied and sessions studied on a new day)
   static _day = 0;
 
   static _timeStudiedToday = 0; // (seconds)
@@ -32,6 +33,27 @@ export default class view {
   static _currentYear = 2023;
 
   static _openTasksContainer = document.querySelector(".open-tasks__container");
+
+  screenChangeHandler() {
+    const mediaQueryMobile = window.matchMedia("(max-width: 450px)");
+    const mediaQueryTablet = window.matchMedia("(max-width: 900px)");
+    const mediaQueryDesktop = window.matchMedia("(min-width: 901px)");
+
+    [mediaQueryMobile, mediaQueryTablet, mediaQueryDesktop].forEach((item) =>
+      item.addEventListener("change", () => {
+        if (mediaQueryMobile.matches) {
+          // console.log("Phone");
+          view._deviceType = "Phone";
+        } else if (mediaQueryTablet.matches) {
+          // console.log("Tablet");
+          view._deviceType = "Tablet";
+        } else {
+          // console.log("Desktop");
+          view._deviceType = "Desktop";
+        }
+      })
+    );
+  }
 
   loadAppAnimation() {
     const loadingContainer = document.querySelector(".loading-app");
