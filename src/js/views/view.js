@@ -74,9 +74,15 @@ export default class view {
 
   _requestNotifications() {
     if (Notification.permission !== "granted") {
+      const allowNotificationsCheckBox = document.querySelector(".notif-check");
       Notification.requestPermission().then((permission) => {
-        if (permission === "granted") view._notificationsState = true;
-        else view._notificationsState = false; // in case allow is clicked and then denied browser's one.
+        if (permission === "granted") {
+          view._notificationsState = true;
+          allowNotificationsCheckBox.classList.add("completed");
+        } else {
+          view._notificationsState = false; // in case allow is clicked and then denied browser's one.
+          allowNotificationsCheckBox.classList.remove("completed");
+        }
 
         view._notificationUserResponseState = true; // user has responded.
         console.log("User responded with: ", view._notificationsState);
@@ -264,7 +270,7 @@ export default class view {
 
   loadUserPreferences() {
     // bring menu back to page's z-index:
-    document.querySelector(".menu").style.zIndex = 0;
+    document.querySelector(".menu").style.zIndex = 10;
 
     // Show HTML after loading setings finish.
     document.querySelector(".main").style.display = "block";

@@ -9,13 +9,13 @@ class menuView extends view {
       const topMenuCover = document.querySelector(".menu__container-cover");
 
       if (!view._menuState) {
-        menu.style.transform = "translateX(0)";
-        app.style.marginLeft = "20%";
+        menu.classList.add("slide-menu");
+        app.classList.add("slide-app");
         view._menuState = true;
         setTimeout(() => topMenuCover.classList.remove("hidden"), 300);
       } else {
-        menu.style.transform = "translateX(-110%)";
-        app.style.marginLeft = "0";
+        menu.classList.remove("slide-menu");
+        app.classList.remove("slide-app");
         view._menuState = false;
         topMenuCover.classList.add("hidden");
       }
@@ -27,20 +27,26 @@ class menuView extends view {
       if (!menuTab) return;
       const menuIcon = menuTab.querySelector(".icon");
       if (!menuIcon) return;
-
-      // Might change this into an animation by editing only the down class with transitions
-      menuIcon.classList.toggle("open");
-
-      // Elements that collapse once button is clicked.
       const menuContent =
         menuTab.parentElement.querySelector(".menu__subbuttons");
+
+      document.querySelectorAll(".menu__subbuttons").forEach((item) => {
+        if (item === menuContent) return;
+        item.classList.add("hidden");
+        item.parentElement.querySelector(".icon").classList.remove("open");
+        item.parentElement.classList.remove("box-margB");
+      });
+      menuIcon.classList.toggle("open");
       menuContent.classList.toggle("hidden");
 
       // Selecting respective 'feature-box' container to add/remove margin.
       const featureBox = menuContent.parentElement;
+      // if (!menuContent.classList.contains("hidden")) {
+      //   featureBox.style.marginBottom = "4.8rem";
+      // } else featureBox.style.marginBottom = "0";
       if (!menuContent.classList.contains("hidden")) {
-        featureBox.style.marginBottom = "4.8rem";
-      } else featureBox.style.marginBottom = "0";
+        featureBox.classList.add("box-margB");
+      } else featureBox.classList.remove("box-margB");
     });
   }
 

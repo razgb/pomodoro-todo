@@ -16,7 +16,6 @@ padding:
   - large 6.4rem (timer)
 */
 
-/* --secondary-color-retro: #78348a; */
 :root {
   --primary-color-retro: #0e0912;
   --primary-color-retro--lighter: #160e1d;
@@ -137,14 +136,12 @@ body {
   color: var(--secondary-color-retro);
 }
 
-
-
 .notifications {
   position: absolute;
   top: 5%;
   left: 50%;
   transform: translateX(-50%);
-  
+
   background-color: var(--primary-color-retro--lighter);
   padding: 2.4rem;
 
@@ -162,7 +159,6 @@ body {
   font-size: 1.2rem;
 }
 
-
 /*  */
 
 .main {
@@ -171,6 +167,9 @@ body {
 
 .app {
   transition: all 0.2s ease-in-out;
+}
+.slide-app {
+  margin-left: 20%;
 }
 
 .container {

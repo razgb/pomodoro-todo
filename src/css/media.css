@@ -1,0 +1,139 @@
+@media (max-width: 900px) {
+  html {
+    font-size: 50%;
+  }
+
+  .loading-app__wall {
+    width: 30vw;
+    height: 100vh;
+  }
+
+  .loading-app__heading {
+    margin-top: 40vh;
+    font-size: 3rem;
+    color: var(--secondary-color-retro);
+  }
+
+  .display__container {
+    padding-inline: 2.4rem;
+  }
+
+  .menu {
+    width: 100vw;
+    transform: translateX(-110vw);
+    display: flex;
+    justify-content: center;
+    padding: 12rem 3.2rem;
+    padding-top: 30vh;
+    transition: all 0.15s ease-in-out;
+  }
+  .slide-menu {
+    transform: translateX(0);
+  }
+  .menu__hamburger {
+    font-size: 3rem;
+  }
+  .menu__hamburger .icon {
+    display: block;
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  .menu__container {
+    gap: 1.6rem;
+  }
+  div > .button-md {
+    font-size: 3rem;
+  }
+
+  .menu__heading {
+    font-size: 1.8rem;
+  }
+
+  .menu__container-cover {
+    /* height: 10vh; */
+    display: none;
+  }
+
+  .menu__subbuttons-content {
+    gap: 1.6rem;
+  }
+
+  .menu__subbuttons-text {
+    font-size: 1.4rem;
+  }
+
+  .button-md .icon {
+    font-size: 4.8rem;
+    transition: all 0.05s ease;
+  }
+
+  .menu__input {
+    max-width: 8rem;
+    min-height: 4rem;
+  }
+
+  .apply-config {
+    font-size: 1.6rem;
+    padding: 0.8rem 1.6rem;
+  }
+
+  /* TASKS SECTION */
+  .tasks {
+    padding: 9.6rem 2.4rem;
+  }
+
+  .heading-text {
+    font-size: 2.4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .display__timer {
+    min-width: 15rem;
+  }
+  .display__timer-numbers {
+    font-size: 4.8rem;
+  }
+  .display__buttons > .button-lg {
+    font-size: 1rem;
+  }
+  .display__start-button {
+    font-size: 1.8rem;
+    padding: 1.2rem 2.4rem;
+    letter-spacing: normal;
+  }
+  .button-lg {
+    padding: 0.8rem 1.2rem;
+    border-bottom: 3px solid var(--secondary-color-retro--darker);
+  }
+  .mode-active {
+    /* border: none; */
+    border-bottom: 1px solid var(--secondary-color-retro--darker);
+
+    transform: translateY(1px);
+  }
+  /* menu */
+  .menu__heading {
+    font-size: 1.4rem;
+  }
+
+  /* tasks */
+  .tasks__container > .button-md {
+    font-size: 1.8rem;
+  }
+  div > .button-md {
+    font-size: 2.4rem;
+  }
+  .button-md > .icon {
+    font-size: 3.6rem;
+  }
+  .heading-text {
+    font-size: 1.6rem;
+  }
+
+  .open-tasks__container {
+    padding-bottom: 3.2rem;
+    border: 1px solid var(--secondary-color-retro--darker);
+  }
+}
