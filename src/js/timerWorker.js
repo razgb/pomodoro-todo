@@ -8,8 +8,8 @@ onmessage = function (e) {
   let timer = setInterval(() => {
     if (!timerState) {
       clearInterval(timer);
-      close();
-      console.log("Timer has been closed due to false timer state");
+      // close();
+      // console.log("Timer has been closed due to false timer state");
       return;
     }
 
